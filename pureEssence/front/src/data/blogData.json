@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "category": "Natural Skincare",
+    "created_at": "2024-05-01",
+    "slug": "organic-skincare-routines",
+    "title": "Organic Skincare Routines for Glowing Skin",
+    "image": "blog/organic-skincare1.jpeg",
+    "author": "Emily Smith",
+    "body": "Embrace natural beauty with organic skincare routines that nourish your skin from the inside out. Discover the best practices for maintaining a radiant complexion using only natural and eco-friendly products. From cleansing routines with plant-based cleansers to using serums packed with natural antioxidants, this guide covers everything you need for healthy, glowing skin. Learn about key ingredients like aloe vera, green tea, and jojoba oil that can transform your skincare regimen.",
+    "keywords": ["natural skincare", "organic products", "skincare regimen"]
+  },
+  {
+    "id": 2,
+    "category": "Natural Makeup",
+    "created_at": "2024-05-02",
+    "slug": "natural-makeup-tips",
+    "title": "Natural Makeup Tips for a Flawless Look",
+    "image": "blog/natural-makeup1.jpeg",
+    "author": "Sarah Johnson",
+    "body": "Achieving a flawless look doesn't mean you have to compromise on using natural products. This article explores top tips for using makeup that's not only effective but also gentle on your skin. From foundations with mineral ingredients to lipsticks made from natural pigments, we cover how to build a beauty routine that enhances your features without harsh chemicals. Learn the benefits of using natural makeup, including reduced irritation, better hydration, and a more natural finish.",
+    "keywords": ["natural makeup", "beauty tips", "organic products"]
+  },
+  {
+    "id": 3,
+    "category": "Holistic Wellness",
+    "created_at": "2024-05-03",
+    "slug": "holistic-beauty-routine",
+    "title": "Creating a Holistic Beauty Routine",
+    "image": "blog/holistic-beauty1.jpeg",
+    "author": "Jessica Adams",
+    "body": "Beauty is more than skin deep—it's about nurturing your whole self. In this article, we dive into creating a holistic beauty routine that encompasses skincare, nutrition, and mindfulness. Discover how integrating practices like yoga, meditation, and clean eating can enhance your overall appearance and well-being. We also explore how natural supplements and essential oils can support your skin health from within, providing a comprehensive approach to beauty.",
+    "keywords": ["holistic beauty", "natural skincare", "wellness"]
+  },
+  {
+    "id": 4,
+    "category": "Natural Skincare",
+    "created_at": "2024-05-04",
+    "slug": "diy-skincare-remedies",
+    "title": "DIY Skincare Remedies from Your Kitchen",
+    "image": "blog/diy-skincare1.jpeg",
+    "author": "Emily Smith",
+    "body": "Why spend a fortune on skincare when you can create effective treatments at home? This guide takes you through easy DIY skincare remedies using ingredients you already have in your kitchen. From honey masks that soothe and moisturize to oatmeal scrubs that exfoliate gently, discover how natural remedies can be both simple and effective. Each recipe is designed to address common skin concerns like acne, dryness, and dullness with natural, easy-to-find ingredients.",
+    "keywords": ["DIY skincare", "natural remedies", "organic products"]
+  },
+  {
+    "id": 5,
+    "category": "Natural Makeup",
+    "created_at": "2024-05-05",
+    "slug": "best-natural-mascara",
+    "title": "Best Natural Mascaras for Sensitive Eyes",
+    "image": "blog/natural-mascara1.jpeg",
+    "author": "Sarah Johnson",
+    "body": "Finding the right mascara can be a challenge, especially for those with sensitive eyes. This article highlights the best natural mascaras that offer volume, length, and definition without the irritation. Featuring brands that prioritize natural ingredients, these mascaras are free from parabens, synthetic dyes, and fragrances. Discover which formulations work best for your lashes, and learn how to apply them for maximum impact without the risk of redness or watery eyes.",
+    "keywords": ["natural makeup", "organic products", "beauty tips"]
+  },
+  {
+    "id": 6,
+    "category": "Holistic Wellness",
+    "created_at": "2024-05-06",
+    "slug": "herbal-teas-for-skin-health",
+    "title": "Herbal Teas That Boost Skin Health",
+    "image": "blog/herbal-teas1.jpeg",
+    "author": "Jessica Adams",
+    "body": "Herbal teas are not just for relaxation—they can also be a powerful ally in your beauty routine. In this article, explore how teas like chamomile, green tea, and rooibos can improve your skin from the inside out. We delve into the specific skin benefits of each tea, including anti-inflammatory properties, antioxidants, and hydration support. Learn how to incorporate these teas into your daily routine for a natural glow that starts from within.",
+    "keywords": ["holistic beauty", "natural skincare", "wellness"]
+  },
+  {
+    "id": 7,
+    "category": "Natural Skincare",
+    "created_at": "2024-05-07",
+    "slug": "essential-oils-for-skincare",
+    "title": "Top Essential Oils for Natural Skincare",
+    "image": "blog/essential-oils1.jpeg",
+    "author": "Emily Smith",
+    "body": "Essential oils have been used for centuries in beauty routines, and for good reason. This article explores the top essential oils for skincare, such as lavender for soothing, tea tree for acne, and rosehip for anti-aging. Discover how to safely incorporate these oils into your skincare routine, whether through DIY blends or ready-made products. Each oil has unique properties that can target specific skin concerns, offering a natural alternative to conventional skincare solutions.",
+    "keywords": ["natural skincare", "essential oils", "organic products"]
+  },
+  {
+    "id": 8,
+    "category": "Holistic Wellness",
+    "created_at": "2024-05-08",
+    "slug": "detoxify-your-body-and-skin",
+    "title": "Detoxify Your Body and Skin Naturally",
+    "image": "blog/detox1.jpeg",
+    "author": "Sarah Johnson",
+    "body": "Detoxification isn't just a trend—it's a vital process for maintaining healthy skin and overall wellness. In this article, we explore natural ways to detoxify your body and skin, including dietary changes, herbal supplements, and skincare practices. Learn about the benefits of ingredients like charcoal, green tea, and lemon for cleansing and rejuvenating your body. This comprehensive guide offers practical tips for reducing toxins and achieving a healthier, more radiant complexion.",
+    "keywords": ["holistic beauty", "natural remedies", "wellness"]
+  }
+]

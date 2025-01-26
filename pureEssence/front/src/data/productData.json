@@ -1,0 +1,986 @@
+{
+  "skincare": [
+    {
+      "id": 1,
+      "title": "Hydrating Face Cream",
+      "price": 29.99,
+      "category": "skincare",
+      "subcategory": "Moisturizers",
+      "image": "1/hydrating-face-cream.jpeg",
+      "thumbnails": [
+        "1/hydrating-face-cream-1.jpeg",
+        "1/hydrating-face-cream-2.jpeg",
+        "1/hydrating-face-cream-3.jpeg"
+      ],
+      "rating": {
+        "rate": 3.7,
+        "count": 200
+      },
+      "description": "A deeply hydrating face cream that nourishes your skin, delivering intense moisture and essential nutrients. Infused with natural botanicals and antioxidants, this luxurious formula rejuvenates and revitalizes, leaving your complexion smooth, radiant, and visibly healthier. Perfect for daily use, it helps to strengthen the skin's barrier and restore its natural glow while combating dryness and signs of fatigue.",
+      "brand": "Glow Beauty",
+      "stock": 50,
+      "orders": 180,
+      "createdAt": "2024-01-01T10:00:00Z",
+      "slug": "hydrating-face-cream",
+      "likes": 45,
+      "sizes": [15, 60],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 5
+    },
+    {
+      "id": 2,
+      "title": "Brightening Serum",
+      "price": 39.99,
+      "category": "skincare",
+      "subcategory": "Serums",
+      "image": "2/brightening-serum.jpeg",
+      "thumbnails": [
+        "2/brightening-serum-1.jpeg",
+        "2/brightening-serum-2.jpeg",
+        "2/brightening-serum-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.6,
+        "count": 150
+      },
+      "description": "A serum that brightens your skin for a radiant glow, formulated with a potent blend of vitamins and natural extracts. This lightweight elixir targets dullness and uneven skin tone, enhancing luminosity and promoting a youthful, vibrant complexion. Enriched with antioxidants and hydrating ingredients, it helps to rejuvenate and refresh, leaving your skin visibly smoother and more radiant with each use. Ideal for daily application, it seamlessly integrates into your skincare routine for a brighter, more luminous glow.",
+      "brand": "Glow Beauty",
+      "stock": 75,
+      "orders": 200,
+      "createdAt": "2024-01-10T12:00:00Z",
+      "slug": "brightening-serum",
+      "likes": 52,
+      "sizes": [30, 45, 60],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Anti-Aging Eye Cream",
+      "price": 24.99,
+      "category": "skincare",
+      "subcategory": "Eye Care",
+      "image": "3/anti-aging-eye-cream.jpeg",
+      "thumbnails": [
+        "3/anti-aging-eye-cream-1.jpeg",
+        "3/anti-aging-eye-cream-2.jpeg",
+        "3/anti-aging-eye-cream-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.8,
+        "count": 175
+      },
+      "description": "A luxurious eye cream that reduces the appearance of wrinkles, designed to deliver advanced anti-aging benefits to the delicate eye area. Infused with a blend of peptides, hyaluronic acid, and potent botanical extracts, this rich formula helps to smooth fine lines and crow's feet while providing deep hydration. Its lightweight texture absorbs quickly, leaving the skin around your eyes feeling firm and rejuvenated. Ideal for daily use, it also helps to diminish dark circles and puffiness, revealing a more youthful and refreshed look.",
+      "brand": "Glow Beauty",
+      "stock": 40,
+      "orders": 125,
+      "createdAt": "2024-01-05T14:00:00Z",
+      "slug": "anti-aging-eye-cream",
+      "likes": 35,
+      "sizes": [15, 30, 60],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 10
+    },
+    {
+      "id": 4,
+      "title": "Nourishing Face Mask",
+      "price": 15.99,
+      "category": "skincare",
+      "subcategory": "Masks",
+      "image": "4/nourishing-face-mask.jpeg",
+      "thumbnails": [
+        "4/nourishing-face-mask-1.jpeg",
+        "4/nourishing-face-mask-2.jpeg",
+        "4/nourishing-face-mask-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4,
+        "count": 90
+      },
+      "description": "A nourishing face mask that revitalizes your skin, delivering a surge of essential nutrients and hydration. Formulated with a blend of natural extracts, vitamins, and antioxidants, this mask deeply penetrates to replenish and rejuvenate tired, stressed skin. Its rich, creamy texture envelops your face, soothing and calming while promoting a healthy, radiant complexion. Perfect for a weekly pampering session, it helps to restore your skin's natural vitality, leaving it soft, refreshed, and glowing.",
+      "brand": "Glow Beauty",
+      "stock": 60,
+      "orders": 95,
+      "createdAt": "2024-01-08T16:00:00Z",
+      "slug": "nourishing-face-mask",
+      "likes": 28,
+      "sizes": [45],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "Exfoliating Scrub",
+      "price": 12.99,
+      "category": "skincare",
+      "subcategory": "Exfoliators",
+      "image": "5/exfoliating-scrub.jpeg",
+      "thumbnails": [
+        "5/exfoliating-scrub-1.jpeg",
+        "5/exfoliating-scrub-2.jpeg",
+        "5/exfoliating-scrub-3.jpeg"
+      ],
+      "rating": {
+        "rate": 5,
+        "count": 130
+      },
+      "description": "An exfoliating scrub that removes dead skin cells, revealing a smoother, more radiant complexion. Formulated with gentle yet effective natural exfoliants, this scrub effectively buffs away dull, uneven skin while promoting cell renewal. Enriched with nourishing ingredients and hydrating agents, it helps to enhance skin texture and clarity without causing irritation. Ideal for regular use, it leaves your skin feeling refreshed, rejuvenated, and perfectly prepped for further skincare treatments.",
+      "brand": "Glow Beauty",
+      "stock": 30,
+      "orders": 85,
+      "createdAt": "2024-01-12T18:00:00Z",
+      "slug": "exfoliating-scrub",
+      "likes": 21,
+      "sizes": [30],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 10
+    },
+    {
+      "id": 6,
+      "title": "Clarifying Cleanser",
+      "price": 19.99,
+      "category": "skincare",
+      "subcategory": "Cleansers",
+      "image": "6/clarifying-cleanser.jpeg",
+      "thumbnails": [
+        "6/clarifying-cleanser-1.jpeg",
+        "6/clarifying-cleanser-2.jpeg",
+        "6/clarifying-cleanser-3.jpeg"
+      ],
+      "rating": {
+        "rate": 3.5,
+        "count": 110
+      },
+      "description": "A gentle cleanser that clarifies and refreshes your skin, formulated to effectively remove impurities and excess oil without stripping away essential moisture. Enriched with soothing botanical extracts and hydrating agents, this cleanser purifies your complexion while maintaining its natural balance. Its mild, foaming formula gently lifts away dirt and makeup, leaving your skin feeling clean, refreshed, and revitalized. Perfect for daily use, it prepares your skin for the next steps in your skincare routine, promoting a clear and healthy-looking glow.",
+      "brand": "Pure & Clear",
+      "stock": 100,
+      "orders": 140,
+      "createdAt": "2024-01-02T08:00:00Z",
+      "slug": "clarifying-cleanser",
+      "likes": 33,
+      "sizes": [45, 60],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 25
+    },
+    {
+      "id": 7,
+      "title": "SPF 50 Sunscreen",
+      "price": 22.99,
+      "category": "skincare",
+      "subcategory": "Sunscreen",
+      "image": "7/spf-50-sunscreen.jpeg",
+      "thumbnails": [
+        "7/spf-50-sunscreen-1.jpeg",
+        "7/spf-50-sunscreen-2.jpeg",
+        "7/spf-50-sunscreen-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.9,
+        "count": 250
+      },
+      "description": "A high-protection sunscreen with SPF 50 for everyday use, designed to shield your skin from harmful UVA and UVB rays. This broad-spectrum formula provides robust defense against sun damage while maintaining a lightweight, non-greasy texture. Infused with skin-nourishing ingredients and antioxidants, it helps to protect and hydrate your skin, preventing premature aging and maintaining a healthy, radiant complexion. Ideal for daily application, it seamlessly integrates into your skincare routine, offering reliable protection in any environment.",
+      "brand": "Glow Beauty",
+      "stock": 150,
+      "orders": 210,
+      "createdAt": "2024-01-18T11:00:00Z",
+      "slug": "spf-50-sunscreen",
+      "likes": 67,
+      "sizes": [15, 45],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 8,
+      "title": "Night Repair Cream",
+      "price": 49.99,
+      "category": "skincare",
+      "subcategory": "Night Creams",
+      "image": "8/night-repair-cream.jpeg",
+      "thumbnails": [
+        "8/night-repair-cream-1.jpeg",
+        "8/night-repair-cream-2.jpeg",
+        "8/night-repair-cream-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.6,
+        "count": 160
+      },
+      "description": "A powerful night cream that repairs and renews skin overnight, harnessing the restorative power of an advanced blend of active ingredients. Enriched with peptides, retinol, and nourishing botanicals, this rich, luxurious cream works while you sleep to boost cell regeneration, diminish the appearance of fine lines, and restore skin's elasticity. Its deeply moisturizing formula helps to replenish and revitalize, leaving your complexion looking refreshed, smoother, and more youthful by morning. Ideal for all skin types, it ensures you wake up with a glowing and revitalized appearance.",
+      "brand": "Pure & Clear",
+      "stock": 45,
+      "orders": 130,
+      "createdAt": "2024-01-06T15:00:00Z",
+      "slug": "night-repair-cream",
+      "likes": 39,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Vitamin C Serum",
+      "price": 35.99,
+      "category": "skincare",
+      "subcategory": "Serums",
+      "image": "9/vitamin-c-serum.jpeg",
+      "thumbnails": [
+        "9/vitamin-c-serum-1.jpeg",
+        "9/vitamin-c-serum-2.jpeg",
+        "9/vitamin-c-serum-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.8,
+        "count": 190
+      },
+      "description": "A potent Vitamin C serum that brightens and evens skin tone, featuring a high concentration of stabilized Vitamin C and complementary antioxidants. This powerful formula targets dark spots, hyperpigmentation, and uneven skin tone, promoting a more luminous and radiant complexion. With its lightweight, fast-absorbing texture, it helps to boost collagen production and protect against environmental damage, leaving your skin visibly brighter, smoother, and more youthful. Ideal for daily use, it seamlessly integrates into your skincare routine, enhancing your overall glow and clarity.",
+      "brand": "Glow Beauty",
+      "stock": 60,
+      "orders": 170,
+      "createdAt": "2024-01-09T13:00:00Z",
+      "slug": "vitamin-c-serum",
+      "likes": 50,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 15
+    },
+    {
+      "id": 10,
+      "title": "Soothing Toner",
+      "price": 18.99,
+      "category": "skincare",
+      "subcategory": "Toners",
+      "image": "10/soothing-toner.jpeg",
+      "thumbnails": [
+        "10/soothing-toner-1.jpeg",
+        "10/soothing-toner-2.jpeg",
+        "10/soothing-toner-3.jpeg"
+      ],
+      "rating": {
+        "rate": 3,
+        "count": 140
+      },
+      "description": "A soothing toner that calms and balances skin, formulated to refresh and revitalize your complexion. Infused with calming botanical extracts and hydrating ingredients, this toner helps to soothe irritation, reduce redness, and restore your skin's natural pH balance. Its gentle, alcohol-free formula effectively removes any lingering impurities and prepares your skin for optimal absorption of subsequent skincare products. Perfect for daily use, it leaves your skin feeling balanced, comfortable, and ready for the next steps in your skincare routine.",
+      "brand": "Pure & Clear",
+      "stock": 55,
+      "orders": 100,
+      "createdAt": "2024-01-11T17:00:00Z",
+      "slug": "soothing-toner",
+      "likes": 25,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 35
+    }
+  ],
+  "haircare": [
+    {
+      "id": 11,
+      "title": "Revitalizing Shampoo",
+      "price": 19.99,
+      "category": "haircare",
+      "subcategory": "Shampoos",
+      "image": "11/revitalizing-shampoo.jpeg",
+      "thumbnails": [
+        "11/revitalizing-shampoo-1.jpeg",
+        "11/revitalizing-shampoo-2.jpeg",
+        "11/revitalizing-shampoo-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4,
+        "count": 140
+      },
+      "description": "A shampoo that revitalizes and strengthens your hair, formulated with a blend of nourishing ingredients and restorative botanicals. This revitalizing formula gently cleanses while providing essential nutrients to fortify and protect your hair from damage. Enriched with vitamins, proteins, and natural extracts, it helps to enhance hair resilience, reduce breakage, and promote a healthy shine. Suitable for all hair types, it leaves your hair feeling refreshed, revitalized, and noticeably stronger with each use.",
+      "brand": "Hair Glow",
+      "stock": 60,
+      "orders": 130,
+      "createdAt": "2024-02-01T09:00:00Z",
+      "slug": "revitalizing-shampoo",
+      "likes": 42,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 12,
+      "title": "Moisturizing Conditioner",
+      "price": 22.99,
+      "category": "haircare",
+      "subcategory": "Conditioners",
+      "image": "12/moisturizing-conditioner.jpeg",
+      "thumbnails": [
+        "12/moisturizing-conditioner-1.jpeg",
+        "12/moisturizing-conditioner-2.jpeg",
+        "12/moisturizing-conditioner-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.8,
+        "count": 120
+      },
+      "description": "A conditioner that deeply moisturizes and detangles hair, crafted to provide intense hydration and smoothness. Enriched with nourishing oils, vitamins, and botanical extracts, this conditioner penetrates the hair shaft to restore moisture, reduce frizz, and enhance manageability. Its creamy, luxurious formula helps to untangle knots effortlessly, leaving your hair soft, silky, and easier to style. Ideal for daily use, it maintains optimal hydration and promotes overall hair health, ensuring your locks are smooth, shiny, and beautifully manageable.",
+      "brand": "Hair Glow",
+      "stock": 50,
+      "orders": 115,
+      "createdAt": "2024-02-02T10:00:00Z",
+      "slug": "moisturizing-conditioner",
+      "likes": 37,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 13,
+      "title": "Argan Oil Treatment",
+      "price": 29.99,
+      "category": "haircare",
+      "subcategory": "Hair Oils",
+      "image": "13/argan-oil-treatment.jpeg",
+      "thumbnails": [
+        "13/argan-oil-treatment-1.jpeg",
+        "13/argan-oil-treatment-2.jpeg",
+        "13/argan-oil-treatment-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.9,
+        "count": 180
+      },
+      "description": "A nourishing hair oil treatment with argan oil, designed to deliver deep hydration and enhance your hair's natural shine. Rich in essential fatty acids, vitamins, and antioxidants, this luxurious treatment helps to repair and protect your hair from damage, while smoothing frizz and split ends. The lightweight, non-greasy formula absorbs quickly, leaving your hair soft, shiny, and beautifully nourished without weighing it down. Ideal for all hair types, it can be used as a leave-in treatment or a finishing touch for a healthy, radiant look.",
+      "brand": "Hair Glow",
+      "stock": 75,
+      "orders": 15,
+      "createdAt": "2024-02-03T11:00:00Z",
+      "slug": "argan-oil-treatment",
+      "likes": 50,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 20
+    },
+    {
+      "id": 14,
+      "title": "Curl Defining Cream",
+      "price": 17.99,
+      "category": "haircare",
+      "subcategory": "Styling Products",
+      "image": "14/curl-defining-cream.jpeg",
+      "thumbnails": [
+        "14/curl-defining-cream-1.jpeg",
+        "14/curl-defining-cream-2.jpeg",
+        "14/curl-defining-cream-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.5,
+        "count": 100
+      },
+      "description": "A cream that defines and enhances natural curls, specially formulated to provide structure and shape while minimizing frizz. Enriched with moisturizing agents and curl-enhancing botanicals, this cream helps to boost your curls' bounce and elasticity, giving them a well-defined, vibrant look. Its lightweight, non-crunchy formula offers flexible hold without residue, allowing your curls to move naturally while maintaining their shape. Ideal for all curl types, it leaves your hair looking polished, nourished, and beautifully defined.",
+      "brand": "Hair Glow",
+      "stock": 65,
+      "orders": 90,
+      "createdAt": "2024-02-04T12:00:00Z",
+      "slug": "curl-defining-cream",
+      "likes": 32,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 15,
+      "title": "Volumizing Mousse",
+      "price": 14.99,
+      "category": "haircare",
+      "subcategory": "Styling Products",
+      "image": "15/volumizing-mousse.jpeg",
+      "thumbnails": [
+        "15/volumizing-mousse-1.jpeg",
+        "15/volumizing-mousse-2.jpeg",
+        "15/volumizing-mousse-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4,
+        "count": 85
+      },
+      "description": "A mousse that adds volume and bounce to hair, designed to give your locks a fuller, more dynamic look. This lightweight, airy formula enhances body and lift without weighing hair down or leaving a sticky residue. Infused with volumizing agents and nourishing ingredients, it helps to create long-lasting volume while maintaining a natural, soft finish. Perfect for all hair types, it provides effortless styling and a boost of bounce, ensuring your hair looks vibrant and full of life.",
+      "brand": "Hair Glow",
+      "stock": 40,
+      "orders": 70,
+      "createdAt": "2024-02-05T13:00:00Z",
+      "slug": "volumizing-mousse",
+      "likes": 24,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 16,
+      "title": "Anti-Frizz Serum",
+      "price": 17.99,
+      "category": "haircare",
+      "subcategory": "Serums",
+      "image": "16/anti-frizz-serum.jpeg",
+      "thumbnails": [
+        "16/anti-frizz-serum-1.jpeg",
+        "16/anti-frizz-serum-2.jpeg",
+        "16/anti-frizz-serum-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.6,
+        "count": 110
+      },
+      "description": "A serum that tames frizz and smooths hair, expertly crafted to control flyaways and enhance shine. Formulated with a blend of nourishing oils and silicones, this lightweight serum deeply conditions while creating a sleek, polished finish. It effectively reduces frizz and adds a touch of softness, leaving your hair looking smooth, manageable, and beautifully lustrous. Ideal for all hair types, it provides long-lasting frizz control and a radiant, polished appearance with every use.",
+      "brand": "Smooth & Sleek",
+      "stock": 55,
+      "orders": 95,
+      "createdAt": "2024-02-06T14:00:00Z",
+      "slug": "anti-frizz-serum",
+      "likes": 29,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 15
+    },
+    {
+      "id": 17,
+      "title": "Dry Shampoo",
+      "price": 12.99,
+      "category": "haircare",
+      "subcategory": "Shampoos",
+      "image": "17/dry-shampoo.jpeg",
+      "thumbnails": [
+        "17/dry-shampoo-1.jpeg",
+        "17/dry-shampoo-2.jpeg",
+        "17/dry-shampoo-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.3,
+        "count": 95
+      },
+      "description": "A dry shampoo that refreshes and cleans hair without water, designed to quickly revive your hairstyle and absorb excess oil. This convenient formula delivers a burst of freshness, leaving your hair looking clean and volumized without the need for washing. Infused with absorbing powders and refreshing botanical extracts, it helps to eliminate odors and restore a natural, full-bodied appearance. Ideal for busy days or in-between washes, it provides a quick and easy way to keep your hair looking and feeling revitalized.",
+      "brand": "Hair Glow",
+      "stock": 30,
+      "orders": 60,
+      "createdAt": "2024-02-07T15:00:00Z",
+      "slug": "dry-shampoo",
+      "likes": 20,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 18,
+      "title": "Deep Conditioning Mask",
+      "price": 24.99,
+      "category": "haircare",
+      "subcategory": "Hair Masks",
+      "image": "18/deep-conditioning-mask.jpeg",
+      "thumbnails": [
+        "18/deep-conditioning-mask-1.jpeg",
+        "18/deep-conditioning-mask-2.jpeg",
+        "18/deep-conditioning-mask-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4,
+        "count": 130
+      },
+      "description": "A deep conditioning mask that repairs and hydrates hair, formulated to provide intensive nourishment and rejuvenation. Enriched with a blend of restorative ingredients, including proteins, vitamins, and natural oils, this mask penetrates deeply to repair damage, strengthen strands, and restore essential moisture. Its rich, creamy texture helps to detangle and smooth hair, leaving it soft, silky, and more manageable. Ideal for weekly use, it transforms dry, stressed hair into a healthier, more vibrant condition.",
+      "brand": "Smooth & Sleek",
+      "stock": 70,
+      "orders": 120,
+      "createdAt": "2024-02-08T16:00:00Z",
+      "slug": "deep-conditioning-mask",
+      "likes": 34,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    }
+  ],
+  "makeup": [
+    {
+      "id": 19,
+      "title": "Matte Foundation",
+      "price": 29.99,
+      "category": "makeup",
+      "subcategory": "Foundations",
+      "image": "19/matte-foundation.jpeg",
+      "thumbnails": [
+        "19/matte-foundation-1.jpeg",
+        "19/matte-foundation-2.jpeg",
+        "19/matte-foundation-3.jpeg"
+      ],
+      "rating": {
+        "rate": 3.6,
+        "count": 150
+      },
+      "description": "A long-lasting matte foundation that provides full coverage, designed to deliver a flawless, airbrushed finish that stays put throughout the day. Formulated with high-performance pigments and oil-absorbing agents, this foundation effectively conceals imperfections, evens out skin tone, and controls shine, giving you a smooth, matte look. Its lightweight, breathable texture ensures comfort while maintaining a natural appearance. Ideal for all skin types, it offers buildable coverage and exceptional staying power, making it perfect for long days and special occasions.",
+
+      "brand": "Smooth & Sleek",
+      "stock": 40,
+      "orders": 120,
+      "createdAt": "2024-03-01T08:00:00Z",
+      "slug": "matte-foundation",
+      "likes": 35,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 20,
+      "title": "Bold Lipstick",
+      "price": 14.99,
+      "category": "makeup",
+      "subcategory": "Lipsticks",
+      "image": "20/bold-lipstick.jpeg",
+      "thumbnails": [
+        "20/bold-lipstick-1.jpeg",
+        "20/bold-lipstick-2.jpeg",
+        "20/bold-lipstick-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.7,
+        "count": 170
+      },
+      "description": "A highly pigmented lipstick with a bold, vibrant color, crafted to deliver rich, intense hues in a single swipe. Formulated with a blend of moisturizing ingredients and long-wearing pigments, this lipstick glides on smoothly, providing full coverage and a luxurious matte or satin finish. Its creamy texture ensures comfort and hydration, while the striking color makes a statement and enhances any look. Ideal for all-day wear, it promises to keep your lips looking fabulous and vividly colored with just one application.",
+      "brand": "Smooth & Sleek",
+      "stock": 75,
+      "orders": 150,
+      "createdAt": "2024-03-03T10:00:00Z",
+      "slug": "bold-lipstick",
+      "likes": 45,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 35
+    },
+    {
+      "id": 21,
+      "title": "Hydrating Concealer",
+      "price": 19.99,
+      "category": "makeup",
+      "subcategory": "Concealers",
+      "image": "21/hydrating-concealer.jpeg",
+      "thumbnails": [
+        "21/hydrating-concealer-1.jpeg",
+        "21/hydrating-concealer-2.jpeg",
+        "21/hydrating-concealer-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.5,
+        "count": 130
+      },
+      "description": "A creamy concealer that hydrates and conceals blemishes, designed to provide seamless coverage while nurturing your skin. Infused with moisturizing agents and skin-loving ingredients, this concealer effectively hides imperfections and dark circles without settling into fine lines. Its smooth, blendable texture ensures a natural, radiant finish that enhances your complexion. Ideal for daily use, it offers buildable coverage and hydration, leaving your skin looking flawless and refreshed throughout the day.",
+      "brand": "Beauty Blend",
+      "stock": 55,
+      "orders": 95,
+      "createdAt": "2024-03-02T09:00:00Z",
+      "slug": "hydrating-concealer",
+      "likes": 28,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+
+    {
+      "id": 22,
+      "title": "Lengthening Mascara",
+      "price": 17.99,
+      "category": "makeup",
+      "subcategory": "Mascaras",
+      "image": "22/lengthening-mascara.jpeg",
+      "thumbnails": [
+        "22/lengthening-mascara-1.jpeg",
+        "22/lengthening-mascara-2.jpeg",
+        "22/lengthening-mascara-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.8,
+        "count": 140
+      },
+      "description": "A mascara that lengthens and defines lashes for a dramatic look, featuring a unique brush design and a high-performance formula. This mascara coats each lash with precision, enhancing length and separation while adding volume for a full, fluttery effect. Enriched with conditioning ingredients, it helps to strengthen and protect lashes, ensuring they stay healthy and resilient. Ideal for creating a bold, captivating gaze, it delivers long-lasting, clump-free results that make your eyes stand out with stunning intensity.",
+      "brand": "Smooth & Sleek",
+      "stock": 60,
+      "orders": 135,
+      "createdAt": "2024-03-04T11:00:00Z",
+      "slug": "lengthening-mascara",
+      "likes": 38,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 23,
+      "title": "Radiant Highlighter",
+      "price": 23.99,
+      "category": "makeup",
+      "subcategory": "Highlighters",
+      "image": "23/radiant-highlighter.jpeg",
+      "thumbnails": [
+        "23/radiant-highlighter-1.jpeg",
+        "23/radiant-highlighter-2.jpeg",
+        "23/radiant-highlighter-3.jpeg"
+      ],
+      "rating": {
+        "rate": 5,
+        "count": 160
+      },
+      "description": "A highlighter that adds a radiant glow to your skin, crafted to enhance your natural luminosity with a stunning, light-reflecting finish. Formulated with finely milled pearls and light-diffusing pigments, this highlighter effortlessly illuminates your cheekbones, brow bones, and other high points of your face, creating a luminous and dewy effect. Its buildable formula allows for a subtle glow or a more intense shine, making it perfect for both everyday wear and special occasions. Ideal for achieving a radiant, youthful complexion, it blends seamlessly and provides a beautiful, flattering glow.",
+      "brand": "Lash Luxe",
+      "stock": 45,
+      "orders": 125,
+      "createdAt": "2024-03-05T12:00:00Z",
+      "slug": "radiant-highlighter",
+      "likes": 50,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 25
+    },
+    {
+      "id": 24,
+      "title": "Blush Palette",
+      "price": 24.99,
+      "category": "makeup",
+      "subcategory": "Blushes",
+      "image": "24/blush-palette.jpeg",
+      "thumbnails": [
+        "24/blush-palette-1.jpeg",
+        "24/blush-palette-2.jpeg",
+        "24/blush-palette-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.4,
+        "count": 110
+      },
+      "description": "A versatile blush palette with shades for every skin tone, designed to enhance your natural complexion with a range of beautiful, blendable colors. Featuring a selection of hues from soft pinks and warm corals to rich berry tones, this palette allows you to customize your blush look to suit any occasion or mood. Formulated with smooth, buildable pigments, each shade delivers a natural, radiant flush that complements your skin tone. Ideal for achieving a range of looks from a subtle glow to a bold pop of color, this palette ensures a flawless, personalized finish.",
+      "brand": "Pretty Blush",
+      "stock": 50,
+      "orders": 90,
+      "createdAt": "2024-03-06T13:00:00Z",
+      "slug": "blush-palette",
+      "likes": 30,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    }
+  ],
+  "wellness": [
+    {
+      "id": 25,
+      "title": "Aromatherapy Essential Oils Set",
+      "price": 34.99,
+      "category": "wellness",
+      "subcategory": "Essential Oils",
+      "image": "25/aromatherapy-oils.jpeg",
+      "thumbnails": [
+        "25/aromatherapy-oils-1.jpeg",
+        "25/aromatherapy-oils-2.jpeg",
+        "25/aromatherapy-oils-3.jpeg"
+      ],
+      "rating": {
+        "rate": 3.8,
+        "count": 115
+      },
+      "description": "A set of essential oils for relaxation and wellness, including lavender, eucalyptus, and peppermint. Lavender oil is known for its relaxing properties, helping to reduce stress and improve sleep quality. Eucalyptus oil has a refreshing scent that supports respiratory health and clears congestion. Peppermint oil provides a burst of energy and helps alleviate headaches. Ideal for use in diffusers, during massages, or in your self-care routine, this set offers a natural way to promote relaxation and create a serene environment.",
+      "brand": "Zen Scents",
+      "stock": 45,
+      "orders": 85,
+      "createdAt": "2024-04-01T09:00:00Z",
+      "slug": "aromatherapy-essential-oils",
+      "likes": 40,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+    {
+      "id": 26,
+      "title": "Herbal Tea Collection",
+      "price": 19.99,
+      "category": "wellness",
+      "subcategory": "Herbal Teas",
+      "image": "26/herbal-tea-collection.jpeg",
+      "thumbnails": [
+        "26/herbal-tea-collection-1.jpeg",
+        "26/herbal-tea-collection-2.jpeg",
+        "26/herbal-tea-collection-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.6,
+        "count": 140
+      },
+      "description": "A collection of herbal teas designed to support relaxation and digestion. This selection includes blends crafted to calm the mind and soothe the stomach, featuring ingredients known for their calming and digestive benefits. Enjoy a cup of these thoughtfully chosen herbal teas to help unwind after a long day or aid in digestion with a comforting, soothing brew.",
+      "brand": "Zen Scents",
+      "stock": 60,
+      "orders": 100,
+      "createdAt": "2024-04-02T10:00:00Z",
+      "slug": "herbal-tea-collection",
+      "likes": 35,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+
+    {
+      "id": 27,
+      "title": "Organic Supplements Pack",
+      "price": 36.99,
+      "category": "wellness",
+      "subcategory": "Supplements",
+      "image": "27/organic-supplements-pack.jpeg",
+      "thumbnails": [
+        "27/organic-supplements-pack-1.jpeg",
+        "27/organic-supplements-pack-2.jpeg",
+        "27/organic-supplements-pack-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.5,
+        "count": 105
+      },
+      "description": "A pack of organic supplements designed to support overall health and wellness. This collection features carefully selected ingredients known for their health benefits, including vitamins, minerals, and natural extracts. Each supplement is formulated to help boost energy, enhance immunity, and promote balanced well-being, providing a convenient way to maintain a healthy lifestyle with organic, high-quality components.",
+      "brand": "Zen Scents",
+      "stock": 40,
+      "orders": 75,
+      "createdAt": "2024-04-04T12:00:00Z",
+      "slug": "organic-supplements-pack",
+      "likes": 32,
+      "sizes": [15, 45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ],
+      "discount": 10
+    },
+    {
+      "id": 28,
+      "title": "Relaxation Massage Oil",
+      "price": 22.99,
+      "category": "wellness",
+      "subcategory": "Massage Oils",
+      "image": "28/relaxation-massage-oil.jpeg",
+      "thumbnails": [
+        "28/relaxation-massage-oil-1.jpeg",
+        "28/relaxation-massage-oil-2.jpeg",
+        "28/relaxation-massage-oil-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.9,
+        "count": 125
+      },
+      "description": "A soothing massage oil that helps to relax muscles and promote well-being. Formulated with a blend of calming essential oils and nourishing botanicals, this massage oil eases tension and provides a calming effect on the body and mind. Its rich, silky texture glides smoothly over the skin, enhancing the massage experience while deeply hydrating and soothing sore muscles. Ideal for use after a long day or as part of your self-care routine, it helps to foster relaxation and overall wellness.",
+      "brand": "Lash Luxe",
+      "stock": 55,
+      "orders": 110,
+      "createdAt": "2024-04-05T13:00:00Z",
+      "slug": "relaxation-massage-oil",
+      "likes": 45,
+      "sizes": [45, 90],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+
+    {
+      "id": 29,
+      "title": "Detox Bath Salts",
+      "price": 25.99,
+      "category": "wellness",
+      "subcategory": "Bath Products",
+      "image": "29/detox-bath-salts.jpeg",
+      "thumbnails": [
+        "29/detox-bath-salts-1.jpeg",
+        "29/detox-bath-salts-2.jpeg",
+        "29/detox-bath-salts-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4.7,
+        "count": 110
+      },
+      "description": "Bath salts with detoxifying ingredients to relax and cleanse the body. Infused with natural minerals and cleansing agents, these bath salts help to soothe tired muscles, relieve stress, and promote a sense of relaxation. The detoxifying properties work to draw out impurities and leave your skin feeling refreshed and rejuvenated. Ideal for a calming soak after a long day, these bath salts provide a luxurious, spa-like experience at home.",
+      "brand": "Lash Luxe",
+      "stock": 50,
+      "orders": 80,
+      "createdAt": "2024-04-07T15:00:00Z",
+      "slug": "detox-bath-salts",
+      "likes": 33,
+      "sizes": [45, 60],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    },
+
+    {
+      "id": 30,
+      "title": "Wellness Journal",
+      "price": 15.99,
+      "category": "wellness",
+      "subcategory": "Journals",
+      "image": "30/wellness-journal.jpeg",
+      "thumbnails": [
+        "30/wellness-journal-1.jpeg",
+        "30/wellness-journal-2.jpeg",
+        "30/wellness-journal-3.jpeg"
+      ],
+      "rating": {
+        "rate": 4,
+        "count": 90
+      },
+      "description": "A journal designed to track wellness goals, habits, and reflections. This thoughtfully crafted journal provides a structured yet flexible way to monitor your progress, set personal objectives, and reflect on your journey towards better health. With sections dedicated to goal setting, habit tracking, and daily reflections, it helps you stay motivated and organized. Ideal for anyone looking to improve their well-being, this journal supports your efforts to achieve a balanced and mindful lifestyle.",
+      "brand": "Smooth & Sleek",
+      "stock": 80,
+      "orders": 70,
+      "createdAt": "2024-04-09T17:00:00Z",
+      "slug": "wellness-journal",
+      "likes": 25,
+      "sizes": [30, 60],
+      "materials": [
+        "Aloe Vera Gel",
+        "Shea Butter",
+        "Coconut Oil",
+        "Green Tea Extract",
+        "Rose Water"
+      ]
+    }
+  ]
+}
