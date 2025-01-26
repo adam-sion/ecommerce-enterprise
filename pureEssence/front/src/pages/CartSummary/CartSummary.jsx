@@ -252,7 +252,7 @@ const CartSummary = () => {
             </CustomButton>
           </SubmitContainer>
           <CartTotal />
-          <CustomButton color="var(--primary-color-dark-2)" size="extra-small">
+          <CustomButton onClick={()=> console.log('stripe')} color="var(--primary-color-dark-2)" size="extra-small">
             CHECKOUT
           </CustomButton>
         </CartContainer>
