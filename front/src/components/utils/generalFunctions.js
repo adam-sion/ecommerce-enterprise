@@ -32,6 +32,11 @@ const hasDiscountFunction = (product) => {
   return discountedPrice;
 };
 
+ export const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:8080/oauth2/authorization/google";
+  };
+
+
 export const handleAddToCart = (product, dispatch, quantity) => {
   const unitPrice = hasDiscountFunction(product);
   const newProduct = {

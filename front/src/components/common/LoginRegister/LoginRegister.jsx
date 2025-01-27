@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-
+import {handleGoogleLogin} from "../../utils/generalFunctions"
 import CustomButton from "../../utils/Button/Button";
 import { slideInFromRight } from "../../utils/Animations/animations";
 import {
@@ -213,6 +213,7 @@ const SocialIcon = () => {
       $flexGap=".8rem"
     >
       <SocialButton
+       onClick={handleGoogleLogin}
         size="mini"
         color="var(--primary-color-dark-2)"
         $invert={true}
