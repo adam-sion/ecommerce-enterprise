@@ -15,8 +15,15 @@ public class UserService {
     private final UserRepository userRepository;
 
     public void createOrUpdateUser(String email, String name, String provider, String oauthId) {
-        userRepository.findByOauthIdAndOauthProvider(oauthId, provider)
-                .orElseGet(()-> {
+        userRepository.findByEmail(email)
+                .map(existingUser -> {
+                    existingUser.setName(name);
+                    existingUser.setOauthProvider(provider);
+                    existingUser.setOauthId(oauthId);
+
+                    return userRepository.save(existingUser);
+                })
+                .orElseGet(() -> {
                     User newUser = new User();
                     newUser.setId(UUID.randomUUID());
                     newUser.setEmail(email);
