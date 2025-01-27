@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
-import {handleGoogleLogin} from "../../utils/generalFunctions"
+import {handleGoogleLogin, handleFacebookLogin} from "../../utils/generalFunctions"
 import CustomButton from "../../utils/Button/Button";
 import { slideInFromRight } from "../../utils/Animations/animations";
 import {
@@ -229,6 +229,7 @@ const SocialIcon = () => {
         </Row>
       </SocialButton>
       <SocialButton
+      onClick={handleFacebookLogin}
         size="mini"
         color="var(--primary-color-dark-2)"
         $invert={true}

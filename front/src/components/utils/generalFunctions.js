@@ -32,10 +32,13 @@ const hasDiscountFunction = (product) => {
   return discountedPrice;
 };
 
- export const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:8080/oauth2/authorization/google";
-  };
+export const handleGoogleLogin = () => {
+  window.location.href = `${import.meta.env.VITE_JTV_SERVER_URL}/oauth2/authorization/google`;
+};
 
+export const handleFacebookLogin = () => {
+  window.location.href = `${import.meta.env.VITE_JTV_SERVER_URL}/oauth2/authorization/facebook`;
+};
 
 export const handleAddToCart = (product, dispatch, quantity) => {
   const unitPrice = hasDiscountFunction(product);
