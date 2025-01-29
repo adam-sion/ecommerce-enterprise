@@ -2,11 +2,13 @@ package adam.dev.ecom_enterprise.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,8 +17,11 @@ import java.util.function.Function;
 @Component
 public class JwtUtil {
 
-    @Value("${JTV_JWT_SECRET_KEY}")
-    private String SECRET_KEY;
+    private final Key signingKey;
+
+    public JwtUtil(@Value("${JTV_JWT_SECRET_KEY}") String secretKey) {
+        this.signingKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
+    }
 
     public String extractUserName(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -31,7 +36,7 @@ public class JwtUtil {
     public Claims extractAllClaims(String token) {
         try {
             return Jwts.parserBuilder()
-                    .setSigningKey(SECRET_KEY)
+                    .setSigningKey(signingKey)
                     .build()
                     .parseClaimsJws(token)
                     .getBody();
@@ -58,7 +63,7 @@ public class JwtUtil {
                 .setSubject(subject)
                 .setIssuedAt(new Date((System.currentTimeMillis())))
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(signingKey)
                 .compact();
     }
 
