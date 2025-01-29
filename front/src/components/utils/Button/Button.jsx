@@ -206,6 +206,7 @@ const CustomButton = ({
   onClick,
   $invert,
   textcolor,
+  type
 }) => {
   let ButtonVariant = Button;
 
@@ -231,6 +232,7 @@ const CustomButton = ({
 
   return (
     <ButtonVariant
+    type={type}
       color={color}
       onClick={onClick}
       $invert={$invert}
