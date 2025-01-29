@@ -229,7 +229,7 @@ const SocialIcon = () => {
         </Row>
       </SocialButton>
       <SocialButton
-      onClick={handleFacebookLogin}
+      // onClick={handleFacebookLogin}
         size="mini"
         color="var(--primary-color-dark-2)"
         $invert={true}
