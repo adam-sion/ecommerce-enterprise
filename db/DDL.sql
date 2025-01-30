@@ -3,7 +3,7 @@ CREATE SCHEMA jtv_candles;
 
 DROP TABLE IF EXISTS jtv_candles.users CASCADE;
 CREATE TABLE jtv_candles.users (
-                                 id UUID PRIMARY KEY,
+                                 id SERIAL PRIMARY KEY,
                                  email VARCHAR(255) NOT NULL,
                                  name VARCHAR(255),
                                  password VARCHAR(255),

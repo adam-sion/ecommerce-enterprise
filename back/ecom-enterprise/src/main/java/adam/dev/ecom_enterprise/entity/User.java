@@ -13,7 +13,8 @@ import java.util.UUID;
 public class User {
 
     @Id
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
     private String email;

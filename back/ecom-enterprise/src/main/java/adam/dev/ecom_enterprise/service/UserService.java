@@ -32,7 +32,6 @@ public class UserService {
                 })
                 .orElseGet(() -> {
                     User newUser = new User();
-                    newUser.setId(UUID.randomUUID());
                     newUser.setEmail(email);
                     newUser.setName(name);
                     newUser.setRole(Role.USER);
@@ -55,7 +54,6 @@ public class UserService {
             });
 
         User newUser = new User();
-        newUser.setId(UUID.randomUUID());
         newUser.setName(user.getUsername());
         newUser.setEmail(email);
         newUser.setRole(Role.USER);
