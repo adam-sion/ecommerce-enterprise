@@ -14,5 +14,4 @@ public class RegisterUserDTO {
 
     @NotNull(message = "can't be null")
     private String password;
-
 }

@@ -4,14 +4,11 @@ import adam.dev.ecom_enterprise.dto.RegisterUserDTO;
 import adam.dev.ecom_enterprise.entity.Role;
 import adam.dev.ecom_enterprise.entity.User;
 import adam.dev.ecom_enterprise.repository.UserRepository;
-import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @AllArgsConstructor
 @Service
@@ -48,10 +45,6 @@ public class UserService {
 
     public void createUser(RegisterUserDTO user) {
         String email = user.getEmail();
-
-            userRepository.findByEmail(user.getEmail()).ifPresent(existingUser -> {
-                throw new EntityExistsException(String.format("user with email '%s' already exists", email));
-            });
 
         User newUser = new User();
         newUser.setName(user.getUsername());

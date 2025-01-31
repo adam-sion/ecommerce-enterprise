@@ -44,7 +44,7 @@ const Counter = ({
       <Button
         size={size}
         $color={color}
-        onClick={() => handleCountChange(count - 1)}
+        onClick={() => handleCountChange((count)=> count = Math.max(0, count-1))}
       >
         <Icon size={size}>
           <FaChevronLeft />
