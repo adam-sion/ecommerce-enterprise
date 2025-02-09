@@ -1,41 +1,65 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { FaSliders } from "react-icons/fa6";
 
-const authApi = axios.create({baseURL:`${import.meta.env.VITE_JTV_SERVER_URL}/auth`});
+const authApi = axios.create({
+    baseURL: `${import.meta.env.VITE_JTV_SERVER_URL}/auth`
+});
 
-export const login = createAsyncThunk("auth/login", async (userData, {rejectWithValue})=> {
+// Login action
+export const login = createAsyncThunk("auth/login", async (userData, { rejectWithValue }) => {
     try {
-        return await authApi.post("/login", userData, {withCredentials:true});
+        const response = await authApi.post("/login", userData, { withCredentials: true });
+        return response.data;
     } catch (error) {
-     return rejectWithValue(error.response ? error.response.data.message : "Login has failed");
+        console.error("Login error:", error);
+        return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
-})
+});
 
-export const signup = createAsyncThunk("auth/signup", async (userData, {rejectWithValue})=> {
+// Signup action
+export const signup = createAsyncThunk("auth/signup", async (userData, { rejectWithValue }) => {
     try {
-        return await authApi.post("/signup", userData, {withCredentials:true});
+        const response = await authApi.post("/signup", userData, { withCredentials: true });
+        return response.data;
     } catch (error) {
-     return rejectWithValue(error.response ? error.response.data.message : "Signup has failed");
+        console.error("Signup error:", error);
+        return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
-})
+});
 
-export const verifyRegister = createAsyncThunk("auth/verify", async (token, {rejectWithValue})=> {
+// Verify register action
+export const verifyRegister = createAsyncThunk("auth/verify", async (token, { rejectWithValue }) => {
     try {
-        return await authApi.get("/verify", {withCredentials:true, params:{token:token}});
+        const response = await authApi.get("/verify", { withCredentials: true, params: { token } });
+        return response.data;
     } catch (error) {
-     return rejectWithValue(error.response ? error.response.data.message : "Signup has failed");
+        console.error("Verification error:", error);
+        return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
-})
+});
 
+// Slice definition
 const authSlice = createSlice({
     name: "auth",
-    initialState: {loginLoading:false, signupLoading:false, verifyRegisterLoading:false , loginError: null, signupError:null , verifyRegisterError:null},
+    initialState: {
+        loginLoading: false,
+        signupLoading: false,
+        verifyRegisterLoading: false,
+        loginError: null,
+        signupError: null,
+        verifyRegisterError: null
+    },
     reducers: {
         resetError: (state) => {
             state.loginError = null;
             state.signupError = null;
-          },
+            state.verifyRegisterError = null;
+        },
+        resetLoading: (state) => {
+            state.loginLoading = false;
+            state.signupLoading = false;
+            state.verifyRegisterLoading = false;
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -49,7 +73,8 @@ const authSlice = createSlice({
             .addCase(login.rejected, (state, action) => {
                 state.loginLoading = false;
                 state.loginError = action.payload;
-            }).addCase(signup.pending, (state) => {
+            })
+            .addCase(signup.pending, (state) => {
                 state.signupLoading = true;
                 state.signupError = null;
             })
@@ -71,8 +96,8 @@ const authSlice = createSlice({
                 state.verifyRegisterLoading = false;
                 state.verifyRegisterError = action.payload;
             });
-    },
+    }
 });
 
 export default authSlice.reducer;
-export const { resetError } = authSlice.actions;
+export const { resetError, resetLoading } = authSlice.actions;

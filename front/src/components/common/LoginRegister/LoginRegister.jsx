@@ -198,7 +198,6 @@ const LoginRegister = () => {
       console.log("Login form submitted", values);
 
       if (result.meta.requestStatus === "fulfilled") {
-        navigate("/");
         dispatch(showToast({ message: "Login successful!", type: "success" }));
     } else {
       console.log(loginError)
