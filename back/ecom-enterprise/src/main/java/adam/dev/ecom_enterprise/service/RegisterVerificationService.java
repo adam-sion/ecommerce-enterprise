@@ -16,8 +16,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class RegisterVerificationService {
 
-    @Value("${VITE_JTV_SERVER_URL}")
-    private String serverUrl;
+    @Value("${JTV_CLIENT_URL}")
+    private String clientUrl;
 
     private final EmailService emailService;
 
@@ -30,14 +30,14 @@ public class RegisterVerificationService {
     public VerificationInfoDTO sendVerificationEmail(RegisterUserDTO registerUserDTO) {
         String email = registerUserDTO.getEmail();
         userService.findUserByUsernameOrEmail(email).ifPresent(existingUser -> {
-            throw new EntityExistsException(String.format("The email '%s' is already registered. Please try a different email.", email));
+            throw new EntityExistsException(String.format("Email '%s' is already registered.", email));
         });
 
         String token = UUID.randomUUID().toString();
         try {
             String userJson = objectMapper.writeValueAsString(registerUserDTO);
             VerificationInfoDTO verificationInfo = tokenService.storeToken(userJson, token);
-            String verificationUrl = serverUrl + "/auth/verify?token=" + token;
+            String verificationUrl = clientUrl + "/?register-token=" + token;
             String message = "<p>Click the link below to verify your email:</p>"
                     + "<a href='" + verificationUrl + "'>Verify Email</a>";
             emailService.sendEmail(registerUserDTO.getEmail(), "Verify Your Email", message);

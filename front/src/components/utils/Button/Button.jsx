@@ -206,7 +206,8 @@ const CustomButton = ({
   onClick,
   $invert,
   textcolor,
-  type
+  type,
+  active
 }) => {
   let ButtonVariant = Button;
 
@@ -232,6 +233,7 @@ const CustomButton = ({
 
   return (
     <ButtonVariant
+    disabled={!active}
     type={type}
       color={color}
       onClick={onClick}

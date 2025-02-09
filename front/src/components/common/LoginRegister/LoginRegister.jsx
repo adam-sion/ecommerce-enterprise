@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CustomButton from "../../utils/Button/Button";
 import { slideInFromRight } from "../../utils/Animations/animations";
 import {
@@ -16,7 +16,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import Row from "../../utils/Row/Row";
 import { TabButton, Tabs } from "../ShoppingCartWishlist/styles";
-import { Box } from "@mui/material";
+import { Box, CircularProgress } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { showToast } from "../../../features/toast/toastSlice";
+import { login, resetError, signup } from "../../../features/auth/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const ErrorMessage = ({touched, error}) => {
   return (touched &&
@@ -140,13 +145,23 @@ const loginValidationSchema = Yup.object({
 });
 
 const registerValidationSchema = Yup.object({
-  username: Yup.string().required("Username is required"),
-  email: Yup.string().email("Invalid email address").required("Email is required"),
-  password: Yup.string().required("Password is required"),
+  username: Yup.string()
+    .trim()
+    .min(1, "Username cannot be empty")
+    .required("Username is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .trim()
+    .min(1, "Password cannot be empty")
+    .required("Password is required"),
   confirmPassword: Yup.string()
+    .trim()
     .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm Password is required'),
+    .required("Confirm Password is required"),
 });
+
 
 
  const handleGoogleLogin = (e) => {
@@ -160,10 +175,15 @@ const registerValidationSchema = Yup.object({
 };
 
 const LoginRegister = () => {
+
   const [activeTab, setActiveTab] = useState("login");
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
   const [showRegisterConfirmPassword, setShowRegisterConfirmPassword] = useState(false);
+  const [buttonsActive, setButtonsActive] = useState(true);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { signupLoading, signupError, loginLoading, loginError } = useSelector((state) => state.auth);
 
   const formikLogin = useFormik({
     initialValues: {
@@ -171,9 +191,20 @@ const LoginRegister = () => {
       password: "",
     },
     validationSchema: loginValidationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+     setButtonsActive(false);
+      const result = await dispatch(login({username:values.username, password:values.password}));
+      setButtonsActive(true);
       console.log("Login form submitted", values);
-    },
+
+      if (result.meta.requestStatus === "fulfilled") {
+        navigate("/");
+        dispatch(showToast({ message: "Login successful!", type: "success" }));
+    } else {
+      console.log(loginError)
+    }
+
+  },
   });
 
   const formikRegister = useFormik({
@@ -184,12 +215,23 @@ const LoginRegister = () => {
       confirmPassword: "",
     },
     validationSchema: registerValidationSchema,
-    onSubmit: (values) => {
-      console.log("Register form submitted", values);
+    onSubmit: async (values) => {
+  setButtonsActive(false);
+        const result = await dispatch(signup({ username: values.username, password: values.password, email: values.email }));
+       setButtonsActive(true);
+        console.log("Register form submitted", values);
+  
+        
+        if (result.meta.requestStatus === "fulfilled") {
+          
+          console.log(result.data);
+        }
     },
   });
+  
 
   return (
+    
     <Container>
       <Title>{activeTab === "login" ? "Login" : "Register"}</Title>
       <FormWrapper>
@@ -197,6 +239,7 @@ const LoginRegister = () => {
           <TabButton
             $active={activeTab === "login"}
             onClick={() => {
+              dispatch(resetError());
               setShowRegisterConfirmPassword(false);
               setShowRegisterPassword(false);
               formikRegister.resetForm();
@@ -208,6 +251,7 @@ const LoginRegister = () => {
           <TabButton
             $active={activeTab === "register"}
             onClick={() =>{
+              dispatch(resetError());
               setShowLoginPassword(false);
               formikLogin.resetForm();
               setActiveTab("register")
@@ -218,13 +262,14 @@ const LoginRegister = () => {
         </Tabs>
         {activeTab === "login" && (
           <form onSubmit={formikLogin.handleSubmit}>
+              {loginError && <p style={{ color: 'red', textAlign:'center', fontSize:'16px' }}>{loginError}</p>}
           <FormContent key="login">
           <InputBlock>
             <InputWrapper>
               <InputIcon>
                 <FaUser />
               </InputIcon>
-              <InputField type="text"
+              <InputField type="email"
                   name="username"
                   placeholder="Username or Email"
                   onChange={formikLogin.handleChange}
@@ -261,12 +306,14 @@ const LoginRegister = () => {
             </RememberMeContainer>
             <CustomButton
             type="submit"
+            active={buttonsActive}
               size="small"
               color="var(--primary-color-dark-2)"
               $invert={true}
             >
-              Login
+             Login
             </CustomButton>
+            <span>{loginLoading ? <CircularProgress sx={{marginLeft:'15px'}} size={'16px'} color="inherit" />: null}</span>
             <Link>Forgot your password?</Link>
             <SocialIcon />
           </FormContent>
@@ -274,6 +321,7 @@ const LoginRegister = () => {
         )}
         {activeTab === "register" && (
           <form onSubmit={formikRegister.handleSubmit}>
+             {signupError && <p style={{ color: 'red', textAlign:'center',fontSize:'16px'}}>{signupError}</p>}
           <FormContent key="register">
           <InputBlock>
             <InputWrapper>
@@ -346,10 +394,11 @@ const LoginRegister = () => {
               size="small"
               color="var(--primary-color-dark-2)"
               $invert={true}
+              active={buttonsActive}
             >
               Register
             </CustomButton>
-            
+            <span>{signupLoading ? <CircularProgress sx={{marginLeft:'15px'}} size={'20px'} color="inherit" />: null}</span>
             <SocialIcon />
           </FormContent>
           </form>

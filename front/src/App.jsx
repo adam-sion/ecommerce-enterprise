@@ -18,6 +18,7 @@ import BlogMasonry from "./pages/BlogMasonry/BlogMasonry";
 import BlogList from "./pages/BlogList/BlogList";
 import BlogSimple from "./pages/BlogSimple/BlogSimple";
 import BlogDetailPage from "./pages/BlogDetailPage/BlogDetailPage";
+import { ToastContainer } from 'react-toastify';
 
 // Define your routes
 const router = createBrowserRouter([
@@ -132,6 +133,7 @@ const App = () => (
   <>
     <GlobalStyles />
     <RouterProvider router={router} />
+    <ToastContainer position="bottom-right"/>
   </>
 );
 

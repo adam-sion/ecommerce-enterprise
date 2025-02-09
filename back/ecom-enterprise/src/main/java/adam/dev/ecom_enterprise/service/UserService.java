@@ -45,7 +45,6 @@ public class UserService {
 
     public void createUser(RegisterUserDTO user) {
         String email = user.getEmail();
-
         User newUser = new User();
         newUser.setName(user.getUsername());
         newUser.setEmail(email);

@@ -10,8 +10,35 @@ import CarouselTopProductsByCat from "../../components/common/Carousels/Carousel
 import ProductCarousel from "../../components/common/ProductCarousel/ProductCarousel";
 import ScrollToTopBtn from "../../components/utils/ScrollToTopBtn/ScrollToTopBtn";
 import BlogSection from "../../components/common/BlogSection/BlogSection";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { verifyRegister } from "../../features/auth/authSlice";
+import { showToast } from "../../features/toast/toastSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  useEffect(() => {
+    const verifyToken = async () => {
+      const queryParams = new URLSearchParams(location.search);
+      const token = queryParams.get("register-token");
+
+      if (token) {
+        const result = await dispatch(verifyRegister(token));
+
+        if (result.meta.requestStatus === "fulfilled") {
+          dispatch(showToast({ type: "success", message: "Sign up success!" }));
+        } else {
+          dispatch(showToast({ type: "error", message: "Sign up failed" }));
+        }
+      }
+    };
+
+    verifyToken();
+  }, [dispatch, location]);
+
   return (
     <>
       <Hero />
