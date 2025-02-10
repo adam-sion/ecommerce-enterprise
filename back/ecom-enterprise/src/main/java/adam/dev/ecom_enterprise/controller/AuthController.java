@@ -32,8 +32,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody @Valid LoginUserDTO user, HttpServletResponse response) {
         String username = user.getUsername();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, user.getPassword()));
-        cookieUtil.setAuthCookie(response, username);
-        cookieUtil.setRefreshCookie(response, username);
+        addCookies(username, response);
 
         return ResponseEntity.ok()
                 .body("Login success");
@@ -47,20 +46,24 @@ public class AuthController {
     }
 
     @GetMapping("/verify")
-    public ResponseEntity<?> verifyEmail(@RequestParam String token) {
-      registerVerificationService.verifyAndSaveUser(token);
+    public ResponseEntity<?> verifyEmail(@RequestParam String token, HttpServletResponse response) {
+        String username = registerVerificationService.verifyAndSaveUser(token).getUsername();
+        addCookies(username, response);
 
-      return ResponseEntity.ok()
-              .body("Verify email success");
-
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refresh_token") String refreshToken, HttpServletResponse response) {
         String username = jwtUtil.extractUserName(refreshToken);
-     cookieUtil.setAuthCookie(response, username);
+        cookieUtil.setAuthCookie(response, username);
         return ResponseEntity.ok()
                 .body("Refresh token success");
+    }
+
+    private void addCookies(String username, HttpServletResponse response) {
+        cookieUtil.setAuthCookie(response, username);
+        cookieUtil.setRefreshCookie(response, username);
     }
 
 }

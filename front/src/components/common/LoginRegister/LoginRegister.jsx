@@ -129,7 +129,7 @@ const SocialBtnContainer = styled(Row)`
   margin-top: 2rem;
 `;
 
-const SocialButton = styled(CustomButton)`
+const SocialButton = styled(CustomButton).attrs((props)=> props.active=true)`
   min-width: 15rem;
 `;
 // const ErrorMessage = styled.p`
@@ -171,11 +171,11 @@ const registerValidationSchema = Yup.object({
 
  const handleFacebookLogin = (e) => {
   e.preventDefault();
-  window.location.href = `${import.meta.env.VITE_JTV_SERVER_URL}/oauth2/authorization/facebook`;
+  // window.location.href = `${import.meta.env.VITE_JTV_SERVER_URL}/oauth2/authorization/facebook`;
 };
 
 const LoginRegister = () => {
-
+  const [verifyEmailMessage, setVerifyEmailMessage] = useState(undefined);
   const [activeTab, setActiveTab] = useState("login");
   const [showLoginPassword, setShowLoginPassword] = useState(false);
   const [showRegisterPassword, setShowRegisterPassword] = useState(false);
@@ -199,8 +199,6 @@ const LoginRegister = () => {
 
       if (result.meta.requestStatus === "fulfilled") {
         dispatch(showToast({ message: "Login successful!", type: "success" }));
-    } else {
-      console.log(loginError)
     }
 
   },
@@ -215,6 +213,7 @@ const LoginRegister = () => {
     },
     validationSchema: registerValidationSchema,
     onSubmit: async (values) => {
+      setVerifyEmailMessage(null);
   setButtonsActive(false);
         const result = await dispatch(signup({ username: values.username, password: values.password, email: values.email }));
        setButtonsActive(true);
@@ -222,8 +221,8 @@ const LoginRegister = () => {
   
         
         if (result.meta.requestStatus === "fulfilled") {
-          
-          console.log(result.data);
+          console.log(result);
+          setVerifyEmailMessage(`Verification email was sent to ${values.email}`)
         }
     },
   });
@@ -238,6 +237,7 @@ const LoginRegister = () => {
           <TabButton
             $active={activeTab === "login"}
             onClick={() => {
+              setVerifyEmailMessage(null);
               dispatch(resetError());
               setShowRegisterConfirmPassword(false);
               setShowRegisterPassword(false);
@@ -250,6 +250,7 @@ const LoginRegister = () => {
           <TabButton
             $active={activeTab === "register"}
             onClick={() =>{
+              setVerifyEmailMessage(null);
               dispatch(resetError());
               setShowLoginPassword(false);
               formikLogin.resetForm();
@@ -320,6 +321,7 @@ const LoginRegister = () => {
         )}
         {activeTab === "register" && (
           <form onSubmit={formikRegister.handleSubmit}>
+            {signupError === null && verifyEmailMessage && <p style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>{verifyEmailMessage}</p>}
              {signupError && <p style={{ color: 'red', textAlign:'center',fontSize:'16px'}}>{signupError}</p>}
           <FormContent key="register">
           <InputBlock>
@@ -433,7 +435,7 @@ const SocialIcon = () => {
         </Row>
       </SocialButton>
       <SocialButton
-      // onClick={handleFacebookLogin}
+      onClick={handleFacebookLogin}
         size="mini"
         color="var(--primary-color-dark-2)"
         $invert={true}

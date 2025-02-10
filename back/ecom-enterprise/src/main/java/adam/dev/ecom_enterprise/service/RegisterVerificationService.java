@@ -48,12 +48,14 @@ public class RegisterVerificationService {
         }
     }
 
-    public void verifyAndSaveUser(String token) {
+    public RegisterUserDTO verifyAndSaveUser(String token) {
         String data = tokenService.getDataByToken(token);
         try {
             RegisterUserDTO user = objectMapper.readValue(data, RegisterUserDTO.class);
             userService.createUser(user);
             tokenService.deleteToken(token);
+
+            return user;
         } catch (JsonProcessingException e) {
             throw new TokenProcessingException(e.getMessage());
         }
