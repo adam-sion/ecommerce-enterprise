@@ -1,9 +1,33 @@
+import { gql } from "@apollo/client";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { client } from "../../../ApolloClient";
 
 const authApi = axios.create({
     baseURL: `${import.meta.env.VITE_JTV_SERVER_URL}/auth`
 });
+
+const GET_USER_QUERY = gql`
+    query GetUser {
+        me {
+            username
+            email
+        }
+    }
+`;
+
+export const getUser = createAsyncThunk("auth/getUser", async (_, { rejectWithValue }) => {
+    try {
+        const { data } = await client.query({
+            query: GET_USER_QUERY,
+        });
+        return data.me;
+    } catch (error) {
+        console.error("Get user error:", error);
+        return rejectWithValue(error.message);
+    }
+});
+
 
 // Login action
 export const login = createAsyncThunk("auth/login", async (userData, { rejectWithValue }) => {
@@ -38,6 +62,15 @@ export const verifyRegister = createAsyncThunk("auth/verify", async (token, { re
     }
 });
 
+export const refreshToken = createAsyncThunk("auth/refreshToken", async () => {
+    try {
+        const response = await authApi.post("/refresh-token", {}, { withCredentials: true });
+        return response.data;
+    } catch (error) {
+        console.error("refresh token error:", error);
+    }
+});
+
 // Slice definition
 const authSlice = createSlice({
     name: "auth",
@@ -47,7 +80,10 @@ const authSlice = createSlice({
         verifyRegisterLoading: false,
         loginError: null,
         signupError: null,
-        verifyRegisterError: null
+        verifyRegisterError: null,
+        user: null,
+        userLoading: false,
+        userError: null,
     },
     reducers: {
         resetError: (state) => {
@@ -95,6 +131,18 @@ const authSlice = createSlice({
             .addCase(verifyRegister.rejected, (state, action) => {
                 state.verifyRegisterLoading = false;
                 state.verifyRegisterError = action.payload;
+            })
+            .addCase(getUser.pending, (state) => {
+                state.userLoading = true;
+                state.userError = null;
+            })
+            .addCase(getUser.fulfilled, (state, action) => {
+                state.userLoading = false;
+                state.user = action.payload;
+            })
+            .addCase(getUser.rejected, (state, action) => {
+                state.userLoading = false;
+                state.userError = action.payload;
             });
     }
 });

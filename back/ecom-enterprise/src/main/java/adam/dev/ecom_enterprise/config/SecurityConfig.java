@@ -48,9 +48,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/oauth2/authorization/{provider}", "/auth/**", "/graphql").permitAll()
-                        .requestMatchers("/auth/success").authenticated()
-                        .anyRequest().denyAll()
+                        .requestMatchers("/oauth2/authorization/{provider}", "/auth/**", "/graphiql").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .loginPage("/oauth2/authorization/google")

@@ -5,15 +5,27 @@ import { useDispatch, useSelector } from "react-redux";
 import Footer from "./components/common/Footer/Footer";
 import Menu from "./components/common/Menu/Menu";
 import Loader from "./components/utils/Loader/Loader";
+import { getUser, refreshToken } from "./features/auth/authSlice";
 
 const AppLayout = () => {
   const isFetching = useSelector((state) => state.products.loading);
+  const {user} = useSelector((state)=> state.auth);
   const [loadingImages, setLoadingImages] = useState(true); // Local state to track image loading
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchBlog());
+   dispatch(refreshToken());
+
+   const getUserData = async ()=> {
+    console.log(await dispatch(getUser()));
+   }
+
+   getUserData();
+
+    
+    const interval = setInterval(refreshToken, 1000 * 60 * 10);
 
     // Function to check when all images are loaded
     const handleImageLoad = () => {
@@ -39,6 +51,10 @@ const AppLayout = () => {
     };
 
     handleImageLoad(); // Call the function on component mount
+
+    return ()=> {
+      clearInterval(interval);
+    }
   }, [dispatch]);
 
   // Check both API fetching and image loading states
