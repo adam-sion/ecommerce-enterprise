@@ -18,7 +18,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public void createOrUpdateUser(String email, String name, String provider, String oauthId) {
+    public void createOrUpdateUser(String email, String name, String provider, String oauthId, String picture) {
         userRepository.findByEmail(email)
                 .map(existingUser -> {
                     existingUser.setName(name);
@@ -34,6 +34,7 @@ public class UserService {
                     newUser.setRole(Role.USER);
                     newUser.setOauthProvider(provider);
                     newUser.setOauthId(oauthId);
+                    newUser.setPicture(picture);
 
                     return userRepository.save(newUser);
                 });

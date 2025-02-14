@@ -52,17 +52,17 @@ public class SecurityConfig implements WebMvcConfigurer {
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .loginPage("/oauth2/authorization/google")
-                        .successHandler((request, response, authentication)-> {
-                            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-                            String email = oAuth2User.getAttribute("email");
-                            String name = oAuth2User.getAttribute("name");
-                            String oauthId = oAuth2User.getAttribute("sub");
-                            userService.createOrUpdateUser(email, name, "google", oauthId);
-                           cookieUtil.setAuthCookie(response, email);
-                            cookieUtil.setRefreshCookie(response, email);
-                            response.sendRedirect(allowedOrigin);
-                        })
+                                .loginPage("/oauth2/authorization/google")
+                                .successHandler((request, response, authentication) -> {
+                                    OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+                                    String email = oAuth2User.getAttribute("email");
+                                    String name = oAuth2User.getAttribute("name");
+                                    String oauthId = oAuth2User.getAttribute("sub");
+                                    String profilePicture = oAuth2User.getAttribute("picture");
+                                    userService.createOrUpdateUser(email, name, "google", oauthId, profilePicture);
+                                    cookieUtil.addCookies(response, email);
+                                    response.sendRedirect(allowedOrigin);
+                                })
 //                        .loginPage("/oauth2/authorization/facebook")
 //                        .successHandler((request, response, authentication)-> {
 //                            OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();

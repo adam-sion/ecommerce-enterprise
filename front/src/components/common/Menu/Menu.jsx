@@ -27,10 +27,12 @@ import Sidebar from "../Sidebar/Sidebar";
 import MenuNavigationLargeSC from "./MenuNavigationLargeSC";
 import MenuNavigationSmallSC from "./MenuNavigationSmallSC";
 import BottomNav from "./BottomNav";
+import { UserTab } from "../UserTab/UserTab";
 
 const Menu = () => {
   // To get number of product added to cart
   const totalQty = useSelector(getTotalCartQtity);
+  const {user} = useSelector((state)=> state.auth);
 
   // To get number of product liked
   const productsLiked = useSelector((state) => state.wishList.likes);
@@ -88,7 +90,7 @@ const Menu = () => {
                 </IconButton>
               </Sidebar.Trigger>
               <Sidebar.Content name="mySidebar">
-                <LoginRegister />
+                {user?<UserTab user={user}/> : <LoginRegister />}
               </Sidebar.Content>
             </Sidebar.Provider>
 

@@ -11,4 +11,6 @@ public class ResponseUserDTO {
 
     private String email;
 
+    private String picture;
+
 }

@@ -29,6 +29,9 @@ public class User {
     @Column
     private String oauthId;
 
+    @Column
+    private String picture;
+
     @Enumerated(value = EnumType.STRING)
     private Role role;
 

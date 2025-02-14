@@ -32,7 +32,7 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody @Valid LoginUserDTO user, HttpServletResponse response) {
         String username = user.getUsername();
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, user.getPassword()));
-        addCookies(username, response);
+        cookieUtil.addCookies(response, username);
 
         return ResponseEntity.ok()
                 .body("Login success");
@@ -48,7 +48,7 @@ public class AuthController {
     @GetMapping("/verify")
     public ResponseEntity<?> verifyEmail(@RequestParam String token, HttpServletResponse response) {
         String username = registerVerificationService.verifyAndSaveUser(token).getUsername();
-        addCookies(username, response);
+        cookieUtil.addCookies(response, username);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -56,14 +56,16 @@ public class AuthController {
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshToken(@CookieValue(name = "refresh_token") String refreshToken, HttpServletResponse response) {
         String username = jwtUtil.extractUserName(refreshToken);
-        cookieUtil.setAuthCookie(response, username);
+        cookieUtil.addCookies(response, username);
         return ResponseEntity.ok()
                 .body("Refresh token success");
     }
 
-    private void addCookies(String username, HttpServletResponse response) {
-        cookieUtil.setAuthCookie(response, username);
-        cookieUtil.setRefreshCookie(response, username);
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout(HttpServletResponse response) {
+        cookieUtil.removeCookies(response);
+
+        return ResponseEntity.ok().body("Logout success");
     }
 
 }

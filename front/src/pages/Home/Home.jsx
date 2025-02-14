@@ -13,7 +13,7 @@ import BlogSection from "../../components/common/BlogSection/BlogSection";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { verifyRegister } from "../../features/auth/authSlice";
+import { getUser, verifyRegister } from "../../features/auth/authSlice";
 import { showToast } from "../../features/toast/toastSlice";
 
 const Home = () => {

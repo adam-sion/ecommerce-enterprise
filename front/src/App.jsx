@@ -133,7 +133,7 @@ const App = () => (
   <>
     <GlobalStyles />
     <RouterProvider router={router} />
-    <ToastContainer position="bottom-right"/>
+    <ToastContainer position="bottom-right" limit={2}/>
   </>
 );
 

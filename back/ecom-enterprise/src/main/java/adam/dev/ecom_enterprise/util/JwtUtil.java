@@ -45,16 +45,10 @@ public class JwtUtil {
         }
     }
 
-    public String generateRefreshToken(UserDetails userDetails) {
+    public String generateAuthToken(UserDetails userDetails, Integer expiresIn) {
         Map<String, Object> claims = new HashMap<>();
 
-        return createToken(claims, userDetails.getUsername(), new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 7));
-    }
-
-    public String generateAuthToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-
-        return createToken(claims, userDetails.getUsername(), new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 7));
+        return createToken(claims, userDetails.getUsername(), new Date(System.currentTimeMillis() + expiresIn));
     }
 
     private String createToken(Map<String, Object> claims, String subject, Date expiration) {

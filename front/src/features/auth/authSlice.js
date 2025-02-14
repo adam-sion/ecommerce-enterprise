@@ -2,6 +2,7 @@ import { gql } from "@apollo/client";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { client } from "../../../ApolloClient";
+import { useDispatch } from "react-redux";
 
 const authApi = axios.create({
     baseURL: `${import.meta.env.VITE_JTV_SERVER_URL}/auth`
@@ -33,9 +34,21 @@ export const getUser = createAsyncThunk("auth/getUser", async (_, { rejectWithVa
 export const login = createAsyncThunk("auth/login", async (userData, { rejectWithValue }) => {
     try {
         const response = await authApi.post("/login", userData, { withCredentials: true });
+    
         return response.data;
     } catch (error) {
         console.error("Login error:", error);
+        return rejectWithValue(error.response ? error.response.data.message : error.message);
+    }
+});
+
+export const logout = createAsyncThunk("auth/logout", async (userData, { rejectWithValue }) => {
+    try {
+        const response = await authApi.post("/logout", userData, { withCredentials: true });
+    
+       return response.data;
+    } catch (error) {
+        console.error("Logout error:", error);
         return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
 });
@@ -76,9 +89,11 @@ const authSlice = createSlice({
     name: "auth",
     initialState: {
         loginLoading: false,
+        logoutLoading: false,
         signupLoading: false,
         verifyRegisterLoading: false,
         loginError: null,
+        logoutError:null,
         signupError: null,
         verifyRegisterError: null,
         user: null,
@@ -88,11 +103,13 @@ const authSlice = createSlice({
     reducers: {
         resetError: (state) => {
             state.loginError = null;
+            state.logoutError = null;
             state.signupError = null;
             state.verifyRegisterError = null;
         },
         resetLoading: (state) => {
             state.loginLoading = false;
+            state.logoutLoading = false;
             state.signupLoading = false;
             state.verifyRegisterLoading = false;
         }
@@ -103,12 +120,24 @@ const authSlice = createSlice({
                 state.loginLoading = true;
                 state.loginError = null;
             })
-            .addCase(login.fulfilled, (state) => {
+            .addCase(login.fulfilled, (state, action) => {
                 state.loginLoading = false;
             })
             .addCase(login.rejected, (state, action) => {
                 state.loginLoading = false;
                 state.loginError = action.payload;
+            })
+            .addCase(logout.pending, (state) => {
+                state.logoutLoading = true;
+                state.logoutError = null;
+            })
+            .addCase(logout.fulfilled, (state) => {
+                state.logoutLoading = false;
+                state.user = null;
+            })
+            .addCase(logout.rejected, (state, action) => {
+                state.logoutLoading = false;
+                state.logoutError = action.payload;
             })
             .addCase(signup.pending, (state) => {
                 state.signupLoading = true;
@@ -138,7 +167,7 @@ const authSlice = createSlice({
             })
             .addCase(getUser.fulfilled, (state, action) => {
                 state.userLoading = false;
-                state.user = action.payload;
+                state.user = {...action.payload};
             })
             .addCase(getUser.rejected, (state, action) => {
                 state.userLoading = false;
