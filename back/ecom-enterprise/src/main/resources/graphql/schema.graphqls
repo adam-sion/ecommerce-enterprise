@@ -5,4 +5,5 @@ type Query {
 type User {
     username: String
     email: String
+    picture: String
 }
