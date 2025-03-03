@@ -1,9 +1,32 @@
+#query
 type Query {
     me: User
 }
 
+scalar Upload
+
+#muation
+type Mutation {
+    addCategory(input: CategoryInput!, image: Upload!): Category
+}
+
+#types
 type User {
     username: String
     email: String
     picture: String
 }
+
+type Category {
+    id: ID!
+    name: String!
+    image: String
+}
+
+#inputs
+input CategoryInput {
+ name: String!
+}
+
+
+
