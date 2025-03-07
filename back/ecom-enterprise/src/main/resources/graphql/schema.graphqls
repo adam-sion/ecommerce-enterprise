@@ -8,7 +8,7 @@ scalar Upload
 #muation
  type Mutation {
     addCategory(input: CategoryInput!, image: Upload!): Category
-     addProduct(input: ProductInput!, image: Upload!): Product
+     addProduct(input: ProductInput!, image: Upload!, thumbnails: [Upload]!): Product
 }
 
 #types
@@ -42,7 +42,6 @@ input CategoryInput {
 
 input ProductInput {
     title: String!
-    thumbnails: [Upload]
     materials: [String]
     description: String
     stockQuantity: Int
