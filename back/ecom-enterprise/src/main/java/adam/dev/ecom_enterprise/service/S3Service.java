@@ -9,10 +9,12 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.time.Instant;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -24,6 +26,10 @@ public class S3Service {
     private String bucketName;
 
     public String uploadFile(MultipartFile file) {
+        if (file == null || file.isEmpty()) {
+            return "";
+        }
+
         try {
             String key = generateKey(file);
             PutObjectRequest putObjectRequest = PutObjectRequest.builder()
@@ -35,22 +41,30 @@ public class S3Service {
             s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
 
             return getFileUrl(key);
-        } catch (IOException e) {
+        } catch (IOException | S3Exception e) {
             throw new RuntimeException("Failed to upload file to S3", e);
         }
     }
 
+    public List<String> uploadFiles(List<MultipartFile> files) {
+        List<String> fileUrls = files != null ? files.parallelStream()
+                .map(this::uploadFile)
+                .toList() : List.of();
+
+        return fileUrls;
+    }
+
     public void deleteFile(String fileUrl) {
-       try {
-           String key = (new URI(fileUrl)).getPath().substring(1);
-           DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
-                   .bucket(bucketName)
-                   .key(key)
-                   .build();
-           s3Client.deleteObject(deleteObjectRequest);
-       } catch (Exception e) {
-           throw new RuntimeException("Failed to delete file from S3", e);
-       }
+        try {
+            String key = (new URI(fileUrl)).getPath().substring(1);
+            DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(key)
+                    .build();
+            s3Client.deleteObject(deleteObjectRequest);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to delete file from S3", e);
+        }
     }
 
     private String getFileUrl(String key) {

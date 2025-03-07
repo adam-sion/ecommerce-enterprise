@@ -1,14 +1,11 @@
 package adam.dev.ecom_enterprise.entity;
 
-import adam.dev.ecom_enterprise.types.ListStringType;
+import adam.dev.ecom_enterprise.converter.StringListConverter;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
-
 import java.time.Instant;
 import java.util.List;
 
@@ -32,12 +29,12 @@ public class Product {
     @Column
     private String image;
 
-    @Type(value = ListStringType.class)
-    @Column(columnDefinition = "TEXT[]")
+    @Convert(converter = StringListConverter.class)
+    @Column
     private List<String> thumbnails;
 
-    @Type(value = ListStringType.class)
-    @Column(columnDefinition = "TEXT[]")
+    @Convert(converter = StringListConverter.class)
+    @Column
     private List<String> materials;
 
     @Column
@@ -53,6 +50,18 @@ public class Product {
     @JsonManagedReference(value = "product-category")
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public Product(String title, Double price, String image, List<String> thumbnails, List<String> materials, String description, Integer stockQuantity, Category category) {
+        this.title = title;
+        this.price = price;
+        this.image = image;
+        this.thumbnails = thumbnails;
+        this.materials = materials;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+        this.createdAt = Instant.now();
+        this.category = category;
+    }
 
 }
 
