@@ -23,6 +23,7 @@ public class UserFetcher {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userService.findUserByUsernameOrEmail(userDetails.getUsername())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
         return userMapper.toResponseUserDTO(user);
     }
 

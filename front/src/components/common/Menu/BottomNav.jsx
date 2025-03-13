@@ -6,6 +6,8 @@ import Shop from "../../../assets/icons/shop.svg?react";
 import Sidebar from "../Sidebar/Sidebar";
 import LoginRegister from "../LoginRegister/LoginRegister";
 import ShoppingCartWishlist from "../ShoppingCartWishlist/ShoppingCartWishlist";
+import { useSelector } from "react-redux";
+import { UserTab } from "../UserTab/UserTab";
 
 const BottomNavWrapper = styled.nav`
   position: fixed;
@@ -69,6 +71,7 @@ const Badge = styled.span`
 `;
 
 const BottomNav = ({ wishList, totalQty, handleSearchToggle }) => {
+  const {user} = useSelector((state)=> state.auth);
   return (
     <BottomNavWrapper>
       <Sidebar.Provider>
@@ -79,7 +82,10 @@ const BottomNav = ({ wishList, totalQty, handleSearchToggle }) => {
           </IconButton>
         </Sidebar.Trigger>
         <Sidebar.Content name="mySidebar">
-          <LoginRegister />
+        {
+                  
+                  user?<UserTab user={user}/> : <LoginRegister />
+                  }
         </Sidebar.Content>
       </Sidebar.Provider>
 

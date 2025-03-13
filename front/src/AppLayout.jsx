@@ -14,12 +14,13 @@ const AppLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+   
     dispatch(fetchProducts());
     dispatch(fetchBlog());
    dispatch(refreshToken());
 
    const getUserData = async ()=> {
-    console.log(await dispatch(getUser()));
+    await dispatch(getUser());
    }
 
    getUserData();

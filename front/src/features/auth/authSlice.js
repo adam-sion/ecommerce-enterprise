@@ -13,6 +13,8 @@ const GET_USER_QUERY = gql`
         me {
             username
             email
+            picture
+            role
         }
     }
 `;
@@ -97,6 +99,7 @@ const authSlice = createSlice({
         signupError: null,
         verifyRegisterError: null,
         user: null,
+        isAdmin:null,
         userLoading: false,
         userError: null,
     },
@@ -168,6 +171,9 @@ const authSlice = createSlice({
             .addCase(getUser.fulfilled, (state, action) => {
                 state.userLoading = false;
                 state.user = {...action.payload};
+                console.log(state.user);
+                state.isAdmin = state.user.role === 'ADMIN';
+                console.log(state.isAdmin);
             })
             .addCase(getUser.rejected, (state, action) => {
                 state.userLoading = false;

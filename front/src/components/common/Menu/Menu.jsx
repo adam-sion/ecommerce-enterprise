@@ -90,7 +90,9 @@ const Menu = () => {
                 </IconButton>
               </Sidebar.Trigger>
               <Sidebar.Content name="mySidebar">
-                {user?<UserTab user={user}/> : <LoginRegister />}
+                {
+                  
+                user?<UserTab user={user}/> : <LoginRegister />}
               </Sidebar.Content>
             </Sidebar.Provider>
 

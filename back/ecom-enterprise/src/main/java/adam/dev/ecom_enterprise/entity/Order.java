@@ -6,12 +6,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.Instant;
 
 @Entity
 @Table(name = "orders")
 @NoArgsConstructor
+@ToString
 @Getter
 @Setter
 public class Order {
