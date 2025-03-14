@@ -1,4 +1,4 @@
-import { Box, Container } from "@mui/material"
+import { Box, CircularProgress, Container } from "@mui/material"
 import { useFormik } from "formik";
 import CustomButton from "../../components/utils/Button/Button";
 import { FormContent, FormWrapper, InputBlock, InputField, InputIcon, InputWrapper, Title } from "../../components/utils/GeneralComponents/GeneralComponents";
@@ -9,7 +9,7 @@ import { TabButton, Tabs } from "../../components/common/ShoppingCartWishlist/st
 import { RiCheckFill, RiErrorWarningLine, RiImageAddLine, RiUploadCloudLine } from "react-icons/ri";
 import CategoryIcon from '@mui/icons-material/Category';
 import { BsFillImageFill } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createCategory } from "../../features/category/categorySlice";
 
 const categoryValidationSchema = Yup.object().shape({
@@ -37,7 +37,10 @@ const ErrorMessage = ({touched, error}) => {
   );
 };
 
+
+
 export const AdminPage = ()=> {
+  const {createCategoryLoading} = useSelector((state)=> state.category);
   const dispatch = useDispatch();
   const formikCategory = useFormik({
     initialValues: {
@@ -46,7 +49,9 @@ export const AdminPage = ()=> {
     },
     validationSchema: categoryValidationSchema,
     onSubmit: async (values) => {
+      setButtonsActive(false);
       dispatch(createCategory({ name: values.name, image: values.image }));
+      setButtonsActive(true);
   },
   });
 
@@ -61,7 +66,9 @@ export const AdminPage = ()=> {
     },
     validationSchema: productValidationSchema,
     onSubmit: async (values) => {
+      setButtonsActive(false);
    alert('create product');
+   setButtonsActive(true);
   },
   });
 
@@ -100,7 +107,10 @@ export const AdminPage = ()=> {
           </TabButton>
         </Tabs>
         {activeTab === "product" && (
-          <form onSubmit={formikProduct.handleSubmit}>
+          <form onSubmit={(e)=> {
+            e.preventDefault();
+             alert('hihihihih');
+          }}>
               {/* {loginError && <p style={{ color: 'red', textAlign:'center', fontSize:'16px' }}>{loginError}</p>} */}
           <FormContent key="login">
           <InputBlock>
@@ -134,7 +144,11 @@ export const AdminPage = ()=> {
           </form>
         )}
         {activeTab === "category" && (
-          <form onSubmit={formikCategory.handleSubmit}>
+          <form onSubmit={(e)=> {
+            e.preventDefault();
+            formikCategory.handleSubmit(e.target);
+          }
+          }>
             {/* {signupError === null && verifyEmailMessage && <p style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>{verifyEmailMessage}</p>}
              {signupError && <p style={{ color: 'red', textAlign:'center',fontSize:'16px'}}>{signupError}</p>} */}
           <FormContent key="category">
@@ -217,7 +231,7 @@ export const AdminPage = ()=> {
             >
               Create
             </CustomButton>
-            {/* <span>{signupLoading ? <CircularProgress sx={{marginLeft:'15px'}} size={'20px'} color="inherit" />: null}</span> */}
+            <span>{createCategoryLoading ? <CircularProgress sx={{marginLeft:'15px'}} size={'20px'} color="inherit" />: null}</span>
           </FormContent>
           </form>
         )}

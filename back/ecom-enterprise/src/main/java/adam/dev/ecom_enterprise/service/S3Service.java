@@ -74,6 +74,7 @@ public class S3Service {
                 .key(key)
                 .build();
         URL url = s3Client.utilities().getUrl(request);
+
         return url.toString();
     }
 

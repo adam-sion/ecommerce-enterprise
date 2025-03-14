@@ -12,10 +12,8 @@ const ADD_CATEGORY = gql`
   }
 `;
 
-export const createCategory = createAsyncThunk("auth/getUser", async (formData, { rejectWithValue }) => {
+export const createCategory = createAsyncThunk("category/createCategory", async (formData, { rejectWithValue }) => {
     try {
-        console.log('hihidsd');
-        console.log(formData);
         const { data } = await client.mutate({
             mutation: ADD_CATEGORY,
             variables: {
@@ -28,7 +26,7 @@ export const createCategory = createAsyncThunk("auth/getUser", async (formData, 
         });
         return data;
     } catch (error) {
-        console.error("Create product error:", error);
+        console.error("Create category error:", error);
         return rejectWithValue(error.message);
     }
 });
@@ -37,31 +35,31 @@ export const createCategory = createAsyncThunk("auth/getUser", async (formData, 
 const categorySlice = createSlice({
     name: "category",
     initialState: {
-        createProductLoading: false,
-         createProductError: null,
-        productCreated: null,
+        createCategoryLoading: false,
+         createCategoryError: null,
+         categoryCreated: null,
     },
     reducers: {
         resetError: (state) => {
-            state.createProductError= null
+            state.createCategoryError= null
         },
         resetLoading: (state) => {
-            state.createProductLoading=false
+            state.createCategoryLoading=false
         }
     },
     extraReducers: (builder) => {
         builder
             .addCase(createCategory.pending, (state) => {
-                state.createProductLoading = true;
-                state.createProductError = null;
+                state.createCategoryLoading = true;
+                state.createCategoryError = null;
             })
             .addCase(createCategory.fulfilled, (state, action) => {
-                state.createProductLoading = false;
-                state.productCreated = {...action.payload};
+                state.createCategoryLoading = false;
+                state.categoryCreated = {...action.payload};
             })
             .addCase(createCategory.rejected, (state, action) => {
-                state.createProductLoading = false;
-                state.createProductError = action.payload;
+                state.createCategoryLoading = false;
+                state.createCategoryError = action.payload;
             });
     }
 });

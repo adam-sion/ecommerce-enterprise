@@ -8,7 +8,7 @@ import Loader from "./components/utils/Loader/Loader";
 import { getUser, refreshToken } from "./features/auth/authSlice";
 
 const AppLayout = () => {
-  const isFetching = useSelector((state) => state.products.loading || state.auth.userLoading);
+  const isFetching = useSelector((state) => state.products.loading);
   const {user} = useSelector((state)=> state.auth);
   const [loadingImages, setLoadingImages] = useState(true); // Local state to track image loading
   const dispatch = useDispatch();
@@ -18,14 +18,8 @@ const AppLayout = () => {
     dispatch(fetchProducts());
     dispatch(fetchBlog());
    dispatch(refreshToken());
+   dispatch(getUser())
 
-   const getUserData = async ()=> {
-    await dispatch(getUser());
-   }
-
-   getUserData();
-
-    
     const interval = setInterval(refreshToken, 1000 * 60 * 10);
 
     // Function to check when all images are loaded

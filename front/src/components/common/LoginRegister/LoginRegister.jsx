@@ -121,7 +121,6 @@ const LoginRegister = () => {
   const [showRegisterConfirmPassword, setShowRegisterConfirmPassword] = useState(false);
   const [buttonsActive, setButtonsActive] = useState(true);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const { signupLoading, signupError, loginLoading, loginError } = useSelector((state) => state.auth);
 
   const formikLogin = useFormik({
@@ -209,7 +208,7 @@ const LoginRegister = () => {
               <InputIcon>
                 <FaUser />
               </InputIcon>
-              <InputField type="email"
+              <InputField type="text"
                   name="username"
                   placeholder="Username or Email"
                   onChange={formikLogin.handleChange}

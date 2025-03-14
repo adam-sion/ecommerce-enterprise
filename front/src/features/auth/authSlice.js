@@ -172,11 +172,12 @@ const authSlice = createSlice({
                 state.userLoading = false;
                 state.user = {...action.payload};
                 console.log(state.user);
-                state.isAdmin = state.user.role === 'ADMIN';
+                state.isAdmin = state.user?.role === 'ADMIN';
                 console.log(state.isAdmin);
             })
             .addCase(getUser.rejected, (state, action) => {
                 state.userLoading = false;
+                state.isAdmin = false;
                 state.userError = action.payload;
             });
     }
