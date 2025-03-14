@@ -13,6 +13,7 @@ import software.amazon.awssdk.services.s3.model.S3Exception;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
+import org.apache.commons.io.FilenameUtils;
 import java.time.Instant;
 import java.util.List;
 
@@ -77,7 +78,11 @@ public class S3Service {
     }
 
     private String generateKey(MultipartFile file) {
-        return String.format("%s_%s", file.getOriginalFilename(), Instant.now().toString());
+        String originalName = file.getOriginalFilename();
+        String baseName = FilenameUtils.getBaseName(originalName);
+        String extension = FilenameUtils.getExtension(originalName);
+
+        return String.format("%s_%s.%s", baseName, Instant.now().toString(), extension);
     }
 
 }

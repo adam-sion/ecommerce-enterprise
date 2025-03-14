@@ -9,6 +9,8 @@ import { TabButton, Tabs } from "../../components/common/ShoppingCartWishlist/st
 import { RiCheckFill, RiErrorWarningLine, RiImageAddLine, RiUploadCloudLine } from "react-icons/ri";
 import CategoryIcon from '@mui/icons-material/Category';
 import { BsFillImageFill } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { createCategory } from "../../features/category/categorySlice";
 
 const categoryValidationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -36,6 +38,7 @@ const ErrorMessage = ({touched, error}) => {
 };
 
 export const AdminPage = ()=> {
+  const dispatch = useDispatch();
   const formikCategory = useFormik({
     initialValues: {
       name: "",
@@ -43,14 +46,18 @@ export const AdminPage = ()=> {
     },
     validationSchema: categoryValidationSchema,
     onSubmit: async (values) => {
-   alert('create category');
+      dispatch(createCategory({ name: values.name, image: values.image }));
   },
   });
 
   const formikProduct = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      title: "",
+      materials: [],
+      image: null,
+      description: "",
+      stockQuantity: null,
+      categoryId: null
     },
     validationSchema: productValidationSchema,
     onSubmit: async (values) => {

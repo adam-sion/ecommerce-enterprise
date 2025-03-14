@@ -47,7 +47,6 @@ input CategoryInput {
 
 input ProductInput {
     title: String!
-    materials: [String]
     description: String
     stockQuantity: Int
     categoryId: Int!

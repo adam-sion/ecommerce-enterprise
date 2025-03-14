@@ -5,6 +5,7 @@ import authReducer from "./features/auth/authSlice";
 import shoppingCartReducer from "./features/shoppingCart/shoppingCartSlice";
 import blogReducer from "./features/blog/blogSlice";
 import toastReducer from './features/toast/toastSlice';
+import categoryReducer from './features/category/categorySlice';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ const store = configureStore({
     shoppingCart: shoppingCartReducer,
     blog: blogReducer,
     toast:toastReducer,
-    auth:authReducer
+    auth:authReducer,
+    category: categoryReducer
   },
 });
 

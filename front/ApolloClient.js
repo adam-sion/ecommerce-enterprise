@@ -1,9 +1,10 @@
-import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
+import createUploadLink from "apollo-upload-client/createUploadLink.mjs";
 
 export const client = new ApolloClient({
-    link: new HttpLink({
-      uri: `${import.meta.env.VITE_JTV_SERVER_URL}/graphql`,
-      credentials: 'include',
-    }),
-    cache: new InMemoryCache(),
-  });
+  link: createUploadLink({
+    uri: import.meta.env.VITE_JTV_SERVER_URL + "/graphql",
+    credentials: "include",
+  }),
+  cache: new InMemoryCache(),
+});
