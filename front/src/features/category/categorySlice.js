@@ -37,7 +37,6 @@ const categorySlice = createSlice({
     initialState: {
         createCategoryLoading: false,
          createCategoryError: null,
-         categoryCreated: null,
     },
     reducers: {
         resetError: (state) => {
@@ -55,7 +54,6 @@ const categorySlice = createSlice({
             })
             .addCase(createCategory.fulfilled, (state, action) => {
                 state.createCategoryLoading = false;
-                state.categoryCreated = {...action.payload};
             })
             .addCase(createCategory.rejected, (state, action) => {
                 state.createCategoryLoading = false;

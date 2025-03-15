@@ -11,6 +11,10 @@ import CategoryIcon from '@mui/icons-material/Category';
 import { BsFillImageFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { createCategory } from "../../features/category/categorySlice";
+import { showToast } from "../../features/toast/toastSlice";
+import { Link } from "react-router-dom";
+import { CategoryCard } from "../../components/common/CategoryCard/CategoryCard";
+import well from "../../assets/img/categories/wellness.png"
 
 const categoryValidationSchema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
@@ -41,6 +45,7 @@ const ErrorMessage = ({touched, error}) => {
 
 export const AdminPage = ()=> {
   const {createCategoryLoading} = useSelector((state)=> state.category);
+  const [category, setCategory] = useState(null);
   const dispatch = useDispatch();
   const formikCategory = useFormik({
     initialValues: {
@@ -50,8 +55,17 @@ export const AdminPage = ()=> {
     validationSchema: categoryValidationSchema,
     onSubmit: async (values) => {
       setButtonsActive(false);
-      dispatch(createCategory({ name: values.name, image: values.image }));
+      const result = await dispatch(createCategory({ name: values.name, image: values.image }));
       setButtonsActive(true);
+      formikCategory.resetForm();
+
+       if (result.meta.requestStatus === "fulfilled") {
+        alert('success');
+        setCategory(result.payload.addCategory);
+      } else {
+        dispatch(showToast({ message: "Category creation failed", type: "error" }));
+      }
+    
   },
   });
 
@@ -236,6 +250,8 @@ export const AdminPage = ()=> {
           </form>
         )}
       </FormWrapper>
+
+<CategoryCard category={{name:"test1", image:well}}/>
     </Container>
   );
 };
