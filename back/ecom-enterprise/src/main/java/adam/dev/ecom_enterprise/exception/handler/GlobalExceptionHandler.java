@@ -1,9 +1,12 @@
 package adam.dev.ecom_enterprise.exception.handler;
 
+import adam.dev.ecom_enterprise.exception.EmailSendingException;
 import adam.dev.ecom_enterprise.exception.ErrorResponse;
+import adam.dev.ecom_enterprise.exception.TokenProcessingException;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.graphql.data.method.annotation.GraphQlExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -92,10 +95,22 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
+    @ExceptionHandler(EmailSendingException.class)
+    public ResponseEntity<ErrorResponse> handleEmailSending(EmailSendingException ex) {
+        ErrorResponse error = new ErrorResponse("Interval server error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ErrorResponse> handleNoHandlerFound(NoHandlerFoundException ex) {
         ErrorResponse error = new ErrorResponse("Not Found", "The requested resource was not found");
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TokenProcessingException.class)
+    public ResponseEntity<ErrorResponse> handleTokenProcessing(TokenProcessingException ex) {
+        ErrorResponse error = new ErrorResponse("Internal server error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

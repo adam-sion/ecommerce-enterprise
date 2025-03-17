@@ -12,6 +12,16 @@ const ADD_CATEGORY = gql`
   }
 `;
 
+const GET_CATEGORIES = gql`
+query GET_CATEGORIES {
+ categories {
+ id
+ name
+ image
+ }
+}
+`
+
 export const createCategory = createAsyncThunk("category/createCategory", async (formData, { rejectWithValue }) => {
     try {
         const { data } = await client.mutate({
@@ -23,8 +33,22 @@ export const createCategory = createAsyncThunk("category/createCategory", async 
               context: {
                 useMultipart: true,
               },
+              fetchPolicy: "no-cache",
         });
-        return data;
+        return data.addCategory;
+    } catch (error) {
+        console.error("Create category error:", error);
+        return rejectWithValue(error.message);
+    }
+});
+
+export const getCategories = createAsyncThunk("category/getCategories", async (__, { rejectWithValue }) => {
+    try {
+        const { data } = await client.query({
+            query: GET_CATEGORIES,
+              fetchPolicy: "no-cache",
+        });
+        return data.categories;
     } catch (error) {
         console.error("Create category error:", error);
         return rejectWithValue(error.message);

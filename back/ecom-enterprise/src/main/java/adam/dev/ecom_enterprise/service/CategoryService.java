@@ -5,6 +5,8 @@ import adam.dev.ecom_enterprise.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
@@ -17,6 +19,10 @@ public class CategoryService {
 
     public Category findCategoryById(Long id) {
         return categoryRepository.findById(id).orElseThrow(()-> new RuntimeException(String.format("Category with id '%s' not found", id)));
+    }
+
+    public List<Category> findAllCategories() {
+        return categoryRepository.findAll();
     }
 
 }

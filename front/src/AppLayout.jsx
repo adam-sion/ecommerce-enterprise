@@ -8,8 +8,7 @@ import Loader from "./components/utils/Loader/Loader";
 import { getUser, refreshToken } from "./features/auth/authSlice";
 
 const AppLayout = () => {
-  const isFetching = useSelector((state) => state.products.loading);
-  const {user} = useSelector((state)=> state.auth);
+  const isFetching = useSelector((state) => state.products.loading || state.auth.userLoading);
   const [loadingImages, setLoadingImages] = useState(true); // Local state to track image loading
   const dispatch = useDispatch();
 

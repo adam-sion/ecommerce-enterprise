@@ -2,6 +2,7 @@ import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { FaChevronDown } from "react-icons/fa";
 import { MenuItem, Dropdown } from "./DropdownMenu";
+import { useSelector } from "react-redux";
 
 // Rotate arrow animation
 const arrowRotate = keyframes`
@@ -102,9 +103,12 @@ const DropdownItem = styled(Link)`
 
 // Usage example
 const MenuNavigationLargeSC = () => {
+  const {isAdmin} = useSelector((state)=> state.auth);
+
   return (
     <Nav aria-label="Main navigation">
       <NavList>
+      {isAdmin ? <NavLink to="/admin">Create</NavLink> : <></>}
         <NavLink to="/">Home</NavLink>
         <MenuItem
           label={

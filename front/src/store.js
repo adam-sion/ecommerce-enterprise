@@ -17,6 +17,11 @@ const store = configureStore({
     auth:authReducer,
     category: categoryReducer
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      immutableCheck: false,
+      serializableCheck: false,
+    }),
 });
 
 export default store;

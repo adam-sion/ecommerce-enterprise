@@ -3,6 +3,7 @@ import { Container } from "../../utils/GeneralComponents/GeneralComponents"
 import { useDispatch } from "react-redux"
 import { logout } from "../../../features/auth/authSlice";
 import { showToast } from "../../../features/toast/toastSlice";
+import { useEffect } from "react";
 
 
 
@@ -13,6 +14,7 @@ export const UserTab = ({user})=> {
         dispatch(logout())
         dispatch(showToast({ message: "Logout successful", type: "success" }));
     }
+
     return (
         <>
         <Container>
