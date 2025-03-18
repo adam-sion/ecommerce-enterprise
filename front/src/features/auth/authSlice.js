@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { client } from "../../../ApolloClient";
+import { client } from "../../ApolloClient";
 import { useDispatch } from "react-redux";
 
 const authApi = axios.create({

@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { client } from "../../../ApolloClient";
+import { client } from "../../ApolloClient";
 
 const ADD_CATEGORY = gql`
   mutation ADD_CATEGORY($input: CategoryInput!, $image: Upload!) {

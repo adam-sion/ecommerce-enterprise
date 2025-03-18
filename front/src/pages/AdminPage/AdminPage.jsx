@@ -2,11 +2,11 @@ import { Box, Button, CircularProgress, Container, IconButton } from "@mui/mater
 import { useFormik } from "formik";
 import CustomButton from "../../components/utils/Button/Button";
 import { FormContent, FormWrapper, InputBlock, InputField, InputIcon, InputWrapper, Title } from "../../components/utils/GeneralComponents/GeneralComponents";
-import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import { FaEnvelope, FaImages, FaLock, FaUser } from "react-icons/fa";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
 import { TabButton, Tabs } from "../../components/common/ShoppingCartWishlist/styles";
-import { RiCheckFill, RiDropdownList, RiErrorWarningLine, RiImageAddLine, RiUploadCloudLine } from "react-icons/ri";
+import { RiCheckFill, RiDropdownList, RiErrorWarningLine, RiImageAddLine, RiStockFill, RiUploadCloudLine } from "react-icons/ri";
 import CategoryIcon from '@mui/icons-material/Category';
 import { BsFillImageFill, BsPlus } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +19,7 @@ import { Add, Description } from "@mui/icons-material";
 import { AiOutlineProduct } from "react-icons/ai";
 import { CiDollar } from "react-icons/ci";
 import { TbFileDescription } from "react-icons/tb";
-import { MdCategory } from "react-icons/md";
+import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
 import { GiMaterialsScience } from "react-icons/gi";
 
 const categoryValidationSchema = Yup.object().shape({
@@ -42,7 +42,11 @@ const productValidationSchema = Yup.object().shape({
   price: Yup.number().required("price is required")
       .typeError("Price must be a valid number")
       .min(0, "Price must be positive")
-      .max(100000000, "max price reached"),    
+      .max(100000000, "max price reached"),  
+  stockQuantity: Yup.number().notRequired()
+      .typeError("Stock quantity must be a valid number")
+      .min(0, "Stock quantity must be positive")
+      .max(100000000, "max stock reached"),  
   image: Yup.mixed().required("Image is required"),
   thumbnails: Yup.array()
   .of(Yup.mixed().required("Each thumbnail is required"))
@@ -110,15 +114,24 @@ export const AdminPage = ()=> {
     initialValues: {
       title: "",
       materials: [],
+      thumbnails: [],
       image: null,
       description: "",
-      stockQuantity: null,
-      categoryId: null
+      price:"",
+      stockQuantity:"",
+      categoryId: ""
     },
     validationSchema: productValidationSchema,
     onSubmit: async (values) => {
+      const formattedValues = {
+        ...values,
+        price: Number(values.price),
+        stockQuantity: Number(values.stockQuantity),
+        categoryId: Number(values.categoryId)
+      };
       setButtonsActive(false);
-   alert('create product');
+      formikProduct.resetForm();
+   console.log(formattedValues);
    setButtonsActive(true);
 
   },
@@ -141,6 +154,18 @@ export const AdminPage = ()=> {
     const [activeTab, setActiveTab] = useState("product");
     const [buttonsActive, setButtonsActive] = useState(true);
     const [categories, setCategories] = useState([]);
+
+    const handleThumbnailsChange = (event) => {
+      const files = Array.from(event.target.files);
+      formikProduct.setFieldValue("thumbnails", [...formikProduct.values.thumbnails, ...files]);
+    };
+  
+    const removeThumbnail = (index) => {
+      formikProduct.setFieldValue(
+        "thumbnails",
+        formikProduct.values.thumbnails.filter((_, i) => i !== index)
+      );
+    };
 
 
     useEffect(()=> {
@@ -174,6 +199,8 @@ export const AdminPage = ()=> {
           <TabButton
             $active={activeTab === "category"}
             onClick={() =>{
+              setMaterialInput("");
+              setMaterials([]);
               formikProduct.resetForm();
               // dispatch(resetError());
               // formikLogin.resetForm();
@@ -200,7 +227,7 @@ export const AdminPage = ()=> {
         {activeTab === "product" && (
           <form onSubmit={(e)=> {
             e.preventDefault();
-             alert('hihihihih');
+             formikProduct.handleSubmit();
           }}>
 
 
@@ -238,6 +265,25 @@ export const AdminPage = ()=> {
             </InputWrapper>
             <ErrorMessage touched={formikProduct.touched.price} error={formikProduct.errors.price}/>
           </InputBlock>
+
+          
+          <InputBlock>
+            <InputWrapper>
+              <InputIcon>
+                <MdProductionQuantityLimits />
+              </InputIcon>
+              <InputField type="text"
+              placeholder="Stock quantity"
+              name="stockQuantity"
+               onChange={formikProduct.handleChange}
+               onBlur={formikProduct.handleBlur}
+               value={formikProduct.values.stockQuantity} />
+              {formikProduct.errors.stockQuantity && formikProduct.touched.stockQuantity && <RiErrorWarningLine fontSize={'22px'} color="red"/> }
+            
+            </InputWrapper>
+            <ErrorMessage touched={formikProduct.touched.stockQuantity} error={formikProduct.errors.stockQuantity}/>
+          </InputBlock>
+
 
           
           <InputBlock>
@@ -326,6 +372,98 @@ export const AdminPage = ()=> {
             </Box>
             <ErrorMessage touched={formikProduct.touched.materials} error={formikProduct.errors.materials} />
           </InputBlock>
+
+           <InputBlock>
+        <InputWrapper>
+          <InputIcon>
+            <FaImages />
+          </InputIcon>
+
+          {/* Hidden file input for multiple thumbnails */}
+          <input
+            type="file"
+            accept="image/*"
+            id="thumbnailUpload"
+            multiple
+            style={{ display: "none" }}
+            onChange={handleThumbnailsChange}
+          />
+
+          <label
+            htmlFor="thumbnailUpload"
+            style={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              fontWeight: "500",
+              color: "#333",
+              padding: "6px 12px",
+              borderRadius: "6px",
+            }}
+          >
+            {formikProduct.values.thumbnails.length > 0 ? (
+              <>
+                {formikProduct.values.thumbnails.length} thumbnail(s) uploaded
+                <RiCheckFill fontSize="22px" color="green" />
+              </>
+            ) : (
+              <>
+                <RiUploadCloudLine color="gray" />
+                Upload Thumbnails
+              </>
+            )}
+          </label>
+        </InputWrapper>
+
+        {/* Display uploaded thumbnails */}
+        <Box sx={{ display: "flex", gap: "5px", flexWrap: "wrap", marginTop: 1 }}>
+          {formikProduct.values.thumbnails.map((image, index) => (
+            <Box
+              key={index}
+              sx={{
+                padding: "4px",
+                background: "#f0f0f0",
+                borderRadius: "4px",
+                cursor: "pointer",
+                position: "relative",
+              }}
+              onClick={() => removeThumbnail(index)}
+            >
+              <img
+                src={URL.createObjectURL(image)}
+                alt="Thumbnail"
+                style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "4px" }}
+              />
+              <span
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  background: "red",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: "16px",
+                  height: "16px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "12px",
+                  cursor: "pointer",
+                }}
+              >
+                ×
+              </span>
+            </Box>
+          ))}
+        </Box>
+
+        {/* Validation message for thumbnails */}
+        {formikProduct.touched.thumbnails && formikProduct.errors.thumbnails && (
+          <RiErrorWarningLine fontSize={"22px"} color="red" />
+        )}
+      </InputBlock>
+
 
           <InputBlock>
   <InputWrapper>
