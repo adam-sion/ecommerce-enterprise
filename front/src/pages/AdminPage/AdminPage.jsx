@@ -10,7 +10,7 @@ import { RiCheckFill, RiDropdownList, RiErrorWarningLine, RiImageAddLine, RiStoc
 import CategoryIcon from '@mui/icons-material/Category';
 import { BsFillImageFill, BsPlus } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { createCategory, getCategories } from "../../features/category/categorySlice";
+import { createCategory, getCategories } from "../../features/createCategory/categorySlice";
 import { showToast } from "../../features/toast/toastSlice";
 import { CategoryCard } from "../../components/common/CreateCategoryCard/CategoryCard";
 import Modal from "../../components/utils/Modal/Modal";
@@ -21,6 +21,7 @@ import { CiDollar } from "react-icons/ci";
 import { TbFileDescription } from "react-icons/tb";
 import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
 import { GiMaterialsScience } from "react-icons/gi";
+import { createProduct } from "../../features/createProduct/createProductSlice";
 
 const categoryValidationSchema = Yup.object().shape({
   name: Yup.string()
@@ -84,10 +85,13 @@ const ErrorMessage = ({touched, error}) => {
 
 export const AdminPage = ()=> {
   const {createCategoryLoading} = useSelector((state)=> state.category);
+  const {createProductLoading} = useSelector((state)=> state.createProduct);
+  const [product, setProduct] = useState(null);
   const [category, setCategory] = useState(null);
   const dispatch = useDispatch();
   const [materials, setMaterials] = useState([]);
   const [materialInput, setMaterialInput] = useState("");
+
   const formikCategory = useFormik({
     initialValues: {
       name: "",
@@ -129,11 +133,20 @@ export const AdminPage = ()=> {
         stockQuantity: Number(values.stockQuantity),
         categoryId: Number(values.categoryId)
       };
+      console.log(formattedValues);
       setButtonsActive(false);
+      const result = await dispatch(createProduct(formattedValues));
+      setButtonsActive(true);
       formikProduct.resetForm();
-   console.log(formattedValues);
-   setButtonsActive(true);
+      setMaterials([]);
 
+       if (result.meta.requestStatus === "fulfilled") {
+        setProduct(result.payload);
+        console.log(result.payload);
+      } else {
+        dispatch(showToast({ message: "Category creation failed", type: "error" }));
+      }
+    
   },
   });
 
@@ -232,6 +245,7 @@ export const AdminPage = ()=> {
 
 
 <FormContent key="product">
+  
           <InputBlock>
             <InputWrapper>
               <InputIcon>
@@ -517,7 +531,7 @@ export const AdminPage = ()=> {
             >
               Create
             </CustomButton>
-            <span>{createCategoryLoading ? <CircularProgress sx={{marginLeft:'15px'}} size={'20px'} color="inherit" />: null}</span>
+            <span>{createProductLoading ? <CircularProgress sx={{marginLeft:'15px'}} size={'20px'} color="inherit" />: null}</span>
           </FormContent>
           </form>
 

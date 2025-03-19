@@ -5,7 +5,8 @@ import authReducer from "./features/auth/authSlice";
 import shoppingCartReducer from "./features/shoppingCart/shoppingCartSlice";
 import blogReducer from "./features/blog/blogSlice";
 import toastReducer from './features/toast/toastSlice';
-import categoryReducer from './features/category/categorySlice';
+import categoryReducer from './features/createCategory/categorySlice';
+import  createProductReducer from "./features/createProduct/createProductSlice";
 
 const store = configureStore({
   reducer: {
@@ -15,7 +16,8 @@ const store = configureStore({
     blog: blogReducer,
     toast:toastReducer,
     auth:authReducer,
-    category: categoryReducer
+    category: categoryReducer,
+    createProduct: createProductReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
