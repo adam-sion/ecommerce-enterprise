@@ -78,8 +78,9 @@ export const CategoryCard = ({ category }) => {
         )}
 
         {/* Category Name Display */}
-        <Stack gap={2} sx={{ marginTop: 3 }}>
-          <Box
+        {
+          !isEditing ? (
+            <Box
             sx={{
               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
               borderRadius: "8px",
@@ -89,24 +90,15 @@ export const CategoryCard = ({ category }) => {
               "&:hover": { boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)" },
             }}
           >
-            <ProductName style={{ textAlign: "center", textDecoration: "underline" }}>
+
+<ProductName style={{ textAlign: "center", textDecoration: "underline" }}>
               Name
             </ProductName>
-
-            {isEditing ? (
-              <TextField
-                fullWidth
-                variant="outlined"
-                size="small"
-                value={editedCategory["name"]}
-                onChange={(e) => handleChange(e, "name")}
-                sx={{ mt: 0.5 }}
-              />
-            ) : (
               <ProductName style={{ paddingLeft: 10, textAlign: "center" }}>{category.name}</ProductName>
-            )}
           </Box>
-        </Stack>
+           
+          ): <>hi this will be the form</>
+        }
       </CardContent>
     </Card>
   ) : null;
