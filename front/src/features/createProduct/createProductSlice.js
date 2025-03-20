@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { client } from "../../ApolloClient";
 
 const ADD_PRODUCT = gql`
-  mutation ADD_PRODUCT($input: ProductInput!, $image: Upload!, $thumbnails: [Upload]!) {
+  mutation ADD_PRODUCT($input: ProductInput!, $image: Upload!, $thumbnails: [Upload!]!) {
     addProduct(input: $input, image: $image, thumbnails: $thumbnails) {
     id
     title
@@ -14,13 +14,19 @@ const ADD_PRODUCT = gql`
     description
     stockQuantity
     createdAt
+    category {
+    id
+    name
+    image
     }
+}
   }
 `;
 
 
 export const createProduct = createAsyncThunk("product/createProduct", async (formData, { rejectWithValue }) => {
     try {
+        console.log(formData);
         const { data } = await client.mutate({
             mutation: ADD_PRODUCT,
             variables: {
@@ -38,6 +44,7 @@ export const createProduct = createAsyncThunk("product/createProduct", async (fo
         });
         return data.addProduct;
     } catch (error) {
+        console.log(error.message);
         console.error("Create product error:", error);
         return rejectWithValue(error.message);
     }

@@ -7,12 +7,14 @@ import { GiMaterialsScience } from "react-icons/gi";
 import { FaImages } from "react-icons/fa";
 import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
 import { Box, CircularProgress, IconButton } from "@mui/material";
-import { ErrorMessage } from "../../../pages/AdminPage/AdminPage";
+import { ErrorMessage, MessageBox } from "../../../pages/AdminPage/AdminPage";
 import { useEffect, useState } from "react";
 import { CiDollar } from "react-icons/ci";
 import { TbFileDescription } from "react-icons/tb";
 import { BsFillImageFill, BsPlus } from "react-icons/bs";
 import CustomButton from "../../utils/Button/Button";
+import Modal from "../../utils/Modal/Modal";
+import { ProductCard } from "../CreateProductCard/ProductCard";
 
 export const CreateProductForm = ({formikProduct, product, buttonsActive})=> {
   const {createProductLoading} = useSelector((state)=> state.createProduct);
@@ -58,10 +60,25 @@ export const CreateProductForm = ({formikProduct, product, buttonsActive})=> {
 
   return (
        <>
+       {product && <div style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>
+           <Modal>
+                 <Modal.Trigger opens="product-preview">
+                  <MessageBox>Product created successfully!</MessageBox>
+                 </Modal.Trigger>
+                 <Modal.Content name="product-preview">
+       
+                <ProductCard product={product}/>
+             
+                 </Modal.Content>
+               </Modal>
+               </div>
+               }
         {(
           <form onSubmit={(e)=> {
             e.preventDefault();
              formikProduct.handleSubmit();
+             setMaterialInput("");
+             setMaterials([]);
           }}>
 
 

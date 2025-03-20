@@ -31,16 +31,16 @@ type Category {
 }
 
 type Product {
-    id: ID!
-    title: String!
-    price: Float!
+    id: ID
+    title: String
+    price: Float
     materials: [String]
     thumbnails: [String]
     image: String
     description: String
     stockQuantity: Int
-    createdAt: String!
-    category: Category!
+    createdAt: String
+    category: Category
 }
 
 #inputs

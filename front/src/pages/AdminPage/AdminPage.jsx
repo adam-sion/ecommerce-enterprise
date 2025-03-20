@@ -140,7 +140,7 @@ export const AdminPage = ()=> {
        if (result.meta.requestStatus === "fulfilled") {
         setProduct(result.payload);
       } else {
-        dispatch(showToast({ message: "Category creation failed", type: "error" }));
+        dispatch(showToast({ message: "Product creation failed", type: "error" }));
       }
     
   },
@@ -162,8 +162,6 @@ export const AdminPage = ()=> {
             onClick={() => {
               setCategory(null);
               formikCategory.resetForm();
-              // dispatch(resetError());
-              // formikRegister.resetForm();
               setActiveTab("product");
             }}
           >
@@ -173,8 +171,6 @@ export const AdminPage = ()=> {
             $active={activeTab === "category"}
             onClick={() =>{
               formikProduct.resetForm();
-              // dispatch(resetError());
-              // formikLogin.resetForm();
               setActiveTab("category")
             }}
           >
@@ -188,6 +184,7 @@ export const AdminPage = ()=> {
         {activeTab === "category"
         && <CreateCategoryForm category={category} formikCategory={formikCategory} buttonsActive={buttonsActive}/>
         }
+        
       </FormWrapper>
 
     </Container>

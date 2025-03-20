@@ -12,9 +12,6 @@ export const CategoryCard = ({ category }) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   const handleEditToggle = () => setIsEditing(!isEditing);
-  const handleChange = (e, key) => {
-    setEditedCategory({ ...editedCategory, [key]: e.target.value });
-  };
   const handleSave = () => {
     console.log("Saved Category:", editedCategory);
     setIsEditing(false);
@@ -67,14 +64,7 @@ export const CategoryCard = ({ category }) => {
             </IconButton>
           </Box>
         ) : (
-          <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <IconButton onClick={handleSave} color="success">
-              <SaveIcon />
-            </IconButton>
-            <IconButton onClick={() => setIsEditing(false)} color="error">
-              <CloseIcon />
-            </IconButton>
-          </Box>
+        <></>
         )}
 
         {/* Category Name Display */}

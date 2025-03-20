@@ -21,10 +21,10 @@ export const CreateCategoryForm = ({formikCategory, category, buttonsActive})=> 
 {category && <div style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>
     
     <Modal>
-          <Modal.Trigger opens="product-preview">
+          <Modal.Trigger opens="category-preview">
            <MessageBox>Category created successfully!</MessageBox>
           </Modal.Trigger>
-          <Modal.Content name="product-preview">
+          <Modal.Content name="category-preview">
 
          <CategoryCard category={category}/>
       
