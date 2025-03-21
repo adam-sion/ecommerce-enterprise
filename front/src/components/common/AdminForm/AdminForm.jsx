@@ -1,18 +1,17 @@
 import { Box, Button, CircularProgress, Container, IconButton } from "@mui/material"
 import { useFormik } from "formik";
-import CustomButton from "../../components/utils/Button/Button";
-import { FormContent, FormWrapper, InputBlock, InputField, InputIcon, InputWrapper, Title } from "../../components/utils/GeneralComponents/GeneralComponents";
+import { FormContent, FormWrapper, InputBlock, InputField, InputIcon, InputWrapper, Title } from "../../../components/utils/GeneralComponents/GeneralComponents";
 import { FaEnvelope, FaImages, FaLock, FaUser } from "react-icons/fa";
 import * as Yup from "yup";
 import { useEffect, useState } from "react";
-import { TabButton, Tabs } from "../../components/common/ShoppingCartWishlist/styles";
+import { TabButton, Tabs } from "../../../components/common/ShoppingCartWishlist/styles";
 import { RiCheckFill, RiDropdownList, RiErrorWarningLine, RiImageAddLine, RiStockFill, RiUploadCloudLine } from "react-icons/ri";
 import CategoryIcon from '@mui/icons-material/Category';
 import { BsFillImageFill, BsPlus } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
-import { createCategory, getCategories } from "../../features/createCategory/categorySlice";
-import { showToast } from "../../features/toast/toastSlice";
-import Modal from "../../components/utils/Modal/Modal";
+import { createCategory, getCategories } from "../../../features/createCategory/categorySlice";
+import { showToast } from "../../../features/toast/toastSlice";
+import Modal from "../../../components/utils/Modal/Modal";
 import styled from "styled-components";
 import { Add, Description } from "@mui/icons-material";
 import { AiOutlineProduct } from "react-icons/ai";
@@ -20,9 +19,9 @@ import { CiDollar } from "react-icons/ci";
 import { TbFileDescription } from "react-icons/tb";
 import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
 import { GiMaterialsScience } from "react-icons/gi";
-import { createProduct } from "../../features/createProduct/createProductSlice";
-import { CreateProductForm } from "../../components/common/CreateProductForm/CreateProductForm";
-import { CreateCategoryForm } from "../../components/common/CreateCategoryForm/CreateCategoryForm";
+import { createProduct } from "../../../features/createProduct/createProductSlice";
+import { CreateProductForm } from "../../../components/common/CreateProductForm/CreateProductForm";
+import { CreateCategoryForm } from "../../../components/common/CreateCategoryForm/CreateCategoryForm";
 
 const categoryValidationSchema = Yup.object().shape({
   name: Yup.string()
@@ -127,7 +126,7 @@ export const AdminForm = ()=> {
       const formattedValues = {
         ...values,
         price: Number(values.price),
-        stockQuantity: Number(values.stockQuantity),
+        stockQuantity: values.stockQuantity === "" ? 3 : Number(values.stockQuantity),
         categoryId: Number(values.categoryId)
       };
       console.log(formattedValues);
@@ -155,7 +154,7 @@ export const AdminForm = ()=> {
     <Container sx={{marginTop:'30px', marginBottom:'30px', display:'flex', flexDirection:'column', alignItems:'center', gap:'20px'}}>
       <Title>{activeTab === "product" ? "Create product" : "Create caetgory"}</Title>
      
-      <FormWrapper>
+      <Box sx={{width:'80%'}}>
         <Tabs>
           <TabButton
             $active={activeTab === "product"}
@@ -178,15 +177,19 @@ export const AdminForm = ()=> {
             Create Category
           </TabButton>
         </Tabs>
-    
-        {activeTab === "product"
+    <Box>
+    {activeTab === "product"
           && <CreateProductForm product={product} setProduct={setProduct} formikProduct={formikProduct} buttonsActive={buttonsActive}/>
         }
-        {activeTab === "category"
+    </Box>
+       <Box>
+       {activeTab === "category"
         && <CreateCategoryForm category={category} setCategory={setCategory} formikCategory={formikCategory} buttonsActive={buttonsActive}/>
         }
+       </Box>
+
         
-      </FormWrapper>
+      </Box>
 
     </Container>
   );

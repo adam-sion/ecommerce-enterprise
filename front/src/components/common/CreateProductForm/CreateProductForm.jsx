@@ -6,8 +6,8 @@ import { RiCheckFill, RiErrorWarningLine, RiUploadCloudLine } from "react-icons/
 import { GiMaterialsScience } from "react-icons/gi";
 import { FaImages } from "react-icons/fa";
 import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
-import { Box, CircularProgress, IconButton } from "@mui/material";
-import { useEffect, useState } from "react";
+import { Box, CircularProgress, Grid, IconButton } from "@mui/material";
+import { useEffect, useRef, useState } from "react";
 import { CiDollar } from "react-icons/ci";
 import { TbFileDescription } from "react-icons/tb";
 import { BsFillImageFill, BsPlus } from "react-icons/bs";
@@ -21,12 +21,21 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
   const dispatch = useDispatch();
   const [materials, setMaterials] = useState([]);
   const [materialInput, setMaterialInput] = useState("");
+const materialInputRef = useRef(null);
 
   const addMaterial = () => {
     if (materialInput.trim()) {
       setMaterials([...materials, materialInput.trim()]);
       formikProduct.setFieldValue("materials", [...materials, materialInput.trim()]);
       setMaterialInput("");
+      materialInputRef.current?.focus();
+    }
+  };
+
+  const handleMaterialKeyDown = (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+      addMaterial();
     }
   };
 
@@ -83,7 +92,8 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
 
 
 <FormContent key="product">
-  
+<Grid container spacing={3}>
+<Grid item xs={12} md={6}>
           <InputBlock>
             <InputWrapper>
               <InputIcon>
@@ -155,6 +165,10 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
             <ErrorMessage touched={formikProduct.touched.description} error={formikProduct.errors.description}/>
           </InputBlock>
 
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+
           <InputBlock>
   <InputWrapper>
     <InputIcon>
@@ -211,7 +225,7 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
             <InputIcon>
       <GiMaterialsScience/> {/* Default upload icon */}
     </InputIcon>
-              <InputField type="text" placeholder="Enter material" value={materialInput} onChange={(e) => setMaterialInput(e.target.value)} />
+              <InputField type="text" placeholder="Enter material" value={materialInput} onKeyDown={handleMaterialKeyDown} ref={materialInputRef} onChange={(e) => setMaterialInput(e.target.value)} />
               {formikProduct.errors.materials && formikProduct.touched.materials && <RiErrorWarningLine fontSize={'22px'} color="red"/> }
               <IconButton onClick={addMaterial}><BsPlus/></IconButton>
             </InputWrapper>
@@ -357,10 +371,10 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
     error={formikProduct.errors.categoryId}
   />
 </InputBlock>
+</Grid>
 
-
-          
-            <CustomButton
+<Grid item xs={12} md={6}>
+<CustomButton
             type="submit"
               size="small"
               color="var(--primary-color-dark-2)"
@@ -370,6 +384,9 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
               Create
             </CustomButton>
             <span>{createProductLoading ? <CircularProgress sx={{marginLeft:'15px'}} size={'20px'} color="inherit" />: null}</span>
+    </Grid>
+          
+            </Grid>
           </FormContent>
           </form>
 
