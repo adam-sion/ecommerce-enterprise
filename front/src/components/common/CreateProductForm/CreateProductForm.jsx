@@ -7,7 +7,6 @@ import { GiMaterialsScience } from "react-icons/gi";
 import { FaImages } from "react-icons/fa";
 import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
 import { Box, CircularProgress, IconButton } from "@mui/material";
-import { ErrorMessage, MessageBox } from "../../../pages/AdminPage/AdminPage";
 import { useEffect, useState } from "react";
 import { CiDollar } from "react-icons/ci";
 import { TbFileDescription } from "react-icons/tb";
@@ -15,8 +14,9 @@ import { BsFillImageFill, BsPlus } from "react-icons/bs";
 import CustomButton from "../../utils/Button/Button";
 import Modal from "../../utils/Modal/Modal";
 import { ProductCard } from "../CreateProductCard/ProductCard";
+import { ErrorMessage, MessageBox } from "../AdminForm/AdminForm";
 
-export const CreateProductForm = ({formikProduct, product, buttonsActive})=> {
+export const CreateProductForm = ({formikProduct, product, setProduct, buttonsActive})=> {
   const {createProductLoading} = useSelector((state)=> state.createProduct);
   const dispatch = useDispatch();
   const [materials, setMaterials] = useState([]);
@@ -67,7 +67,7 @@ export const CreateProductForm = ({formikProduct, product, buttonsActive})=> {
                  </Modal.Trigger>
                  <Modal.Content name="product-preview">
        
-                <ProductCard product={product}/>
+                <ProductCard setProduct={setProduct} product={product}/>
              
                  </Modal.Content>
                </Modal>

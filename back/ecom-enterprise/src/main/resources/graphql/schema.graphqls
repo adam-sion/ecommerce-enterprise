@@ -2,6 +2,7 @@
 type Query {
     me: User
     categories: [Category]
+    products: [Product]
 }
 
 scalar Upload

@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { Card, CardContent, CardMedia, Typography, TextField, IconButton, Box, Stack, CircularProgress, Skeleton } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  Typography,
+  TextField,
+  IconButton,
+  Box,
+  Stack,
+  Skeleton,
+} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import CloseIcon from "@mui/icons-material/Close";
 import { DeleteForeverOutlined } from "@mui/icons-material";
 import { ProductName } from "../ProductCard/ProductCard.styles";
 
-export const CategoryCard = ({ category }) => {
+export const CategoryCard = ({ category, setCategory }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedCategory, setEditedCategory] = useState(category);
   const [isImageLoading, setIsImageLoading] = useState(true);
@@ -31,17 +40,32 @@ export const CategoryCard = ({ category }) => {
       }}
     >
       {/* Category Image with Loading */}
-      <Box sx={{ position: "relative", height: 300, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <Box
+        sx={{
+          position: "relative",
+          height: 300,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 2,
+          overflow: "hidden",
+        }}
+      >
         {isImageLoading && (
-          <Skeleton variant="rectangular" width="100%" height={300} sx={{ borderRadius: 2 }} />
+          <Skeleton
+            variant="rectangular"
+            width="100%"
+            height={300}
+            sx={{ borderRadius: 2 }}
+          />
         )}
         {category.image && (
-          <CardMedia
-            component="img"
-            height="300"
-            image={category.image}
+          <img
+            src={category.image}
             alt={category.name}
-            sx={{
+            height="300"
+            width="100%"
+            style={{
               objectFit: "cover",
               borderRadius: 2,
               display: isImageLoading ? "none" : "block",
@@ -63,32 +87,33 @@ export const CategoryCard = ({ category }) => {
               <EditIcon />
             </IconButton>
           </Box>
-        ) : (
-        <></>
-        )}
+        ) : null}
 
         {/* Category Name Display */}
-        {
-          !isEditing ? (
-            <Box
+        {!isEditing ? (
+          <Box
             sx={{
               boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
               borderRadius: "8px",
               p: 1,
               backgroundColor: "#fff",
               transition: "0.3s",
-              "&:hover": { boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)" },
+              "&:hover": {
+                boxShadow: "0px 6px 15px rgba(0, 0, 0, 0.15)",
+              },
+              textAlign: "center",
             }}
           >
-
-<ProductName style={{ textAlign: "center", textDecoration: "underline" }}>
+            <ProductName style={{ textDecoration: "underline" }}>
               Name
             </ProductName>
-              <ProductName style={{ paddingLeft: 10, textAlign: "center" }}>{category.name}</ProductName>
+            <ProductName style={{ paddingLeft: 10 }}>
+              {category.name}
+            </ProductName>
           </Box>
-           
-          ): <>hi this will be the form</>
-        }
+        ) : (
+          <>hi this will be the form</>
+        )}
       </CardContent>
     </Card>
   ) : null;

@@ -1,36 +1,52 @@
-import { Card, CardContent, CardMedia, Typography, IconButton, Box, Stack, Skeleton } from "@mui/material";
+import { Card, CardContent, IconButton, Box, Stack, Skeleton, Grid } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverOutlined from "@mui/icons-material/DeleteForeverOutlined";
 import { useState } from "react";
+import { BsBox } from "react-icons/bs";
 
 export const ProductCard = ({ product }) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [isImageLoading, setIsImageLoading] = useState(true);
-
-  const handleEditToggle = () => setIsEditing(!isEditing);
+  const [loadingThumbnails, setLoadingThumbnails] = useState(
+    Array(product?.thumbnails?.length || 0).fill(true)
+  );
 
   return product ? (
     <Card
       sx={{
-        width: 350,
         borderRadius: 3,
         boxShadow: 3,
         overflow: "hidden",
         transition: "0.3s",
         "&:hover": { boxShadow: 6 },
         p: 3,
+        cursor: "pointer",
       }}
     >
       {/* Product Image with Loading */}
-      <Box sx={{ position: "relative", height: 250, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        {isImageLoading && <Skeleton variant="rectangular" width="100%" height={250} sx={{ borderRadius: 2 }} />}
+      <Box
+        sx={{
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 2,
+          overflow: "hidden",
+        }}
+      >
+        {isImageLoading && (
+          <Skeleton variant="rectangular" width="100%" height={250} sx={{ borderRadius: 2 }} />
+        )}
         {product.image && (
-          <CardMedia
-            component="img"
-            height="250"
-            image={product.image}
+          <img
+            src={product.image}
             alt={product.title}
-            sx={{ objectFit: "cover", borderRadius: 2, display: isImageLoading ? "none" : "block" }}
+            height="400"
+            width="300"
+            style={{
+              objectFit: "cover",
+              borderRadius: 2,
+              display: isImageLoading ? "none" : "block",
+            }}
             onLoad={() => setIsImageLoading(false)}
             onError={() => setIsImageLoading(false)}
           />
@@ -40,39 +56,108 @@ export const ProductCard = ({ product }) => {
       {/* Thumbnails */}
       <Stack direction="row" spacing={1} mt={2} justifyContent="center">
         {product.thumbnails?.map((thumb, index) => (
-          <CardMedia
-            key={index}
-            component="img"
-            height="50"
-            image={thumb}
-            alt={`Thumbnail ${index + 1}`}
-            sx={{ width: 50, objectFit: "cover", borderRadius: 1 }}
-          />
+          <Box key={index} sx={{ position: "relative", width: 50, height: 50 }}>
+            {loadingThumbnails[index] && (
+              <Skeleton variant="rectangular" width={50} height={50} sx={{ borderRadius: 4 }} />
+            )}
+            <img
+              src={thumb}
+              alt={`Thumbnail ${index + 1}`}
+              height="50"
+              width="50"
+              style={{
+                objectFit: "cover",
+                borderRadius: 4,
+                display: loadingThumbnails[index] ? "none" : "block",
+              }}
+              onLoad={() =>
+                setLoadingThumbnails((prev) =>
+                  prev.map((loading, i) => (i === index ? false : loading))
+                )
+              }
+              onError={() =>
+                setLoadingThumbnails((prev) =>
+                  prev.map((loading, i) => (i === index ? false : loading))
+                )
+              }
+            />
+          </Box>
         ))}
       </Stack>
 
-      <CardContent>
-        {/* Edit / Delete Buttons */}
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-          <IconButton onClick={() => alert("Delete action")} color="error">
-            <DeleteForeverOutlined />
-          </IconButton>
-          <IconButton onClick={handleEditToggle} color="primary">
-            <EditIcon />
-          </IconButton>
-        </Box>
+      {/* Product Details Grid */}
+      <CardContent sx={{ display: "flex", justifyContent: "center", marginTop:5 }}>
+      <Grid container spacing={3}>
+  {/* Left Column */}
+  <Grid item xs={4}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box>
+        <Box fontWeight="bold" textDecoration="underline">Title</Box>
+        <Box>{product.title}</Box>
+      </Box>
 
-        {/* Product Details */}
-        <Stack spacing={1} mt={2}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", textAlign: "center" }}>{product.title}</Typography>
-          <Typography variant="body1" color="text.secondary">Price: ${product.price.toFixed(2)}</Typography>
-          <Typography variant="body1" color="text.secondary">Materials: {product.materials?.join(", ") || "N/A"}</Typography>
-          <Typography variant="body1" color="text.secondary">Stock: {product.stockQuantity}</Typography>
-          <Typography variant="body2" color="text.secondary">{product.description}</Typography>
-          <Typography variant="caption" color="text.secondary">Created At: {product.createdAt}</Typography>
-          <Typography variant="body2" color="primary">Category: {product.category.name}</Typography>
-        </Stack>
+      <Box>
+        <Box fontWeight="bold" textDecoration="underline">Price</Box>
+        <Box>${product.price.toFixed(2)}</Box>
+      </Box>
+
+
+    </Box>
+  </Grid>
+
+  <Grid item xs={4}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+
+      <Box>
+        <Box fontWeight="bold" textDecoration="underline">Stock</Box>
+        <Box>{product.stockQuantity}</Box>
+      </Box>
+
+      <Box>
+        <Box fontWeight="bold" textDecoration="underline">Category</Box>
+        <Box>{product.category.name}</Box>
+      </Box>
+
+    </Box>
+  </Grid>
+  
+  {/* Right Column */}
+  <Grid item xs={4}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box>
+        <Box fontWeight="bold" textDecoration="underline">Description</Box>
+        <Box>{product.description}</Box>
+      </Box>
+
+      <Box>
+        <Box fontWeight="bold" textDecoration="underline">Materials</Box>
+        <Box>{product.materials?.join(", ") || "N/A"}</Box>
+      </Box>
+    </Box>
+  </Grid>
+
+  <Grid item xs={4}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box>
+        <Box fontWeight="bold" textDecoration="underline">Created At</Box>
+        <Box>{new Date(product.createdAt).toLocaleDateString()}</Box>
+      </Box>
+    </Box>
+  </Grid>
+
+</Grid>
+
       </CardContent>
+
+      {/* Action Buttons */}
+      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+        <IconButton onClick={(e) => { e.stopPropagation(); alert("Delete action"); }} color="error">
+          <DeleteForeverOutlined />
+        </IconButton>
+        <IconButton onClick={(e) => { e.stopPropagation(); alert("Edit action"); }} color="primary">
+          <EditIcon />
+        </IconButton>
+      </Box>
     </Card>
   ) : null;
 };

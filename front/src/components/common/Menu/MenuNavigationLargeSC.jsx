@@ -108,7 +108,6 @@ const MenuNavigationLargeSC = () => {
   return (
     <Nav aria-label="Main navigation">
       <NavList>
-      {isAdmin ? <NavLink to="/admin">Create</NavLink> : <></>}
         <NavLink to="/">Home</NavLink>
         <MenuItem
           label={
@@ -122,6 +121,7 @@ const MenuNavigationLargeSC = () => {
         >
           <Dropdown minWidth={"30rem"}>
             <DropdownColumnContainer>
+            {isAdmin ? <DropdownItem to="/admin/products">Create</DropdownItem> : <></>}
               <DropdownItem to="/all-products">Shop Standard</DropdownItem>
               <DropdownItem to="/list-shop">Shop List</DropdownItem>
               <DropdownItem to="/cart-summary">Shopping cart</DropdownItem>

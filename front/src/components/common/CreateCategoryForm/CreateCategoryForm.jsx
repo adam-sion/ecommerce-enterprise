@@ -6,13 +6,13 @@ import { FormContent, InputBlock, InputField, InputIcon, InputWrapper } from "..
 import { MdCategory } from "react-icons/md";
 import { RiCheckFill, RiUploadCloudLine } from "react-icons/ri";
 import CustomButton from "../../utils/Button/Button";
-import { ErrorMessage, MessageBox } from "../../../pages/AdminPage/AdminPage";
 import { useEffect } from "react";
 import { BsFillImageFill } from "react-icons/bs";
 import Modal from "../../utils/Modal/Modal";
+import { ErrorMessage, MessageBox } from "../AdminForm/AdminForm";
 
 
-export const CreateCategoryForm = ({formikCategory, category, buttonsActive})=> {
+export const CreateCategoryForm = ({formikCategory, category, setCategory, buttonsActive})=> {
   const {createCategoryLoading} = useSelector((state)=> state.category);
 
   return (   
@@ -26,7 +26,7 @@ export const CreateCategoryForm = ({formikCategory, category, buttonsActive})=> 
           </Modal.Trigger>
           <Modal.Content name="category-preview">
 
-         <CategoryCard category={category}/>
+         <CategoryCard setCategory={setCategory} category={category}/>
       
           </Modal.Content>
         </Modal>
