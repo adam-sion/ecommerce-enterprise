@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -28,6 +29,10 @@ public class Order {
 
     @Column(name = "created_at")
     private Instant createdAt;
+
+    @JsonManagedReference(value = "order-orderItem")
+   @OneToMany(mappedBy = "order")
+   private List<OrderItem> orderItems;
 
     @OneToOne
     @JsonManagedReference(value = "order-customer")

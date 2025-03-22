@@ -1,6 +1,7 @@
 package adam.dev.ecom_enterprise.entity;
 
 import adam.dev.ecom_enterprise.converter.StringListConverter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -53,6 +54,10 @@ public class Product {
     @JsonManagedReference(value = "product-category")
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @OneToMany(mappedBy = "product")
+    @JsonBackReference(value = "orderItem-product")
+    private List<OrderItem> orderItems;
 
     public Product(String title, Double price, String image, List<String> thumbnails, List<String> materials, String description, Integer stockQuantity, Category category) {
         this.title = title;
