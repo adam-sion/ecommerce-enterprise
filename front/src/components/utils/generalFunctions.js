@@ -38,10 +38,9 @@ export const handleAddToCart = (product, dispatch, quantity) => {
   const unitPrice = hasDiscountFunction(product);
   const newProduct = {
     id: product.id,
-    category: product.category,
+    category: product.category.name,
     image: product.image,
     title: product.title,
-    slug: product.slug,
     quantity,
     unitPrice,
     totalPrice: unitPrice * quantity,

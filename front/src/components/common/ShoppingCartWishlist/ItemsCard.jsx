@@ -41,7 +41,7 @@ const ItemsCard = ({ cardShop = true, product, closeSidebar }) => {
         </CloseButtonWrapper>
         <ItemImageWrapper>
           <ItemImage
-            src={`/shop/${product.category}/${product.image}`}
+            src={`${product.image}`}
             alt={product.title}
           />
         </ItemImageWrapper>

@@ -95,7 +95,7 @@ const ImageShowcase = ({ images, product }) => {
     <ImgGallery>
       <MainImageWrapper key={mainImage}>
         <MainImage
-          src={`/shop/${product.category}/${mainImage}`}
+          src={`${mainImage}`}
           alt="Main product"
         />
       </MainImageWrapper>
@@ -108,7 +108,7 @@ const ImageShowcase = ({ images, product }) => {
             onClick={() => handleThumbnailSelect(img.id)}
           >
             <img
-              src={`/shop/${product.category}/${img.image}`}
+              src={`${img.image}`}
               alt={`Thumbnail ${img.id}`}
             />
           </Thumbnail>

@@ -82,6 +82,7 @@ export const ProductCard = ({ product }) => {
               }
             />
           </Box>
+        
         ))}
       </Stack>
 
@@ -100,7 +101,7 @@ export const ProductCard = ({ product }) => {
         <Box fontWeight="bold" textDecoration="underline">Price</Box>
         <Box>${product.price.toFixed(2)}</Box>
       </Box>
-
+ 
 
     </Box>
   </Grid>
@@ -128,7 +129,7 @@ export const ProductCard = ({ product }) => {
         <Box fontWeight="bold" textDecoration="underline">Description</Box>
         <Box>{product.description}</Box>
       </Box>
-
+  
       <Box>
         <Box fontWeight="bold" textDecoration="underline">Materials</Box>
         <Box>{product.materials?.join(", ") || "N/A"}</Box>
@@ -141,6 +142,15 @@ export const ProductCard = ({ product }) => {
     <Box>
         <Box fontWeight="bold" textDecoration="underline">Created At</Box>
         <Box>{new Date(product.createdAt).toLocaleDateString()}</Box>
+      </Box>
+    </Box>
+  </Grid>
+
+  <Grid item xs={4}>
+    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+    <Box>
+        <Box fontWeight="bold" textDecoration="underline">Sizes</Box>
+        <Box>{product.sizes?.join(", ") || "N/A"}</Box>
       </Box>
     </Box>
   </Grid>

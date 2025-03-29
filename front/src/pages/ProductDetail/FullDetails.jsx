@@ -153,7 +153,7 @@ const FullDetails = ({ product }) => {
             <Subheading>Description</Subheading>
             <Paragraph>{product.description}</Paragraph>
             <Paragraph>
-              This product is part of our {product.category} collection, under
+              This product is part of our {product.category.name} collection, under
               the {product.subcategory} subcategory, and is crafted with
               high-quality ingredients.
             </Paragraph>

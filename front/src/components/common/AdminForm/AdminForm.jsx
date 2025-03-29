@@ -52,6 +52,9 @@ const productValidationSchema = Yup.object().shape({
   thumbnails: Yup.array()
   .of(Yup.mixed().required("Each thumbnail is required"))
   .notRequired(),
+  sizes: Yup.array()
+  .of(Yup.mixed().required("Each size is required"))
+  .required("Sizes field is required"),
   categoryId: Yup.number().required("Category is required")
 
 });
@@ -115,6 +118,7 @@ export const AdminForm = ()=> {
       title: "",
       materials: [],
       thumbnails: [],
+      sizes:[],
       image: null,
       description: "",
       price:"",

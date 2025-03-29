@@ -41,13 +41,13 @@ const ProductCard = ({ product }) => {
         <ImageContainer>
           <ImageWrapper>
             <ProductImage
-              src={`/shop/${product.category}/${product.image}`}
+              src={`${product.image}`}
               alt={product.title}
               $isHovered={hovered === product.id}
               $isExiting={exiting === product.id}
             />
             <ThumbnailImage
-              src={`/shop/${product.category}/${product.thumbnails[0]}`}
+              src={`${product.thumbnails[0]}`}
               alt={`${product.title} thumbnail`}
               $isHovered={hovered === product.id}
               $isExiting={exiting === product.id}
@@ -79,7 +79,7 @@ const ProductCard = ({ product }) => {
         </Modal>
       </PreviewContainer>
 
-      <StarsWrapper>{RenderStars(product.rating.rate)}</StarsWrapper>
+      {/* <StarsWrapper>{RenderStars(product.rating.rate)}</StarsWrapper> */}
       <Link to={"/shop/" + product.slug}>
         <ProductName>{product.title}</ProductName>
       </Link>
@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
           <HasDiscount product={product} />
         </Row>
       </PriceContainer>
-      <Category>{product.category}</Category>
+      <Category>{product.category.name}</Category>
     </ProductCardContainer>
   );
 };

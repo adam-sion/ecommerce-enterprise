@@ -18,7 +18,7 @@ public class ProductMapper {
     public Product toProduct(ProductInput productInput, List<String> thumbnails, String image) {
         Category category = categoryService.findCategoryById(productInput.categoryId());
         Product product = new Product(productInput.title(), productInput.price(), image,
-                thumbnails, productInput.materials(),  productInput.description(), productInput.stockQuantity(), category);
+                thumbnails, productInput.materials(), productInput.sizes(), productInput.description(), productInput.stockQuantity(), category);
 
         return product;
     }

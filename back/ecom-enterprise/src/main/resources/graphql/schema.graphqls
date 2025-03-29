@@ -3,6 +3,7 @@ type Query {
     me: User
     categories: [Category]
     products: [Product]
+    productBySlug(slug:String!): Product
 }
 
 scalar Upload
@@ -33,10 +34,12 @@ type Category {
 
 type Product {
     id: ID
+    slug: String
     title: String
     price: Float
     materials: [String]
     thumbnails: [String]
+    sizes: [String]
     image: String
     description: String
     stockQuantity: Int
@@ -54,6 +57,7 @@ input ProductInput {
     description: String
     price: Float!
     materials: [String]
+    sizes: [String]
     stockQuantity: Int
     categoryId: Int!
 }

@@ -5,7 +5,7 @@ import { AiOutlineProduct } from "react-icons/ai";
 import { RiCheckFill, RiErrorWarningLine, RiUploadCloudLine } from "react-icons/ri";
 import { GiMaterialsScience } from "react-icons/gi";
 import { FaImages } from "react-icons/fa";
-import { MdCategory, MdProductionQuantityLimits } from "react-icons/md";
+import { MdCategory, MdFormatSize, MdProductionQuantityLimits } from "react-icons/md";
 import { Box, CircularProgress, Grid, IconButton } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { CiDollar } from "react-icons/ci";
@@ -20,8 +20,11 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
   const {createProductLoading} = useSelector((state)=> state.createProduct);
   const dispatch = useDispatch();
   const [materials, setMaterials] = useState([]);
+  const [sizes, setSizes] = useState([]);
   const [materialInput, setMaterialInput] = useState("");
+  const [sizeInput, setSizeInput] = useState("");
 const materialInputRef = useRef(null);
+const sizeInputRef = useRef(null);
 
   const addMaterial = () => {
     if (materialInput.trim()) {
@@ -44,6 +47,29 @@ const materialInputRef = useRef(null);
     setMaterials(updatedMaterials);
     formikProduct.setFieldValue("materials", updatedMaterials);
   };
+
+  const addSize = () => {
+    if (sizeInput.trim()) {
+      setSizes([...sizes, sizeInput.trim()]);
+      formikProduct.setFieldValue("sizes", [...sizes, sizeInput.trim()]);
+      setSizeInput("");
+      sizeInputRef.current?.focus();
+    }
+  };
+
+  const handleSizeKeyDown = (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+      addSize();
+    }
+  };
+
+  const removeSize = (index) => {
+    const updatedSizes = sizes.filter((_, i) => i !== index);
+    setSizes(updatedSizes);
+    formikProduct.setFieldValue("sizes", updatedSizes);
+  };
+
     const [categories, setCategories] = useState([]);
 
     const handleThumbnailsChange = (event) => {
@@ -85,9 +111,13 @@ const materialInputRef = useRef(null);
         {(
           <form onSubmit={(e)=> {
             e.preventDefault();
+            console.log(sizes);
              formikProduct.handleSubmit();
              setMaterialInput("");
              setMaterials([]);
+             setSizeInput("");
+        
+             setSizes([]);
           }}>
 
 
@@ -238,6 +268,27 @@ const materialInputRef = useRef(null);
             </Box>
             <ErrorMessage touched={formikProduct.touched.materials} error={formikProduct.errors.materials} />
           </InputBlock>
+
+
+          <InputBlock>
+            <InputWrapper>
+            <InputIcon>
+      <MdFormatSize/> {/* Default upload icon */}
+    </InputIcon>
+              <InputField type="text" placeholder="Enter size" value={sizeInput} onKeyDown={handleSizeKeyDown} ref={sizeInputRef} onChange={(e) => setSizeInput(e.target.value)} />
+              {formikProduct.errors.sizes && formikProduct.touched.sizes && <RiErrorWarningLine fontSize={'22px'} color="red"/> }
+              <IconButton onClick={addSize}><BsPlus/></IconButton>
+            </InputWrapper>
+            <Box sx={{ display: "flex", gap: "5px", flexWrap: "wrap", marginTop:1}}>
+              {sizes.map((size, index) => (
+                <Box key={index} sx={{ padding: "4px", background: "#f0f0f0", borderRadius: "4px", cursor: "pointer" }} onClick={() => removeSize(index)}>
+                  {size} ×
+                </Box>
+              ))}
+            </Box>
+            <ErrorMessage touched={formikProduct.touched.sizes} error={formikProduct.errors.sizes} />
+          </InputBlock>
+
 
            <InputBlock>
         <InputWrapper>

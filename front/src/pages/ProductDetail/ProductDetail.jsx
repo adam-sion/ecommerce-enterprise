@@ -90,9 +90,8 @@ const ProductDetail = () => {
                   $alignItems="center"
                 >
                   <CategoryText>
-                    {product.category.charAt(0).toUpperCase() +
-                      product.category.slice(1)}{" "}
-                    / {product.subcategory}
+                    {product.category.name.charAt(0).toUpperCase() +
+                      product.category.name.slice(1)}{" "}
                   </CategoryText>
                   <LikeBtn product={product} WrapperComponent={IconItem} />
                 </Row>
@@ -103,8 +102,8 @@ const ProductDetail = () => {
                     $flexGap=".5rem"
                     type="horizontal"
                   >
-                    <Stars>{RenderStars(product.rating.rate)}</Stars>
-                    <OrderCount>{product.orders} Sold</OrderCount>
+                    {/* <Stars>{RenderStars(product.rating.rate)}</Stars> */}
+                    {/* <OrderCount>{product.orders} Sold</OrderCount> */}
                   </ProductQuality>
                 </ItemInfo>
                 <ProductTile as="h2">{product.title}</ProductTile>
@@ -123,9 +122,7 @@ const ProductDetail = () => {
                         <strong>Material</strong>:{" "}
                         {product.materials.join(", ")}.
                       </AboutItem>
-                      <AboutItem>
-                        <strong>Brand</strong>: {product.brand}
-                      </AboutItem>
+              
                     </AboutList>
                     {/* Only Show Small Screen */}
                     <PurchaseActionCol2>

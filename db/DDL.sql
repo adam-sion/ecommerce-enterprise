@@ -27,10 +27,12 @@ CREATE TABLE jtv_candles.products
 (
     id             SERIAL PRIMARY KEY,
     title          VARCHAR(50),
+    slug           VARCHAR(255),
     price          NUMERIC(10, 2),
     image          TEXT,
     thumbnails     TEXT,
     materials      TEXT,
+    sizes          TEXT,
     description    TEXT,
     stock_quantity INT,
     created_at     TIMESTAMP,

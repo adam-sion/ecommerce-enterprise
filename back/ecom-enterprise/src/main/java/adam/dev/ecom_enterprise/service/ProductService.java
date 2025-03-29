@@ -2,6 +2,7 @@ package adam.dev.ecom_enterprise.service;
 
 import adam.dev.ecom_enterprise.entity.Product;
 import adam.dev.ecom_enterprise.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,13 @@ public class ProductService {
     }
 
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        List<Product> products =  productRepository.findAll();
+
+        return products;
+    }
+
+    public Product getProductBySlug(String slug) {
+        return productRepository.findBySlug(slug).orElseThrow(()-> new EntityNotFoundException(String.format("Product with slug: %s not found", slug)));
     }
 
 }

@@ -157,12 +157,12 @@ const CarouselTopProducts = () => {
                   onTouchStart={(event) => handleDragStart(event, index)}
                   onClick={() => navigate(`/shop/${slide.slug}`)}
                   style={{
-                    backgroundImage: `url(${`/shop/${slide.category}/${slide.image}`})`,
+                    backgroundImage: `url(${`${slide.image}`})`,
                   }}
                 >
                   <CardContent>
                     <ContentWrapper>
-                      <Category>{slide.category}</Category>
+                      <Category>{slide.category.name}</Category>
                       <InfoPrice>
                         <ProductTitle>{slide.title}</ProductTitle>
                         <Price>${slide.price}</Price>

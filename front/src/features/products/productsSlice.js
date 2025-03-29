@@ -43,7 +43,7 @@ export const productsReducer = (state = initialState, action) => {
     case "products/set": {
       const sortedProducts = action.payload.allProductsData
         .slice()
-        .sort(sortByAvgCustomerReview);
+        // .sort(sortByAvgCustomerReview);
       return {
         ...state,
         products: sortedProducts,
@@ -56,7 +56,7 @@ export const productsReducer = (state = initialState, action) => {
 
     case "products/category_filter": {
       const filteredProducts = state.products.filter(
-        (product) => product.category === action.payload
+        (product) => product.category.name === action.payload
       );
       return {
         ...state,

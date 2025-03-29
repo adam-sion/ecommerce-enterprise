@@ -205,7 +205,7 @@ const CartSummary = () => {
               <GridItem className="item-1">
                 <ImageWrapper>
                   <img
-                    src={`/shop/${product.category}/${product.image}`}
+                    src={`${product.image}`}
                     alt={product.title}
                   />
                 </ImageWrapper>

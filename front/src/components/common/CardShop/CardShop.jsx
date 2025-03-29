@@ -69,7 +69,7 @@ const CardShop = ({ product }) => {
             (thumb, index) => (
               <Thumbnail
                 key={index}
-                src={`/shop/${product.category}/${thumb}`}
+                src={`${thumb}`}
                 alt={`thumbnail ${index + 1}`}
                 $active={thumb === activeThumbnail}
                 onClick={() => handleThumbnailClick(thumb)}
@@ -78,17 +78,17 @@ const CardShop = ({ product }) => {
           )}
         </ThumbnailsContainer>
         <ProductImage
-          src={`/shop/${product.category}/${mainImage}`}
+          src={`${mainImage}`}
           alt="product img"
         />
       </ImageContainer>
       <ProductContainer>
         {product.sale && <SaleTag>SALE {product.sale}% OFF</SaleTag>}
         <Heading as="h3">{product.title}</Heading>
-        <Rating>
+        {/* <Rating>
           <StarContainer>{RenderStars(product.rating.rate)}</StarContainer>
           <ReviewsCount>({product.rating.count} customer reviews)</ReviewsCount>
-        </Rating>
+        </Rating> */}
         <ProductDescription>
           {truncateDescription(product.description, 160)}
         </ProductDescription>
@@ -181,7 +181,7 @@ const CardShop = ({ product }) => {
           </Row>
         </div>
         <ProductMeta>
-          <MetaItem>Category: {product.category}</MetaItem>
+          <MetaItem>Category: {product.category.name}</MetaItem>
           <MetaItem>Material: {product.materials.join(", ")}</MetaItem>
         </ProductMeta>
         <SocialIcons />

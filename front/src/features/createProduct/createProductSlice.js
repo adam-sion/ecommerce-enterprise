@@ -10,6 +10,7 @@ const ADD_PRODUCT = gql`
     price
     materials
     thumbnails
+    sizes
     image
     description
     stockQuantity
@@ -26,12 +27,11 @@ const ADD_PRODUCT = gql`
 
 export const createProduct = createAsyncThunk("product/createProduct", async (formData, { rejectWithValue }) => {
     try {
-        console.log(formData);
         const { data } = await client.mutate({
             mutation: ADD_PRODUCT,
             variables: {
                 input: { title: formData.title, price: formData.price, materials: formData.materials,
-                    description: formData.description, stockQuantity: formData.stockQuantity,
+                    sizes: formData.sizes, description: formData.description, stockQuantity: formData.stockQuantity,
                     categoryId: formData.categoryId
                  },
                 image: formData.image,

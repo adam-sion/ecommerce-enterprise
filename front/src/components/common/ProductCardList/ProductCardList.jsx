@@ -153,13 +153,13 @@ const ProductCardList = ({ product }) => {
       <ImageWrapper>
         <Link to={"/shop/" + product.slug}>
           <ProductImage
-            src={`/shop/${product.category}/${product.image}`}
+            src={`${product.image}`}
             alt={product.title}
             $isHovered={hovered === product.id}
             $isExiting={exiting === product.id}
           />
           <ThumbnailImage
-            src={`/shop/${product.category}/${product.thumbnails[0]}`}
+            src={`${product.thumbnails[0]}`}
             alt={`${product.title} thumbnail`}
             $isHovered={hovered === product.id}
             $isExiting={exiting === product.id}
@@ -167,19 +167,19 @@ const ProductCardList = ({ product }) => {
         </Link>
       </ImageWrapper>
       <ProductInfo>
-        <ReviewContainer>
+        {/* <ReviewContainer>
           <Rating>
             <StarContainer>{RenderStars(product.rating.rate)}</StarContainer>
             <ReviewsCount>
               ({product.rating.count} customer reviews)
             </ReviewsCount>
           </Rating>
-        </ReviewContainer>
-        <Link to={"/shop/" + product.slug}>
+        </ReviewContainer> */}
+        <Link to={"/shop/" + product.id}>
           <Heading as="h5">{product.title}</Heading>
         </Link>
         <Category>
-          {product.category}, {product.subcategory}
+          {product.category.name}
         </Category>
         <Description>
           {truncateDescription(product.description, 120)}
