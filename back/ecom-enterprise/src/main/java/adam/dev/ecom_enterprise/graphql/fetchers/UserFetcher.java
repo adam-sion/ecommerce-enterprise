@@ -7,6 +7,7 @@ import adam.dev.ecom_enterprise.service.UserService;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,6 +19,7 @@ public class UserFetcher {
 
     private final UserMapper userMapper;
 
+    @PreAuthorize("isAuthenticated()")
     @DgsQuery
     public ResponseUserDTO me() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

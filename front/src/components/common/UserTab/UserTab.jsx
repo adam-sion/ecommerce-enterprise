@@ -14,7 +14,7 @@ export const UserTab = ({user})=> {
         dispatch(logout())
         dispatch(showToast({ message: "Logout successful", type: "success" }));
     }
-
+    
     return (
         <>
         <Container>
