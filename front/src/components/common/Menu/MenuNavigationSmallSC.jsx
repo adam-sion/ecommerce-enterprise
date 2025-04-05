@@ -7,6 +7,7 @@ import CustomAccordion, {
   CustomAccordionItem,
 } from "../../utils/CustomAccordion/CustomAccordion";
 import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 const MenuWrapper = styled.div`
   padding: var(--spacing-lg);
@@ -74,7 +75,9 @@ const menuItems = [
     icon: <MdKeyboardDoubleArrowRight />,
   },
 ];
+
 const MenuNavigationSmallSC = () => {
+
   return (
     <Sidebar.Provider>
       <Sidebar.Trigger opens="mySidebarMenu" position="right">
@@ -92,11 +95,28 @@ const MenuNavigationSmallSC = () => {
 export default MenuNavigationSmallSC;
 
 const HamburgerMenuContainer = () => {
+  const {isAdmin} = useSelector((state)=> state.auth);
+
   const { closeSidebar } = useContext(SidebarContext);
+  const updatedMenuItems = [
+
+    ...(isAdmin
+      ? [{
+          title: "ADMIN",
+          link: "#",
+          icon: <MdKeyboardDoubleArrowRight />,
+          items: [
+            { label: "Create", link: "/admin/create" },
+            { label: "Products", link: "/admin/products" },
+          ],
+        }]
+      : []),
+      ...menuItems,
+  ];
   return (
     <MenuWrapper>
       <CustomAccordion allowMultipleExpanded={false} listToExpand={["0"]}>
-        {menuItems.map((item, index) => (
+        {updatedMenuItems.map((item, index) => (
           <CustomAccordionItem
             key={index}
             uuid={String(index)}

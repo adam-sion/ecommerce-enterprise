@@ -4,6 +4,7 @@ import adam.dev.ecom_enterprise.dto.RegisterUserDTO;
 import adam.dev.ecom_enterprise.entity.Role;
 import adam.dev.ecom_enterprise.entity.User;
 import adam.dev.ecom_enterprise.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ public class UserService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     public void createOrUpdateUser(String email, String name, String provider, String oauthId, String picture) {
         userRepository.findByEmail(email)
                 .map(existingUser -> {

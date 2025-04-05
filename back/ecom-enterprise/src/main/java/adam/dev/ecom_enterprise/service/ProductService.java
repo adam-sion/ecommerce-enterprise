@@ -3,6 +3,7 @@ package adam.dev.ecom_enterprise.service;
 import adam.dev.ecom_enterprise.entity.Product;
 import adam.dev.ecom_enterprise.repository.ProductRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,8 +15,15 @@ public class ProductService {
 
     private final ProductRepository productRepository;
 
-    public Product createProduct(Product product) {
-        return productRepository.save(product);
+    @Transactional
+    public Product saveOrOverrideProduct(Product product) {
+        return productRepository.findByTitle(product.getTitle())
+                .map(currentProduct -> {
+                   Long id = currentProduct.getId();
+                   product.setId(id);
+
+                   return productRepository.save(product);
+                }).orElseGet(()-> productRepository.save(product));
     }
 
     public List<Product> getAllProducts() {

@@ -109,6 +109,28 @@ const MenuNavigationLargeSC = () => {
     <Nav aria-label="Main navigation">
       <NavList>
         <NavLink to="/">Home</NavLink>
+
+        {isAdmin && <MenuItem
+          label={
+            <NavLink to="#">
+              Admin
+              <IconWrapper>
+                <FaChevronDown />
+              </IconWrapper>
+            </NavLink>
+          }
+        >
+          <Dropdown>
+            <DropdownColumnContainer>
+            {<DropdownItem to="/admin/create">Create</DropdownItem>}
+            </DropdownColumnContainer>
+            <DropdownColumnContainer>
+            {<DropdownItem to="/admin/products">Products</DropdownItem>}
+            </DropdownColumnContainer>
+          </Dropdown>
+        </MenuItem>
+}
+
         <MenuItem
           label={
             <NavLink to="#">
@@ -121,7 +143,6 @@ const MenuNavigationLargeSC = () => {
         >
           <Dropdown minWidth={"30rem"}>
             <DropdownColumnContainer>
-            {isAdmin ? <DropdownItem to="/admin/products">Create</DropdownItem> : <></>}
               <DropdownItem to="/all-products">Shop Standard</DropdownItem>
               <DropdownItem to="/list-shop">Shop List</DropdownItem>
               <DropdownItem to="/cart-summary">Shopping cart</DropdownItem>
@@ -139,6 +160,8 @@ const MenuNavigationLargeSC = () => {
             </DropdownColumnContainer>
           </Dropdown>
         </MenuItem>
+
+       
 
         <MenuItem
           minWidth={"45rem"}

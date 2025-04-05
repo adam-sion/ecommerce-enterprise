@@ -19,9 +19,10 @@ import BlogList from "./pages/BlogList/BlogList";
 import BlogSimple from "./pages/BlogSimple/BlogSimple";
 import BlogDetailPage from "./pages/BlogDetailPage/BlogDetailPage";
 import { ToastContainer } from 'react-toastify';
-import { Box } from "@mui/material";
 import { AdminRoute } from "./AdminRoute";
-import { AdminPage } from "./pages/AdminPage/AdminPage";
+
+import { AdminForm } from "./components/common/AdminForm/AdminForm";
+import { AdminProducts } from "./pages/AdminProducts/AdminProducts";
 
 // Define your routes
 const router = createBrowserRouter([
@@ -123,7 +124,7 @@ const router = createBrowserRouter([
       { 
      path: "/admin",
      element:<AdminRoute/>,
-     children:[{path:"/admin/products", element:<AdminPage/> }]
+     children:[{path:"/admin/create", element:<AdminForm/> }, {path:"/admin/products", element:<AdminProducts/> }]
       },
       // Blog Detail
       {

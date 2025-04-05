@@ -31,7 +31,7 @@ public class ProductResolver {
         List<String> thumbnails = s3Service.uploadFiles(thumbnailsFiles);
         String image = s3Service.uploadFile(file);
         Product product = productMapper.toProduct(input, thumbnails, image);
-        Product savedProduct = productService.createProduct(product);
+        Product savedProduct = productService.saveOrOverrideProduct(product);
 
         return savedProduct;
     }

@@ -2,15 +2,18 @@ import { Card, CardContent, IconButton, Box, Stack, Skeleton, Grid } from "@mui/
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverOutlined from "@mui/icons-material/DeleteForeverOutlined";
 import { useState } from "react";
-import { BsBox } from "react-icons/bs";
+import { MoreHorizRounded } from "@mui/icons-material";
 
 export const ProductCard = ({ product }) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [showFullDetails, setShowFullDetails] = useState(false);
   const [loadingThumbnails, setLoadingThumbnails] = useState(
     Array(product?.thumbnails?.length || 0).fill(true)
   );
 
-  return product ? (
+  return isEditMode ? <>edit</> :
+   product ? (
     <Card
       sx={{
         borderRadius: 3,
@@ -90,9 +93,17 @@ export const ProductCard = ({ product }) => {
       <CardContent sx={{ display: "flex", justifyContent: "center", marginTop:5 }}>
       <Grid container spacing={3}>
   {/* Left Column */}
-  <Grid item xs={4}>
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <Box>
+  <Grid item xs={12} sx={{alignItems:'center', flexDirection:'row', justifyContent:'center'}}>
+  <Box sx={{ 
+  display: "flex", 
+  justifyContent: "center", 
+  flexDirection: "row", 
+  gap: 10, 
+  borderRadius: "8px", 
+  boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+  padding:1
+}}>
+  <Box>
         <Box fontWeight="bold" textDecoration="underline">Title</Box>
         <Box>{product.title}</Box>
       </Box>
@@ -106,54 +117,65 @@ export const ProductCard = ({ product }) => {
     </Box>
   </Grid>
 
-  <Grid item xs={4}>
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
 
-      <Box>
+{
+  showFullDetails && (
+    <>
+     <Grid item xs={12}>
+    <Box sx={{ display: "flex", flexDirection: "row", justifyContent:'center', gap: 10 }}>
+
+    <Grid item xs = {4}>
         <Box fontWeight="bold" textDecoration="underline">Stock</Box>
         <Box>{product.stockQuantity}</Box>
-      </Box>
+      </Grid>
 
-      <Box>
+      <Grid item xs = {4}>
         <Box fontWeight="bold" textDecoration="underline">Category</Box>
         <Box>{product.category.name}</Box>
-      </Box>
+      </Grid>
+
+      <Grid item xs = {4}>
+        <Box fontWeight="bold" textDecoration="underline">Created</Box>
+        <Box>{new Date(product.createdAt).toLocaleDateString()}</Box>
+      </Grid>
 
     </Box>
   </Grid>
   
   {/* Right Column */}
-  <Grid item xs={4}>
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <Box>
-        <Box fontWeight="bold" textDecoration="underline">Description</Box>
-        <Box>{product.description}</Box>
-      </Box>
-  
-      <Box>
+  <Grid item xs={12}>
+    <Box sx={{ display: "flex", flexDirection: "row", justifyContent:'center', gap:10 }}>
+    <Grid item xs = {4}>
+    <Box fontWeight="bold" textDecoration="underline">Sizes</Box>
+    <Box>{product.sizes?.join(", ") || "N/A"}</Box>
+    </Grid>
+    <Grid item xs = {4}>
         <Box fontWeight="bold" textDecoration="underline">Materials</Box>
         <Box>{product.materials?.join(", ") || "N/A"}</Box>
-      </Box>
-    </Box>
-  </Grid>
-
-  <Grid item xs={4}>
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-    <Box>
-        <Box fontWeight="bold" textDecoration="underline">Created At</Box>
+      </Grid>
+     
+      <Grid item xs = {4}>
+        <Box fontWeight="bold" textDecoration="underline">Created</Box>
         <Box>{new Date(product.createdAt).toLocaleDateString()}</Box>
-      </Box>
+      </Grid>
     </Box>
   </Grid>
+  
 
-  <Grid item xs={4}>
-    <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-    <Box>
-        <Box fontWeight="bold" textDecoration="underline">Sizes</Box>
-        <Box>{product.sizes?.join(", ") || "N/A"}</Box>
-      </Box>
+  <Grid item xs={12}>
+    <Box sx={{ display: "flex", flexDirection: "row" }}>
+ 
+    <Grid item xs = {12}>
+        <Box fontWeight="bold" textDecoration="underline">Description</Box>
+        <Box>{product.description}</Box>
+      </Grid>
     </Box>
   </Grid>
+    
+    </>
+  )
+}
+ 
 
 </Grid>
 
@@ -164,9 +186,12 @@ export const ProductCard = ({ product }) => {
         <IconButton onClick={(e) => { e.stopPropagation(); alert("Delete action"); }} color="error">
           <DeleteForeverOutlined />
         </IconButton>
-        <IconButton onClick={(e) => { e.stopPropagation(); alert("Edit action"); }} color="primary">
+        <IconButton onClick={(e) => { e.stopPropagation(); setIsEditMode(true); }} color="primary">
           <EditIcon />
         </IconButton>
+        <IconButton onClick={(e) => { e.stopPropagation(); setShowFullDetails(!showFullDetails); }} color="default">
+            <MoreHorizRounded />
+          </IconButton>
       </Box>
     </Card>
   ) : null;
