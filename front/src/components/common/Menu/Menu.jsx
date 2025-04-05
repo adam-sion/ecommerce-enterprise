@@ -2,7 +2,7 @@ import Search from "../../../assets/icons/search.svg?react";
 import Heart from "../../../assets/icons/heart.svg?react";
 import User from "../../../assets/icons/user.svg?react";
 import Shop from "../../../assets/icons/shop.svg?react";
-import LogoWebsite from "../../../assets/img/logo-website/pureEssence-logo1.png";
+import LogoWebsite from "../../../assets/img/logo-website/logo.jpeg";
 import { Link } from "react-router-dom";
 import LoginRegister from "../LoginRegister/LoginRegister";
 import { useEffect, useState } from "react";

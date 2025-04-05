@@ -56,7 +56,7 @@ const Title = styled.h1`
   z-index: 1;
   /* Aurora effect mask */
   &::after {
-    content: "The Best Natural Beauty Products Here";
+    content: "The Best Natural Handmade Treasures Here";
     position: absolute;
     top: 0;
     left: 0;

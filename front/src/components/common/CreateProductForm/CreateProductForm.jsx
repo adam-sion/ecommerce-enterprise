@@ -70,7 +70,7 @@ const sizeInputRef = useRef(null);
     formikProduct.setFieldValue("sizes", updatedSizes);
   };
 
-    const [categories, setCategories] = useState([]);
+    const {categories} = useSelector((state)=> state.category);
 
     const handleThumbnailsChange = (event) => {
       const files = Array.from(event.target.files);
@@ -83,15 +83,6 @@ const sizeInputRef = useRef(null);
         formikProduct.values.thumbnails.filter((_, i) => i !== index)
       );
     };
-
-
-    useEffect(()=> {
-      (async ()=> {
-       const result =  await dispatch(getCategories());
-       setCategories(result.payload);
-      })()
-    
-    }, [])
 
   return (
        <>
@@ -406,7 +397,7 @@ const sizeInputRef = useRef(null);
       <option value="" disabled>
         Select Category
       </option>
-      {categories.map((category) => (
+      {categories.length > 0 && categories.map((category) => (
         <option key={category.id} value={category.id}>
           {category.name}
         </option>

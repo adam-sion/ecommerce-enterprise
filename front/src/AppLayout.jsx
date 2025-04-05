@@ -6,14 +6,15 @@ import Footer from "./components/common/Footer/Footer";
 import Menu from "./components/common/Menu/Menu";
 import Loader from "./components/utils/Loader/Loader";
 import { getUser, refreshToken } from "./features/auth/authSlice";
+import { getCategories } from "./features/createCategory/categorySlice";
 
 const AppLayout = () => {
-  const isFetching = useSelector((state) => state.products.loading || state.auth.userLoading);
+  const isFetching = false;
   const [loadingImages, setLoadingImages] = useState(true); // Local state to track image loading
   const dispatch = useDispatch();
 
   useEffect(() => {
-   
+    dispatch(getCategories());
     dispatch(fetchProducts());
     dispatch(fetchBlog());
    dispatch(refreshToken());

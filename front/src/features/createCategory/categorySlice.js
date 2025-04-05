@@ -59,7 +59,10 @@ export const getCategories = createAsyncThunk("category/getCategories", async (_
 const categorySlice = createSlice({
     name: "category",
     initialState: {
+        categories: [],
         createCategoryLoading: false,
+        getCategoriesLoading:false,
+        getCategoriesError:null,
          createCategoryError: null,
     },
     reducers: {
@@ -78,9 +81,23 @@ const categorySlice = createSlice({
             })
             .addCase(createCategory.fulfilled, (state, action) => {
                 state.createCategoryLoading = false;
+
             })
             .addCase(createCategory.rejected, (state, action) => {
                 state.createCategoryLoading = false;
+                state.createCategoryError = action.payload;
+            })
+            .addCase(getCategories.pending, (state) => {
+                state.getCategoriesLoading = true;
+            })
+            .addCase(getCategories.fulfilled, (state, action) => {
+                state.getCategoriesLoading = false;
+                state.categories = action.payload;
+                console.log(state.categories);
+
+            })
+            .addCase(getCategories.rejected, (state, action) => {
+                state.getCategoriesLoading = false;
                 state.createCategoryError = action.payload;
             });
     }

@@ -2,7 +2,6 @@
 const initialState = {
   products: [],
   loading: true,
-  productsByCate: [],
   filteredProducts: [],
   activeFilters: {
     price: { min: 0, max: Infinity },
@@ -48,7 +47,6 @@ export const productsReducer = (state = initialState, action) => {
         ...state,
         products: sortedProducts,
         filteredProducts: sortedProducts,
-        productsByCate: action.payload.cateProductsData,
         loading: false,
         restartFilter: sortedProducts,
       };

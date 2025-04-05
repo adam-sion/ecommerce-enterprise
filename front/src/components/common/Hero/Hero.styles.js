@@ -71,7 +71,7 @@ export const HeroTitle = styled(Heading).attrs({ as: "h1" })`
   animation: ${zoomInDown} 2s var(--transition-normal);
   z-index: 1;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
-  font-family: "Playfair Display", serif; // Elegant font style
+
   font-size: 3.5rem; // Larger font size for impact
 
   @media (max-width: 768px) {

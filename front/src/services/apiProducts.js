@@ -70,17 +70,11 @@ export const fetchProducts = () => {
       // Fetch your products data
       const allProductsData = await allData();
       console.log(allProductsData);
-      const cateProductsData = {
-        skincare: getProducts().skincare,
-        haircare: getProducts().haircare,
-        makeup: getProducts().makeup,
-        wellness: getProducts().wellness,
-      };
 
       // Dispatch an action to update the state with the fetched data
       dispatch({
         type: "products/set",
-        payload: { allProductsData, cateProductsData },
+        payload: { allProductsData},
       });
     } catch (error) {
       console.error("Error fetching products:", error);

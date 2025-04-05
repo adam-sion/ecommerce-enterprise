@@ -7,9 +7,9 @@ const Hero = () => {
   return (
     <HeroSection>
       <TextContainer>
-        <HeroTitle>Welcome to PureEssence</HeroTitle>
+        <HeroTitle>Welcome to Je te veux</HeroTitle>
         <Subtitle $customBackground={true}>
-          Discover the Essence of Beauty
+          Discover the glow of handcrafted dreams
         </Subtitle>
         <Link to="/all-products">
           <CustomButton color="black">Explore Now</CustomButton>

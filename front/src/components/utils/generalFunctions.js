@@ -64,15 +64,20 @@ export const formatCurrency = (price) => {
 // This function returns an array of image objects for a product, including the main image and up to three thumbnails, if they exist.
 // For ProductDetail Image presentation
 export const imgCatalog = (product) => {
-  if (product.image && product.thumbnails && product.thumbnails.length > 0) {
-    return [
-      { id: 1, image: `${product.image}` },
-      { id: 2, image: `${product.thumbnails[0]}` },
-      { id: 3, image: `${product.thumbnails[1]}` },
-      { id: 4, image: `${product.thumbnails[2]}` },
-    ];
+  if (product.image && Array.isArray(product.thumbnails)) {
+    const catalog = [{ id: 1, image: product.image }];
+
+    const thumbnails = product.thumbnails.map((thumb, index) => ({
+      id: index + 2, 
+      image: thumb,
+    }));
+
+    return [...catalog, ...thumbnails];
   }
+
+  return []; 
 };
+
 export const formatDate = (dateString) => {
   const options = { day: "2-digit", month: "long", year: "numeric" };
   return new Date(dateString).toLocaleDateString("en-US", options);

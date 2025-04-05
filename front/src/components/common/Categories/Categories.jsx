@@ -19,15 +19,19 @@ import "@splidejs/react-splide/css";
 import Row from "../../utils/Row/Row"; // Ensure Row is correctly imported
 import { CircularButton } from "../Carousels/CarouselTopProducts/CarouselTopProducts.styles";
 import { SvgBtnContainer } from "../ProductCarousel/ProductCarousel.styles";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Categories = ({ title = true }) => {
+  const {categories} = useSelector((state)=> state.category);
+
   return (
     <Section>
       <Content>
         {title && (
           <>
             <Heading as="h2" $marginBottom="1.4rem">
-              Explore Our Natural Beauty Products
+              Explore Our Natural Handmade Products
             </Heading>
             <Heading as="h4">Discover a variety of our products</Heading>
           </>
@@ -51,55 +55,29 @@ const Categories = ({ title = true }) => {
               },
             },
             gap: "1rem",
-            arrows: false, // Disable default arrows for larger screens
+            arrows: true, // Disable default arrows for larger screens
             pagination: false,
             drag: "free",
             snap: true,
           }}
         >
-          <SplideTrack>
-            <SplideSlide>
+           <SplideTrack>
+            {
+              categories.map((category)=> (
+                <SplideSlide key={category.id}>
               <SlideCard>
-                <Card className="skincare">
-                  <StyledLink to="/product-category/skincare">
-                    <Image src={skincare} alt="Skincare" />
-                    <Name $colorText="white">Skincare</Name>
+                <Card className={category.name}>
+                  <StyledLink to={`/product-category/${category.name}`}>
+                    <Image src={category.image} alt={category.name} />
+                    <Name $colorText="white">{category.name}</Name>
                   </StyledLink>
                 </Card>
               </SlideCard>
             </SplideSlide>
-            <SplideSlide>
-              <SlideCard>
-                <Card className="haircare">
-                  <StyledLink to="/product-category/haircare">
-                    <Image src={haircare} alt="Haircare" />
-                    <Name $colorText="white">Haircare</Name>
-                  </StyledLink>
-                </Card>
-              </SlideCard>
-            </SplideSlide>
-            <SplideSlide>
-              <SlideCard>
-                <Card className="makeup">
-                  <StyledLink to="/product-category/makeup">
-                    <Image src={makeup} alt="Makeup" />
-                    <Name $colorText="white">Makeup</Name>
-                  </StyledLink>
-                </Card>
-              </SlideCard>
-            </SplideSlide>
-            <SplideSlide>
-              <SlideCard>
-                <Card className="wellness">
-                  <StyledLink to="/product-category/wellness">
-                    <Image src={wellness} alt="Wellness" />
-                    <Name $colorText="white">Wellness</Name>
-                  </StyledLink>
-                </Card>
-              </SlideCard>
-            </SplideSlide>
-          </SplideTrack>
-
+              ))
+            }
+            </SplideTrack>
+          
           {/* Custom arrows */}
           <div className="splide__arrows">
             <Row

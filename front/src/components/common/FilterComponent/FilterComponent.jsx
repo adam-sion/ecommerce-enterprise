@@ -213,27 +213,6 @@ const FilterComponent = ({ dispatchAction }) => {
               </Row>
             </FilterSizeList>
           </CustomAccordionItem>
-
-          <CustomAccordionItem uuid="3" heading="Brand">
-            <FilterBrandList>
-              {Object.entries(productsBrand).map(([brand, count]) => (
-                <li key={brand} className="brand-item">
-                  <BrandLabel>
-                    <BrandCheckbox
-                      type="checkbox"
-                      value={brand}
-                      checked={selectedBrand === brand}
-                      onChange={(e) =>
-                        handleBrandChange(e.target.value, e.target.checked)
-                      }
-                    />
-                    <BrandName>{brand}:</BrandName>
-                    <BrandCount>{count}</BrandCount>
-                  </BrandLabel>
-                </li>
-              ))}
-            </FilterBrandList>
-          </CustomAccordionItem>
         </CustomAccordion>
 
         <CustomButton

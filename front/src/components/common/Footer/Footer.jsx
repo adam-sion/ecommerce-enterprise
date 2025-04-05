@@ -5,7 +5,7 @@ import CreditCards from "../../utils/CreditCards/CreditCards";
 import ShareSocialMediaIcons from "../../utils/ShareSocialMediaIcons/ShareSocialMediaIcons";
 import Row from "../../utils/Row/Row";
 import Newsletter from "../Newsletter/Newsletter";
-import LogoWebsite from "../../../assets/img/logo-website/pureEssence-logo1.png";
+import LogoWebsite from "../../../assets/img/logo-website/logo.jpeg";
 import {
   Container,
   FooterWrapper,

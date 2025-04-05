@@ -25,7 +25,7 @@ import { useNavigate } from "react-router-dom";
 
 const CarouselTopProducts = () => {
   const allProducts = useSelector((state) => state.products.products);
-  const slidesData = allProducts.slice(0, 3);
+  const slidesData =  allProducts.slice(0, 3);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);

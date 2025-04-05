@@ -19,13 +19,26 @@ import {
   InfoPrice,
 } from "./CarouselTopProductsByCat.styles.js";
 import Row from "../../../utils/Row/Row.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import RotatingText from "../../../utils/RotatingText/RotatingText.jsx";
 import { useNavigate } from "react-router-dom";
 
 const CarouselTopProductsByCat = () => {
-  const { haircare } = useSelector((state) => state.products.productsByCate);
-  const slidesData = haircare.slice(0, 3);
+  const dispatch = useDispatch();
+  const { categories } = useSelector((state) => state.category);
+  const filteredProducts = useSelector((state) => state.products.filteredProducts);
+  
+  const [category, setCategory] = useState(null);
+
+  useEffect(() => {
+    if (categories.length > 0) {
+      const latestCategory = categories[categories.length - 1];
+      setCategory(latestCategory);
+      dispatch({ type: "products/category_filter", payload: latestCategory });
+    }
+  }, [dispatch, categories]);
+
+  const slidesData = filteredProducts ? filteredProducts.slice(0, 3) : [];
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const dragStartX = useRef(0);
@@ -33,6 +46,7 @@ const CarouselTopProductsByCat = () => {
   const titleContainerRef = useRef(null);
   const carouselContainerRef = useRef(null);
   const navigate = useNavigate();
+
   const handleDragStart = (event, index) => {
     setIsDragging(true);
     dragStartX.current = getCursorPositionX(event);
@@ -43,7 +57,7 @@ const CarouselTopProductsByCat = () => {
     if (isDragging) {
       const currentPositionX = getCursorPositionX(event);
       const difference = currentPositionX - dragStartX.current;
-      const threshold = 100; // Adjust as needed for sensitivity
+      const threshold = 100;
 
       if (difference > threshold) {
         prevSlide();
@@ -66,11 +80,11 @@ const CarouselTopProductsByCat = () => {
   };
 
   const nextSlide = () => {
-    setCurrentSlide((currentSlide + 1) % slidesData.length);
+    setCurrentSlide((prev) => (prev + 1) % slidesData.length);
   };
 
   const prevSlide = () => {
-    setCurrentSlide((currentSlide - 1 + slidesData.length) % slidesData.length);
+    setCurrentSlide((prev) => (prev - 1 + slidesData.length) % slidesData.length);
   };
 
   useEffect(() => {
@@ -80,7 +94,6 @@ const CarouselTopProductsByCat = () => {
           if (entry.isIntersecting) {
             entry.target.classList.add("faq-section-visible");
             entry.target.classList.remove("faq-section-hidden");
-
             observer.unobserve(entry.target);
           } else {
             entry.target.classList.add("faq-section-hidden");
@@ -94,23 +107,16 @@ const CarouselTopProductsByCat = () => {
     const titleSection = titleContainerRef.current;
     const carouselSection = carouselContainerRef.current;
 
-    if (titleSection) {
-      observer.observe(titleSection);
-    }
-
-    if (carouselSection) {
-      observer.observe(carouselSection);
-    }
+    if (titleSection) observer.observe(titleSection);
+    if (carouselSection) observer.observe(carouselSection);
 
     return () => {
-      if (titleSection) {
-        observer.unobserve(titleSection);
-      }
-      if (carouselSection) {
-        observer.unobserve(carouselSection);
-      }
+      if (titleSection) observer.unobserve(titleSection);
+      if (carouselSection) observer.unobserve(carouselSection);
     };
   }, []);
+
+  if (!category || slidesData.length === 0) return null; // Optional: add a loader
 
   return (
     <Section>
@@ -128,28 +134,26 @@ const CarouselTopProductsByCat = () => {
               let position = "";
               if (index === currentSlide) {
                 position = "center";
-              } else if (
-                index ===
-                (currentSlide - 1 + slidesData.length) % slidesData.length
-              ) {
+              } else if (index === (currentSlide - 1 + slidesData.length) % slidesData.length) {
                 position = "left";
               } else if (index === (currentSlide + 1) % slidesData.length) {
                 position = "right";
               }
+
               return (
                 <Card
-                  key={index}
+                  key={slide.id}
                   $position={position}
                   onMouseDown={(event) => handleDragStart(event, index)}
                   onTouchStart={(event) => handleDragStart(event, index)}
                   onClick={() => navigate(`/shop/${slide.slug}`)}
                   style={{
-                    backgroundImage: `url(${`/shop/${slide.category}/${slide.image}`})`,
+                    backgroundImage: `url(${slide.image})`,
                   }}
                 >
                   <CardContent>
                     <ContentWrapper>
-                      <Category>{slide.category}</Category>
+                      <Category>{slide.category?.name}</Category>
                       <InfoPrice>
                         <ProductTitle>{slide.title}</ProductTitle>
                         <Price>${slide.price}</Price>
@@ -161,12 +165,7 @@ const CarouselTopProductsByCat = () => {
             })}
           </CarouselEle>
           <CircularButtonContainer>
-            <Row
-              type="horizontal"
-              $justifyContent="center"
-              $alignItems="center"
-              $flexGap="1rem"
-            >
+            <Row type="horizontal" $justifyContent="center" $alignItems="center" $flexGap="1rem">
               <CircularButton onClick={prevSlide}>
                 <FaArrowLeft />
               </CircularButton>
@@ -176,9 +175,10 @@ const CarouselTopProductsByCat = () => {
             </Row>
           </CircularButtonContainer>
         </CarouselContainer>
+
         <TitleContainer ref={titleContainerRef}>
           <Heading as="h4" $marginBottom="0px" $colorText="black">
-            Discover Our Hair Care Products
+            Discover Our {category.name} Products
           </Heading>
           <Heading as="h2" $customBackground={false} $marginBottom="0px">
             Most Relevant Products
@@ -186,7 +186,7 @@ const CarouselTopProductsByCat = () => {
           <RotatingText
             textInput=" ALL PRODUCTS - ALL PRODUCTS"
             textSize="1.45rem"
-            linkTo="/product-category/haircare"
+            linkTo={`/product-category/${category.name}`}
           />
         </TitleContainer>
       </CarouselWrapper>
@@ -195,3 +195,4 @@ const CarouselTopProductsByCat = () => {
 };
 
 export default CarouselTopProductsByCat;
+

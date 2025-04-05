@@ -1,6 +1,5 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { getCategories } from "../../../features/createCategory/categorySlice";
 import { CategoryCard } from "../CreateCategoryCard/CategoryCard";
 import { FormContent, InputBlock, InputField, InputIcon, InputWrapper } from "../../utils/GeneralComponents/GeneralComponents";
 import { MdCategory } from "react-icons/md";
