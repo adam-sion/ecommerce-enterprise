@@ -42,7 +42,7 @@ const CardContainer = styled.div`
 const ImageWrapper = styled.div`
   position: relative;
   flex: 0.4;
-  height: auto;
+  height: 100%;
   overflow: hidden;
   border-radius: var(--border-radius-medium);
   margin-right: var(--spacing-lg);
@@ -175,7 +175,7 @@ const ProductCardList = ({ product }) => {
             </ReviewsCount>
           </Rating>
         </ReviewContainer> */}
-        <Link to={"/shop/" + product.id}>
+        <Link to={"/shop/" + product.slug}>
           <Heading as="h5">{product.title}</Heading>
         </Link>
         <Category>

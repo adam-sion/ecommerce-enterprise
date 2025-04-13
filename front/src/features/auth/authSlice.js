@@ -25,7 +25,6 @@ export const getUser = createAsyncThunk("auth/getUser", async (_, { rejectWithVa
         });
         return data.me;
     } catch (error) {
-        console.error("Get user error:", error);
         return rejectWithValue(error.message);
     }
 });

@@ -55,6 +55,13 @@ public class S3Service {
         return fileUrls;
     }
 
+    public void deleteFiles(List<String> files) {
+        if (files != null) {
+            files.parallelStream()
+                    .forEach(this::deleteFile);
+        }
+    }
+
     public void deleteFile(String fileUrl) {
         try {
             String key = (new URI(fileUrl)).getPath().substring(1);

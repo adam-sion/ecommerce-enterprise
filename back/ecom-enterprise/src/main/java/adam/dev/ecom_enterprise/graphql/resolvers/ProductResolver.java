@@ -36,4 +36,14 @@ public class ProductResolver {
         return savedProduct;
     }
 
+    @DgsMutation
+    public Product deleteProduct(@InputArgument(name = "id") String id) {
+        Product product =  productService.deleteProductById(Long.parseLong(id));
+        List<String> filesToDelete = product.getThumbnails();
+        filesToDelete.add(product.getImage());
+        s3Service.deleteFiles(filesToDelete);
+
+        return product;
+    }
+
 }
