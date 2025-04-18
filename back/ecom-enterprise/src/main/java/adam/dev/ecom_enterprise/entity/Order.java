@@ -10,6 +10,7 @@ import lombok.ToString;
 
 import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "orders")
@@ -47,5 +48,10 @@ public class Order {
     @JsonBackReference(value = "user-orders")
     @JoinColumn(name = "user_id")
     private User user;
+
+    @PrePersist
+    private void prePersist() {
+        this.id = UUID.randomUUID().toString();
+    }
 
 }

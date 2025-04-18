@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -44,5 +45,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonManagedReference(value = "user-orders")
     private List<Order> orders;
+
+    @PrePersist
+    private void prePersist() {
+        this.id = UUID.randomUUID().toString();
+    }
 
 }

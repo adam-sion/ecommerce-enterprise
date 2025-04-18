@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "customer_details")
 @NoArgsConstructor
@@ -42,5 +44,10 @@ public class CustomerDetails {
     @OneToOne(mappedBy = "customerDetails")
     @JsonBackReference(value = "order-customer")
     private Order order;
+
+    @PrePersist
+    private void prePersist() {
+        this.id = UUID.randomUUID().toString();
+    }
 
 }

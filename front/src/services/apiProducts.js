@@ -46,7 +46,6 @@ const GET_PRODUCT_BY_SLUG = gql`
   }
 `;
 
-// Example of data collection. In your case it would probably be from an external api
 export function getProducts() {
   return productsData;
 }
@@ -77,8 +76,6 @@ export const fetchProducts = () => {
         payload: { allProductsData},
       });
     } catch (error) {
-      console.error("Error fetching products:", error);
-      throw error; // Rethrow the error to handle it outside of this function
     }
   };
 };

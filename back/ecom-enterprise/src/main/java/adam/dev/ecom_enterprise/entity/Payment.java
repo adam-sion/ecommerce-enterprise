@@ -16,7 +16,6 @@ import lombok.ToString;
 public class Payment {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "payment_intent_id")

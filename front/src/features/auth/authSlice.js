@@ -37,7 +37,6 @@ export const login = createAsyncThunk("auth/login", async (userData, { rejectWit
     
         return response.data;
     } catch (error) {
-        console.error("Login error:", error);
         return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
 });
@@ -48,7 +47,6 @@ export const logout = createAsyncThunk("auth/logout", async (userData, { rejectW
     
        return response.data;
     } catch (error) {
-        console.error("Logout error:", error);
         return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
 });
@@ -59,7 +57,6 @@ export const signup = createAsyncThunk("auth/signup", async (userData, { rejectW
         const response = await authApi.post("/signup", userData, { withCredentials: true });
         return response.data;
     } catch (error) {
-        console.error("Signup error:", error);
         return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
 });
@@ -70,7 +67,6 @@ export const verifyRegister = createAsyncThunk("auth/verify", async (token, { re
         const response = await authApi.get("/verify", { withCredentials: true, params: { token } });
         return response.data;
     } catch (error) {
-        console.error("Verification error:", error);
         return rejectWithValue(error.response ? error.response.data.message : error.message);
     }
 });
@@ -80,7 +76,6 @@ export const refreshToken = createAsyncThunk("auth/refreshToken", async () => {
         const response = await authApi.post("/refresh-token", {}, { withCredentials: true });
         return response.data;
     } catch (error) {
-        console.error("refresh token error:", error);
     }
 });
 

@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "order_items")
 @NoArgsConstructor
@@ -35,5 +37,9 @@ public class OrderItem {
     @ManyToOne
     private Product product;
 
+    @PrePersist
+    private void prePersist() {
+        this.id = UUID.randomUUID().toString();
+    }
 
 }

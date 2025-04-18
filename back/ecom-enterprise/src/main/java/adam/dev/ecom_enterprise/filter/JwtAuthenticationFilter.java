@@ -30,7 +30,6 @@ private final CustomUserDetailsService userDetailsService;
     protected void doFilterInternal(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
             throws ServletException, IOException {
         String servletPath = request.getServletPath();
-
         if (!servletPath.startsWith("/auth/") && !servletPath.startsWith("/oauth2/authorization/")) {
             String jwt = getJwtFromCookies(request);
 

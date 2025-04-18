@@ -34,6 +34,7 @@ public class RegisterVerificationService {
         });
 
         String token = UUID.randomUUID().toString();
+
         try {
             String userJson = objectMapper.writeValueAsString(registerUserDTO);
             VerificationInfoDTO verificationInfo = tokenService.storeToken(userJson, token);

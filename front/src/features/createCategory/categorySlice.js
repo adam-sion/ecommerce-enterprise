@@ -37,7 +37,6 @@ export const createCategory = createAsyncThunk("category/createCategory", async 
         });
         return data.addCategory;
     } catch (error) {
-        console.error("Create category error:", error);
         return rejectWithValue(error.message);
     }
 });
@@ -50,7 +49,6 @@ export const getCategories = createAsyncThunk("category/getCategories", async (_
         });
         return data.categories;
     } catch (error) {
-        console.error("Create category error:", error);
         return rejectWithValue(error.message);
     }
 });

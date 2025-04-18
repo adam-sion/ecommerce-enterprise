@@ -8,6 +8,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "categories")
@@ -29,5 +30,10 @@ public class Category {
     @OneToMany(mappedBy = "category")
     @JsonBackReference(value = "product-category")
     private List<Product> products;
+
+    @PrePersist
+    private void prePersist() {
+        this.id = UUID.randomUUID().toString();
+    }
 
 }
