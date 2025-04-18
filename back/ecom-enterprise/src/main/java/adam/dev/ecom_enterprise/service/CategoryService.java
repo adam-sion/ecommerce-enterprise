@@ -17,7 +17,7 @@ public class CategoryService {
         return categoryRepository.save(category);
     }
 
-    public Category findCategoryById(Long id) {
+    public Category findCategoryById(String id) {
         return categoryRepository.findById(id).orElseThrow(()-> new RuntimeException(String.format("Category with id '%s' not found", id)));
     }
 

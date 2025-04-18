@@ -4,7 +4,7 @@ CREATE SCHEMA jtv_candles;
 
 CREATE TABLE jtv_candles.users
 (
-    id             SERIAL PRIMARY KEY,
+    id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     email          VARCHAR(255),
     password       VARCHAR(255),
     name           VARCHAR(255),
@@ -17,7 +17,7 @@ CREATE TABLE jtv_candles.users
 
 CREATE TABLE jtv_candles.categories
 (
-    id    SERIAL PRIMARY KEY,
+    id    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name  VARCHAR(255),
     image TEXT
 );
@@ -25,7 +25,7 @@ CREATE TABLE jtv_candles.categories
 
 CREATE TABLE jtv_candles.products
 (
-    id             SERIAL PRIMARY KEY,
+    id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     title          VARCHAR(50),
     slug           VARCHAR(255),
     price          NUMERIC(10, 2),
@@ -36,14 +36,14 @@ CREATE TABLE jtv_candles.products
     description    TEXT,
     stock_quantity INT,
     created_at     TIMESTAMP,
-    category_id    BIGINT,
+    category_id    UUID,
     CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES jtv_candles.categories (id)
 );
 
 
 CREATE TABLE jtv_candles.payments
 (
-    id                SERIAL PRIMARY KEY,
+    id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     payment_intent_id VARCHAR(255),
     total_amount      NUMERIC(10, 2),
     currency          VARCHAR(20)
@@ -52,7 +52,7 @@ CREATE TABLE jtv_candles.payments
 
 CREATE TABLE jtv_candles.customer_details
 (
-    id             SERIAL PRIMARY KEY,
+    id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     address        VARCHAR(255),
     city           VARCHAR(100),
     state          VARCHAR(100),
@@ -65,12 +65,12 @@ CREATE TABLE jtv_candles.customer_details
 
 CREATE TABLE jtv_candles.orders
 (
-    id              SERIAL PRIMARY KEY,
+    id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     delivery_status VARCHAR(20),
     created_at      TIMESTAMP,
-    customer_id     BIGINT,
-    payment_id      BIGINT,
-    user_id        BIGINT,
+    customer_id     UUID,
+    payment_id      UUID,
+    user_id         UUID,
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES jtv_candles.users (id),
     CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES jtv_candles.customer_details (id),
     CONSTRAINT fk_payment FOREIGN KEY (payment_id) REFERENCES jtv_candles.payments (id)
@@ -79,10 +79,10 @@ CREATE TABLE jtv_candles.orders
 
 CREATE TABLE jtv_candles.order_items
 (
-    id                SERIAL PRIMARY KEY,
-    order_id          INT,
-    product_id        INT,
-    quantity          INT,
+    id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    order_id          UUID,
+    product_id        UUID,
+    quantity          UUID,
     price_at_purchase NUMERIC(10, 2),
     CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES jtv_candles.orders (id),
     CONSTRAINT fk_product FOREIGN KEY (product_id) REFERENCES jtv_candles.products (id)

@@ -55,7 +55,7 @@ const productValidationSchema = Yup.object().shape({
   sizes: Yup.array()
   .of(Yup.mixed().required("Each size is required"))
   .required("Sizes field is required"),
-  categoryId: Yup.number().required("Category is required")
+  categoryId: Yup.string().required("Category is required")
 
 });
 
@@ -131,7 +131,7 @@ export const AdminForm = ()=> {
         ...values,
         price: Number(values.price),
         stockQuantity: values.stockQuantity === "" ? 3 : Number(values.stockQuantity),
-        categoryId: Number(values.categoryId)
+        categoryId: values.categoryId
       };
       console.log(formattedValues);
       setButtonsActive(false);

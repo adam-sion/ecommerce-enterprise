@@ -38,7 +38,7 @@ public class ProductResolver {
 
     @DgsMutation
     public Product deleteProduct(@InputArgument(name = "id") String id) {
-        Product product =  productService.deleteProductById(Long.parseLong(id));
+        Product product =  productService.deleteProductById(id);
         List<String> filesToDelete = product.getThumbnails();
         filesToDelete.add(product.getImage());
         s3Service.deleteFiles(filesToDelete);

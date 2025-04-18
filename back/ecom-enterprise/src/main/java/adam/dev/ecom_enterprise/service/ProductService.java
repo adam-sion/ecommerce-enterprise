@@ -20,7 +20,7 @@ public class ProductService {
     public Product saveOrOverrideProduct(Product product) {
         return productRepository.findByTitle(product.getTitle())
                 .map(currentProduct -> {
-                   Long id = currentProduct.getId();
+                   String id = currentProduct.getId();
                    product.setId(id);
 
                    return productRepository.save(product);
@@ -38,7 +38,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Product deleteProductById(Long id) {
+    public Product deleteProductById(String id) {
         Product product = productRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(String.format("Product with id: %s not found", id)));
         productRepository.delete(product);
 
