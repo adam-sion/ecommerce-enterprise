@@ -19,9 +19,6 @@ import java.util.List;
 @Setter
 public class Order extends JTVEntity {
 
-    @Id
-    private String id;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "delivery_status")
     private DeliveryStatus deliveryStatus;
