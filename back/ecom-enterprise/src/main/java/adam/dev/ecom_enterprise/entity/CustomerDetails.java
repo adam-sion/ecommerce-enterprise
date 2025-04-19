@@ -15,10 +15,7 @@ import java.util.UUID;
 @ToString
 @Getter
 @Setter
-public class CustomerDetails {
-
-    @Id
-    private String id;
+public class CustomerDetails extends JTVEntity {
 
     @Column
     private String address;
@@ -44,10 +41,5 @@ public class CustomerDetails {
     @OneToOne(mappedBy = "customerDetails")
     @JsonBackReference(value = "order-customer")
     private Order order;
-
-    @PrePersist
-    private void prePersist() {
-        this.id = UUID.randomUUID().toString();
-    }
 
 }

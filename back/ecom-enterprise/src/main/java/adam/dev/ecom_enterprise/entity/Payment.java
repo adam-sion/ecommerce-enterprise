@@ -13,10 +13,7 @@ import lombok.ToString;
 @ToString
 @Getter
 @Setter
-public class Payment {
-
-    @Id
-    private String id;
+public class Payment extends JTVEntity {
 
     @Column(name = "payment_intent_id")
     private Long paymentIntentId;

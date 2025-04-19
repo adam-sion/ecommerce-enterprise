@@ -16,10 +16,7 @@ import java.util.UUID;
 @ToString
 @Getter
 @Setter
-public class Category {
-
-    @Id
-    private String id;
+public class Category extends JTVEntity {
 
     @Column
     private String name;
@@ -30,10 +27,5 @@ public class Category {
     @OneToMany(mappedBy = "category")
     @JsonBackReference(value = "product-category")
     private List<Product> products;
-
-    @PrePersist
-    private void prePersist() {
-        this.id = UUID.randomUUID().toString();
-    }
 
 }

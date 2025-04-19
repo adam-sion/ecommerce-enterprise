@@ -11,7 +11,6 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.Instant;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "products")
@@ -19,10 +18,7 @@ import java.util.UUID;
 @ToString(exclude = {"category"})
 @Getter
 @Setter
-public class Product {
-
-    @Id
-    private String id;
+public class Product extends JTVEntity {
 
     @Column
     private String slug;
@@ -66,12 +62,12 @@ public class Product {
     @JsonBackReference(value = "orderItem-product")
     private List<OrderItem> orderItems;
 
-    @PrePersist
+    @Override
     public void prePersist() {
         final String DELIMITER = "-";
         final String SPLIT_BY_REGEX = "\\s+";
         setSlug(String.join(DELIMITER, title.split(SPLIT_BY_REGEX)));
-        this.id = UUID.randomUUID().toString();
+        super.prePersist();
     }
 
     public Product(String title, Double price, String image, List<String> thumbnails, List<String> materials, List<String> sizes, String description, Integer stockQuantity, Category category) {

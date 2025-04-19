@@ -16,10 +16,7 @@ import java.util.UUID;
 @ToString
 @Getter
 @Setter
-public class OrderItem {
-
-    @Id
-    private String id;
+public class OrderItem extends JTVEntity {
 
     @Column
     private Integer quantity;
@@ -36,10 +33,5 @@ public class OrderItem {
     @JoinColumn(name = "product_id")
     @ManyToOne
     private Product product;
-
-    @PrePersist
-    private void prePersist() {
-        this.id = UUID.randomUUID().toString();
-    }
 
 }
