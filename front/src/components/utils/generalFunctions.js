@@ -67,10 +67,11 @@ export const imgCatalog = (product) => {
   if (product.image && Array.isArray(product.thumbnails)) {
     const catalog = [{ id: 1, image: product.image }];
 
-    const thumbnails = product.thumbnails.map((thumb, index) => ({
+    const thumbnails = product.thumbnails.length === 0 ? []:
+     product.thumbnails.map((thumb, index) => ({
       id: index + 2, 
       image: thumb,
-    }));
+    }));   
 
     return [...catalog, ...thumbnails];
   }

@@ -92,8 +92,10 @@ const sizeInputRef = useRef(null);
                   <MessageBox>Product created successfully!</MessageBox>
                  </Modal.Trigger>
                  <Modal.Content name="product-preview">
-       
-                <ProductCard setProduct={setProduct} product={product}/>
+                
+                 <Box sx={{ maxHeight:'80%',maxWidth: 550, mx: "auto" }}>
+  <ProductCard product={product} />
+</Box>
              
                  </Modal.Content>
                </Modal>

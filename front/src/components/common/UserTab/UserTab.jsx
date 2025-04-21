@@ -6,8 +6,6 @@ import { showToast } from "../../../features/toast/toastSlice";
 import { useEffect } from "react";
 
 
-
-
 export const UserTab = ({user})=> {
     const dispatch = useDispatch();
     const handleLogout = ()=> {

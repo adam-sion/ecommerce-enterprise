@@ -60,5 +60,5 @@ input ProductInput {
     materials: [String]
     sizes: [String]
     stockQuantity: Int
-    categoryId: Int!
+    categoryId: ID!
 }

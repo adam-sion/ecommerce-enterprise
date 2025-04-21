@@ -158,12 +158,13 @@ const ProductCardList = ({ product }) => {
             $isHovered={hovered === product.id}
             $isExiting={exiting === product.id}
           />
-          <ThumbnailImage
-            src={`${product.thumbnails[0]}`}
-            alt={`${product.title} thumbnail`}
-            $isHovered={hovered === product.id}
-            $isExiting={exiting === product.id}
-          />
+             
+                      <ThumbnailImage
+                        src={`${ product.thumbnails.length === 0 ? product.image :product.thumbnails[0]}`}
+                        alt={`${product.title} thumbnail`}
+                        $isHovered={hovered === product.id}
+                        $isExiting={exiting === product.id}
+                      />
         </Link>
       </ImageWrapper>
       <ProductInfo>

@@ -64,8 +64,9 @@ const CardShop = ({ product }) => {
   return (
     <CardShopContainer>
       <ImageContainer>
-        <ThumbnailsContainer>
-          {[product.image, ...product.thumbnails.slice(0, 3)].map(
+        {
+         product.thumbnails.length > 0 && <ThumbnailsContainer>
+          {[product.image, ...product.thumbnails].map(
             (thumb, index) => (
               <Thumbnail
                 key={index}
@@ -77,6 +78,7 @@ const CardShop = ({ product }) => {
             )
           )}
         </ThumbnailsContainer>
+}
         <ProductImage
           src={`${mainImage}`}
           alt="product img"

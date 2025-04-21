@@ -99,7 +99,8 @@ const ImageShowcase = ({ images, product }) => {
           alt="Main product"
         />
       </MainImageWrapper>
-      <Thumbnails>
+      
+        <Thumbnails>
         {images.map((img) => (
           <Thumbnail
             key={img.id}

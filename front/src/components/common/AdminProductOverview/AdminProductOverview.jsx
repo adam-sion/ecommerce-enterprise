@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaThLarge, FaTh, FaThList } from "react-icons/fa";
-import ProductCardList from "../ProductCardList/ProductCardList";
 import Filter from "../../../assets/icons/filter.svg?react";
 import {
   BarHeader,
