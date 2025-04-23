@@ -24,6 +24,30 @@ const ADD_PRODUCT = gql`
   }
 `;
 
+const DELETE_PRODUCT = gql`
+  mutation DELETE_PRODUCT($id: ID!) {
+    deleteProduct(id: $id) {
+    title
+}
+  }
+`;
+
+
+
+export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id, { rejectWithValue }) => {
+    try {
+        const { data } = await client.mutate({
+            mutation: DELETE_PRODUCT,
+            variables: {id:id},
+              fetchPolicy: "no-cache",
+        });
+
+        return data.deleteProduct;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});
+
 
 export const createProduct = createAsyncThunk("product/createProduct", async (formData, { rejectWithValue }) => {
     try {
@@ -57,6 +81,8 @@ const createProductSlice = createSlice({
     initialState: {
         createProductLoading: false,
          createProductError: null,
+         deleteProductLoading:false,
+         deleteProductError:null
     },
     reducers: {
         resetError: (state) => {
@@ -78,6 +104,17 @@ const createProductSlice = createSlice({
             .addCase(createProduct.rejected, (state, action) => {
                 state.createProductLoading = false;
                 state.createProductError = action.payload;
+            })
+
+            .addCase(deleteProduct.pending, (state) => {
+                state.deleteProductLoading = true;
+            })
+            .addCase(deleteProduct.fulfilled, (state, action) => {
+                state.deleteProductLoading = false;
+            })
+            .addCase(deleteProduct.rejected, (state, action) => {
+                state.deleteProductLoading = false;
+                state.deleteProductError = action.payload;
             });
     }
 });

@@ -3,6 +3,32 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverOutlined from "@mui/icons-material/DeleteForeverOutlined";
 import { useState } from "react";
 import { MoreHorizRounded } from "@mui/icons-material";
+import Swal from "sweetalert2";
+
+
+const makeDeleteProductRequest = (product)=> {
+  Swal.fire({
+    title: `Are you sure you want to delete '${product.title}' ?`,
+    width: 700, // makes the modal bigger
+    padding:70,
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'Yes',
+    denyButtonText: 'No',
+    customClass: {
+      actions: 'my-actions',       // space between buttons
+      confirmButton: 'order-2',
+      denyButton: 'order-3',
+      popup: 'custom-swal-popup'   // optional: custom styling for popup
+    },
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire('Deleted!', '', 'success');
+    } else if (result.isDenied) {
+      // Optionally handle denial
+    }
+  });
+}  
 
 export const ProductCard = ({ product }) => {
   const [isImageLoading, setIsImageLoading] = useState(true);
@@ -57,37 +83,44 @@ export const ProductCard = ({ product }) => {
       </Box>
 
       {/* Thumbnails */}
-      <Stack direction="row" spacing={1} mt={2} justifyContent="center">
-        {product.thumbnails?.map((thumb, index) => (
-          <Box key={index} sx={{ position: "relative", width: 50, height: 50 }}>
-            {loadingThumbnails[index] && (
-              <Skeleton variant="rectangular" width={50} height={50} sx={{ borderRadius: 4 }} />
-            )}
-            <img
-              src={thumb}
-              alt={`Thumbnail ${index + 1}`}
-              height="50"
-              width="50"
-              style={{
-                objectFit: "cover",
-                borderRadius: 4,
-                display: loadingThumbnails[index] ? "none" : "block",
-              }}
-              onLoad={() =>
-                setLoadingThumbnails((prev) =>
-                  prev.map((loading, i) => (i === index ? false : loading))
-                )
-              }
-              onError={() =>
-                setLoadingThumbnails((prev) =>
-                  prev.map((loading, i) => (i === index ? false : loading))
-                )
-              }
-            />
-          </Box>
-        
-        ))}
-      </Stack>
+    {  product.thumbnails.length === 0 ? (
+  <Stack direction="row" spacing={1} mt={2} justifyContent="center">
+    <Box key="empty" sx={{ position: "relative", width: 50, height: 50 }}></Box>
+  </Stack>
+) : (
+  <Stack direction="row" spacing={1} mt={2} justifyContent="center">
+    {product.thumbnails?.map((thumb, index) => (
+      <Box key={index} sx={{ position: "relative", width: 50, height: 50 }}>
+        {loadingThumbnails[index] && (
+          <Skeleton variant="rectangular" width={50} height={50} sx={{ borderRadius: 4 }} />
+        )}
+        <img
+          src={thumb}
+          alt={`Thumbnail ${index + 1}`}
+          height="50"
+          width="50"
+          style={{
+            objectFit: "cover",
+            borderRadius: 4,
+            display: loadingThumbnails[index] ? "none" : "block",
+          }}
+          onLoad={() =>
+            setLoadingThumbnails((prev) =>
+              prev.map((loading, i) => (i === index ? false : loading))
+            )
+          }
+          onError={() =>
+            setLoadingThumbnails((prev) =>
+              prev.map((loading, i) => (i === index ? false : loading))
+            )
+          }
+        />
+      </Box>
+    ))}
+  </Stack>
+)}
+
+     
 
       {/* Product Details Grid */}
       <CardContent sx={{ display: "flex", justifyContent: "center", marginTop:5 }}>
@@ -183,7 +216,7 @@ export const ProductCard = ({ product }) => {
 
       {/* Action Buttons */}
       <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-        <IconButton onClick={(e) => { e.stopPropagation(); alert("Delete action"); }} color="error">
+        <IconButton onClick={(e) => { e.stopPropagation(); makeDeleteProductRequest(product); }} color="error">
           <DeleteForeverOutlined />
         </IconButton>
         <IconButton onClick={(e) => { e.stopPropagation(); setIsEditMode(true); }} color="primary">
