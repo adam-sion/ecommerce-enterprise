@@ -98,18 +98,21 @@ setSizes(product.sizes);
   return (
        <>
        {showCreateProduct && product && <div style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>
+       <Box sx={{ maxHeight:'80%',maxWidth: 550, mx: "auto" }}>
            <Modal>
                  <Modal.Trigger opens="product-preview">
                   <MessageBox>Product created successfully!</MessageBox>
                  </Modal.Trigger>
+               
                  <Modal.Content name="product-preview">
                 
-                 <Box sx={{ maxHeight:'80%',maxWidth: 550, mx: "auto" }}>
-  <ProductCard product={product} />
-</Box>
+               
+  <ProductCard originalProduct={product} />
              
                  </Modal.Content>
+               
                </Modal>
+               </Box>
                </div>
                }
         {(

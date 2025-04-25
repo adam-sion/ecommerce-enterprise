@@ -51,7 +51,6 @@ export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id
 
 export const createProduct = createAsyncThunk("product/createProduct", async (formData, { rejectWithValue, dispatch }) => {
     try {
-    console.log(formData);
         const { data } = await client.mutate({
             mutation: ADD_PRODUCT,
             variables: {
