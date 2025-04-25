@@ -117,10 +117,16 @@ setSizes(product.sizes);
             e.preventDefault();
              formikProduct.handleSubmit();
              setMaterialInput("");
-             setMaterials([]);
              setSizeInput("");
         
-             setSizes([]);
+             {
+              if (showCreateProduct) {
+                setMaterials([]);
+                setSizes([]);
+              }
+              
+             }
+             
           }}>
 
 
@@ -235,7 +241,7 @@ setSizes(product.sizes);
       {
         formikProduct.values.image ? (
           <>
-            {formikProduct.values.image.name}
+            {(formikProduct.values.image instanceof File) ? formikProduct.values.image.name :`${formikProduct.values.title}.jpg`}
             <RiCheckFill fontSize="22px" color="green" /> 
           </> ):
 <>
@@ -351,7 +357,7 @@ setSizes(product.sizes);
               onClick={() => removeThumbnail(index)}
             >
               <img
-                src={URL.createObjectURL(image)}
+                src={(image instanceof File) ? URL.createObjectURL(image): image} 
                 alt="Thumbnail"
                 style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "4px" }}
               />

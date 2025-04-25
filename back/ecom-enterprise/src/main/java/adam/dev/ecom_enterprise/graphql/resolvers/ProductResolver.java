@@ -28,8 +28,8 @@ public class ProductResolver {
     public Product addProduct(@InputArgument(name = "input") ProductInput input, DataFetchingEnvironment dfe) {
         MultipartFile file = dfe.getArgument("image");
         List<MultipartFile> thumbnailsFiles = dfe.getArgument("thumbnails");
-        List<String> thumbnails = s3Service.uploadFiles(thumbnailsFiles);
-        String image = s3Service.uploadFile(file);
+        List<String> thumbnails = (thumbnailsFiles == null) ? input.thumbnails() : s3Service.uploadFiles(thumbnailsFiles);
+        String image = (file == null) ? input.image() : s3Service.uploadFile(file);
         Product product = productMapper.toProduct(input, thumbnails, image);
         Product savedProduct = productService.saveOrOverrideProduct(product);
 

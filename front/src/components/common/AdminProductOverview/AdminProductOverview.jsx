@@ -190,7 +190,7 @@ function AdminProductOverview({ dispatchAction, defaultColumns }) {
               (
                 <ProductCard
                   key={`${product.id}-${columns}`}
-                  product={product}
+                  originalProduct={product}
                 />
               )
             )}

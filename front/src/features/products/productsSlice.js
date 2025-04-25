@@ -54,20 +54,29 @@ export const productsReducer = (state = initialState, action) => {
 
     case "products/addLocal": {
       const newProduct = action.payload;
-    
+      
       const productExists = state.products.some(product => product.id === newProduct.id);
-    
-      if (productExists) {
-        return state;
-      }
     
       return {
         ...state,
-        products: [...state.products, newProduct],
-        filteredProducts: [...state.filteredProducts, newProduct],
-        restartFilter: [...state.restartFilter, newProduct],
+        products: productExists
+          ? state.products.map(product =>
+              product.id === newProduct.id ? newProduct : product 
+            )
+          : [...state.products, newProduct], 
+        filteredProducts: productExists
+          ? state.filteredProducts.map(product =>
+              product.id === newProduct.id ? newProduct : product 
+            )
+          : [...state.filteredProducts, newProduct],
+        restartFilter: productExists
+          ? state.restartFilter.map(product =>
+              product.id === newProduct.id ? newProduct : product   
+            )
+          : [...state.restartFilter, newProduct],
       };
     }
+    
     case "products/deleteLocal": {
       const productId = action.payload;
       const filteredProducts = state.filteredProducts.filter(

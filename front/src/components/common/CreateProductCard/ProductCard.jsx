@@ -14,43 +14,21 @@ import { showToast } from "../../../features/toast/toastSlice";
 
 
 
-export const ProductCard = ({ product }) => {
-  const dispatch = useDispatch();
-  const [buttonsActive, setButtonsActive] = useState(true);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    formikProduct.resetForm();
-    setIsModalOpen(false);
-  };
-
-  const createFileObject = (url, name) => {
-    return new File([url], name, { type: 'image/jpeg' });
-  };
-
-  const [isImageLoading, setIsImageLoading] = useState(true);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [showFullDetails, setShowFullDetails] = useState(false);
-  const [loadingThumbnails, setLoadingThumbnails] = useState(
-    Array(product?.thumbnails?.length || 0).fill(true)
-  );
+export const ProductCard = ({ originalProduct }) => {
+  const [product, setProduct] = useState(originalProduct);
 
   const formikProduct = useFormik({
     initialValues: {
-      id:product.id,
-      title: product.title,
-      materials: product.materials,
-      thumbnails: product.thumbnails.map(thumbnial=> createFileObject(thumbnial, `${thumbnial}.jpg`)),
-      image: createFileObject(product.image, `${product.title}.jpg`),
-      sizes: product.sizes,
-      description: product.description,
-      price: product.price,
-      stockQuantity: product.stockQuantity,
-      categoryId: product.category.id,
+      id: product?.id || '',
+      title: product?.title || '',
+      materials: product?.materials || '',
+      thumbnails: product?.thumbnails || [],
+      image: product?.image || '',
+      sizes: product?.sizes || [],
+      description: product?.description || '',
+      price: product?.price || 0,
+      stockQuantity: product?.stockQuantity || 0,
+      categoryId: product?.category?.id || '',
     },
     validationSchema: productValidationSchema,
     onSubmit: async (values) => {
@@ -65,16 +43,54 @@ export const ProductCard = ({ product }) => {
       setButtonsActive(false);
       const result = await dispatch(createProduct(formattedValues));
       setButtonsActive(true);
-  
-      formikProduct.resetForm();
+
   
       if (result.meta.requestStatus === "fulfilled") {
+        setProduct(result.payload);
         dispatch(showToast({ message: "Product update success", type: "success" }));
       } else {
         dispatch(showToast({ message: "Product update failed", type: "error" }));
       }
     },
   });
+
+useEffect(() => {
+  if (product) {
+    formikProduct.setValues({
+      id: product.id,
+      title: product.title,
+      materials: product.materials,
+      thumbnails: product.thumbnails,
+      image: product.image,
+      sizes: product.sizes,
+      description: product.description,
+      price: product.price,
+      stockQuantity: product.stockQuantity,
+      categoryId: product.category.id,
+    });
+  }
+}, [product]);
+
+  const dispatch = useDispatch();
+  const [buttonsActive, setButtonsActive] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [showFullDetails, setShowFullDetails] = useState(false);
+  const [loadingThumbnails, setLoadingThumbnails] = useState(
+    Array(product?.thumbnails?.length || 0).fill(true)
+  );
+
+ 
 
 
   const makeDeleteProductRequest = (product) => {
@@ -316,7 +332,7 @@ export const ProductCard = ({ product }) => {
           <CreateProductForm
           showCreateProduct={false}
             product={product}
-            setProduct={() => {}}
+            setProduct={setProduct}
             formikProduct={formikProduct}
             buttonsActive={buttonsActive}
           />
