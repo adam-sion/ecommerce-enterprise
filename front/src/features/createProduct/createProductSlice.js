@@ -32,15 +32,15 @@ const DELETE_PRODUCT = gql`
   }
 `;
 
-
-
-export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id, { rejectWithValue }) => {
+export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id, { rejectWithValue, dispatch }) => {
     try {
         const { data } = await client.mutate({
             mutation: DELETE_PRODUCT,
             variables: {id:id},
               fetchPolicy: "no-cache",
         });
+
+        dispatch({ type: "products/deleteLocal", payload: id });
 
         return data.deleteProduct;
     } catch (error) {
@@ -49,12 +49,12 @@ export const deleteProduct = createAsyncThunk("product/deleteProduct", async (id
 });
 
 
-export const createProduct = createAsyncThunk("product/createProduct", async (formData, { rejectWithValue }) => {
+export const createProduct = createAsyncThunk("product/createProduct", async (formData, { rejectWithValue, dispatch }) => {
     try {
         const { data } = await client.mutate({
             mutation: ADD_PRODUCT,
             variables: {
-                input: { title: formData.title, price: formData.price, materials: formData.materials,
+                input: { id:formData.id, title: formData.title, price: formData.price, materials: formData.materials,
                     sizes: formData.sizes, description: formData.description, stockQuantity: formData.stockQuantity,
                     categoryId: formData.categoryId
                  },
@@ -66,16 +66,18 @@ export const createProduct = createAsyncThunk("product/createProduct", async (fo
               },
               fetchPolicy: "no-cache",
         });
-        return data.addProduct;
+
+        const product = data.addProduct;
+        dispatch({ type: "products/addLocal", payload: product });
+
+        return product;
     } catch (error) {
-        console.log(error.message);
         console.error("Create product error:", error);
         return rejectWithValue(error.message);
     }
 });
 
 
-// Slice definition
 const createProductSlice = createSlice({
     name: "createProduct",
     initialState: {

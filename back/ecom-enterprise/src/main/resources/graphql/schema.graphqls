@@ -54,6 +54,7 @@ input CategoryInput {
 }
 
 input ProductInput {
+    id: String
     title: String!
     description: String
     price: Float!

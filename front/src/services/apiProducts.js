@@ -19,6 +19,7 @@ const GET_PRODUCTS = gql`
     stockQuantity
     createdAt
     category {
+    id
     name
     }
 }
@@ -40,6 +41,7 @@ const GET_PRODUCT_BY_SLUG = gql`
     stockQuantity
     createdAt
     category {
+    id
     name
     }
 }
@@ -68,7 +70,6 @@ export const fetchProducts = () => {
               
       // Fetch your products data
       const allProductsData = await allData();
-      console.log(allProductsData);
 
       // Dispatch an action to update the state with the fetched data
       dispatch({

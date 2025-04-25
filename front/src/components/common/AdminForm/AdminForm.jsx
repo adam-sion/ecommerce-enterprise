@@ -31,7 +31,7 @@ const categoryValidationSchema = Yup.object().shape({
   image: Yup.mixed().required("Image is required"),
 });
 
-const productValidationSchema = Yup.object().shape({
+export const productValidationSchema = Yup.object().shape({
   title: Yup.string()
       .trim()
       .min(1, "Title cannot be empty")
@@ -133,7 +133,6 @@ export const AdminForm = ()=> {
         stockQuantity: values.stockQuantity === "" ? 3 : Number(values.stockQuantity),
         categoryId: values.categoryId
       };
-      console.log(formattedValues);
       setButtonsActive(false);
       const result = await dispatch(createProduct(formattedValues));
       setButtonsActive(true);
@@ -183,12 +182,12 @@ export const AdminForm = ()=> {
         </Tabs>
     <Box>
     {activeTab === "product"
-          && <CreateProductForm product={product} setProduct={setProduct} formikProduct={formikProduct} buttonsActive={buttonsActive}/>
+          && <CreateProductForm showCreateProduct={true} product={product} setProduct={setProduct} formikProduct={formikProduct} buttonsActive={buttonsActive}/>
         }
     </Box>
        <Box>
        {activeTab === "category"
-        && <CreateCategoryForm category={category} setCategory={setCategory} formikCategory={formikCategory} buttonsActive={buttonsActive}/>
+        && <CreateCategoryForm category={category} setCategory={setCategory} formikCategory={formikCategory} buttonsActive={buttonsActive} />
         }
        </Box>
 

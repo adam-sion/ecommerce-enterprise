@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.Instant;
 import java.util.List;
 
@@ -70,7 +71,8 @@ public class Product extends JTVEntity {
         super.prePersist();
     }
 
-    public Product(String title, Double price, String image, List<String> thumbnails, List<String> materials, List<String> sizes, String description, Integer stockQuantity, Category category) {
+    public Product(String id, String title, Double price, String image, List<String> thumbnails, List<String> materials, List<String> sizes, String description, Integer stockQuantity, Category category) {
+        super.setId(id);
         this.title = title;
         this.price = price;
         this.image = image;

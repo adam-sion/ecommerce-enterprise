@@ -91,7 +91,6 @@ const categorySlice = createSlice({
             .addCase(getCategories.fulfilled, (state, action) => {
                 state.getCategoriesLoading = false;
                 state.categories = action.payload;
-                console.log(state.categories);
 
             })
             .addCase(getCategories.rejected, (state, action) => {

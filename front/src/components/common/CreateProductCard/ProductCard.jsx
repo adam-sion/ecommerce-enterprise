@@ -1,36 +1,37 @@
-import { Card, CardContent, IconButton, Box, Stack, Skeleton, Grid } from "@mui/material";
+import { Card, CardContent, IconButton, Box, Stack, Skeleton, Grid, Dialog, DialogContent, Button } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverOutlined from "@mui/icons-material/DeleteForeverOutlined";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MoreHorizRounded } from "@mui/icons-material";
 import Swal from "sweetalert2";
+import { useDispatch } from "react-redux";
+import { createProduct, deleteProduct } from "../../../features/createProduct/createProductSlice";
+import { CreateProductForm } from "../CreateProductForm/CreateProductForm";
+import { useFormik } from "formik";
+import { productValidationSchema } from "../AdminForm/AdminForm";
+import { showToast } from "../../../features/toast/toastSlice";
 
 
-const makeDeleteProductRequest = (product)=> {
-  Swal.fire({
-    title: `Are you sure you want to delete '${product.title}' ?`,
-    width: 700, // makes the modal bigger
-    padding:70,
-    showDenyButton: true,
-    showCancelButton: false,
-    confirmButtonText: 'Yes',
-    denyButtonText: 'No',
-    customClass: {
-      actions: 'my-actions',       // space between buttons
-      confirmButton: 'order-2',
-      denyButton: 'order-3',
-      popup: 'custom-swal-popup'   // optional: custom styling for popup
-    },
-  }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire('Deleted!', '', 'success');
-    } else if (result.isDenied) {
-      // Optionally handle denial
-    }
-  });
-}  
+
 
 export const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
+  const [buttonsActive, setButtonsActive] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    formikProduct.resetForm();
+    setIsModalOpen(false);
+  };
+
+  const createFileObject = (url, name) => {
+    return new File([url], name, { type: 'image/jpeg' });
+  };
+
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [isEditMode, setIsEditMode] = useState(false);
   const [showFullDetails, setShowFullDetails] = useState(false);
@@ -38,8 +39,81 @@ export const ProductCard = ({ product }) => {
     Array(product?.thumbnails?.length || 0).fill(true)
   );
 
-  return isEditMode ? <>edit</> :
-   product ? (
+  const formikProduct = useFormik({
+    initialValues: {
+      id:product.id,
+      title: product.title,
+      materials: product.materials,
+      thumbnails: product.thumbnails.map(thumbnial=> createFileObject(thumbnial, `${thumbnial}.jpg`)),
+      image: createFileObject(product.image, `${product.title}.jpg`),
+      sizes: product.sizes,
+      description: product.description,
+      price: product.price,
+      stockQuantity: product.stockQuantity,
+      categoryId: product.category.id,
+    },
+    validationSchema: productValidationSchema,
+    onSubmit: async (values) => {
+  
+      const formattedValues = {
+        ...values,
+        price: Number(values.price),
+        stockQuantity: values.stockQuantity === "" ? 3 : Number(values.stockQuantity),
+        categoryId: values.categoryId,
+      };
+  
+      setButtonsActive(false);
+      const result = await dispatch(createProduct(formattedValues));
+      setButtonsActive(true);
+  
+      formikProduct.resetForm();
+  
+      if (result.meta.requestStatus === "fulfilled") {
+        dispatch(showToast({ message: "Product update success", type: "success" }));
+      } else {
+        dispatch(showToast({ message: "Product update failed", type: "error" }));
+      }
+    },
+  });
+
+
+  const makeDeleteProductRequest = (product) => {
+    Swal.fire({
+      title: `Are you sure you want to delete '${product.title}'?`,
+      width: 650,
+      padding: 70,
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No',
+      customClass: {
+        actions: 'my-actions',
+        confirmButton: 'order-2',
+        denyButton: 'order-3',
+        popup: 'custom-swal-popup'
+      },
+      preConfirm: async () => {
+        // Show a loading indicator while deleting
+        Swal.showLoading();
+  
+        const result = await dispatch(deleteProduct(product.id));
+  
+        if (result.meta.requestStatus === "fulfilled") {
+          return true;
+        } else {
+          throw new Error("Failed to delete product.");
+        }
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Deleted!', '', 'success');
+      }
+    }).catch((err) => {
+      Swal.fire('Deletion failed', err.message, 'error');
+    });
+  }; 
+
+  return product ? (
     <Card
       sx={{
         borderRadius: 3,
@@ -219,13 +293,38 @@ export const ProductCard = ({ product }) => {
         <IconButton onClick={(e) => { e.stopPropagation(); makeDeleteProductRequest(product); }} color="error">
           <DeleteForeverOutlined />
         </IconButton>
-        <IconButton onClick={(e) => { e.stopPropagation(); setIsEditMode(true); }} color="primary">
+        <IconButton onClick={(e) => { e.stopPropagation(); setIsModalOpen(true); }} color="primary">
           <EditIcon />
         </IconButton>
         <IconButton onClick={(e) => { e.stopPropagation(); setShowFullDetails(!showFullDetails); }} color="default">
             <MoreHorizRounded />
           </IconButton>
       </Box>
+
+
+
+
+
+      <Dialog
+        open={isModalOpen}
+
+        onClose={handleCloseModal}
+        maxWidth="lg"
+        fullWidth={true}
+      >
+        <DialogContent>
+          <CreateProductForm
+          showCreateProduct={false}
+            product={product}
+            setProduct={() => {}}
+            formikProduct={formikProduct}
+            buttonsActive={buttonsActive}
+          />
+        </DialogContent>
+      
+      </Dialog>
+
+
     </Card>
   ) : null;
 };

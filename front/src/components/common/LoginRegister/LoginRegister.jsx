@@ -133,7 +133,6 @@ const LoginRegister = () => {
      setButtonsActive(false);
       const result = await dispatch(login({username:values.username, password:values.password}));
       setButtonsActive(true);
-      console.log("Login form submitted", values);
 
       if (result.meta.requestStatus === "fulfilled") {
         dispatch(showToast({ message: "Login successful!", type: "success" }));
@@ -156,11 +155,9 @@ const LoginRegister = () => {
   setButtonsActive(false);
         const result = await dispatch(signup({ username: values.username, password: values.password, email: values.email }));
        setButtonsActive(true);
-        console.log("Register form submitted", values);
   
         
         if (result.meta.requestStatus === "fulfilled") {
-          console.log(result);
           setVerifyEmailMessage(`Verification email was sent to ${values.email}`)
         }
     },

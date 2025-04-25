@@ -6,7 +6,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -18,13 +17,18 @@ public class ProductService {
 
     @Transactional
     public Product saveOrOverrideProduct(Product product) {
-        return productRepository.findByTitle(product.getTitle())
-                .map(currentProduct -> {
-                   String id = currentProduct.getId();
-                   product.setId(id);
+        if (product.getId() == null) {
+            return productRepository.save(product);
+        }
 
-                   return productRepository.save(product);
-                }).orElseGet(()-> productRepository.save(product));
+        return productRepository.findById(product.getId())
+                .map(currentProduct -> {
+                    product.setId(currentProduct.getId());
+                    return productRepository.save(product);
+                })
+                .orElseGet(() -> {
+                    return productRepository.save(product);
+                });
     }
 
     public List<Product> getAllProducts() {

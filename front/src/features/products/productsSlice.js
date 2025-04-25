@@ -52,6 +52,42 @@ export const productsReducer = (state = initialState, action) => {
       };
     }
 
+    case "products/addLocal": {
+      const newProduct = action.payload;
+    
+      const productExists = state.products.some(product => product.id === newProduct.id);
+    
+      if (productExists) {
+        return state;
+      }
+    
+      return {
+        ...state,
+        products: [...state.products, newProduct],
+        filteredProducts: [...state.filteredProducts, newProduct],
+        restartFilter: [...state.restartFilter, newProduct],
+      };
+    }
+    case "products/deleteLocal": {
+      const productId = action.payload;
+      const filteredProducts = state.filteredProducts.filter(
+        (product) => product.id !== productId
+      );
+      const products = state.products.filter(
+        (product) => product.id !== productId
+      );
+      const restartFilter = state.restartFilter.filter(
+        (product) => product.id !== productId
+      );
+      return {
+        ...state,
+        products,
+        filteredProducts,
+        restartFilter
+      };
+    }
+    
+
     case "products/category_filter": {
       const filteredProducts = state.products.filter(
         (product) => product.category.name === action.payload

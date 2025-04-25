@@ -22,7 +22,6 @@ export const CategoryCard = ({ category, setCategory }) => {
 
   const handleEditToggle = () => setIsEditing(!isEditing);
   const handleSave = () => {
-    console.log("Saved Category:", editedCategory);
     setIsEditing(false);
   };
 

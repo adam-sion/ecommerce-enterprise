@@ -16,7 +16,7 @@ import Modal from "../../utils/Modal/Modal";
 import { ProductCard } from "../CreateProductCard/ProductCard";
 import { ErrorMessage, MessageBox } from "../AdminForm/AdminForm";
 
-export const CreateProductForm = ({formikProduct, product, setProduct, buttonsActive})=> {
+export const CreateProductForm = ({formikProduct, product, setProduct, buttonsActive, showCreateProduct})=> {
   const {createProductLoading} = useSelector((state)=> state.createProduct);
   const dispatch = useDispatch();
   const [materials, setMaterials] = useState([]);
@@ -25,6 +25,17 @@ export const CreateProductForm = ({formikProduct, product, setProduct, buttonsAc
   const [sizeInput, setSizeInput] = useState("");
 const materialInputRef = useRef(null);
 const sizeInputRef = useRef(null);
+
+useEffect(()=> {
+  if (product !== null) {
+    if (product.materials !== null) 
+setMaterials(product.materials);
+    
+
+    if (product.sizes !== null) 
+setSizes(product.sizes);
+  }
+},[])
 
   const addMaterial = () => {
     if (materialInput.trim()) {
@@ -86,7 +97,7 @@ const sizeInputRef = useRef(null);
 
   return (
        <>
-       {product && <div style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>
+       {showCreateProduct && product && <div style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>
            <Modal>
                  <Modal.Trigger opens="product-preview">
                   <MessageBox>Product created successfully!</MessageBox>
@@ -104,7 +115,6 @@ const sizeInputRef = useRef(null);
         {(
           <form onSubmit={(e)=> {
             e.preventDefault();
-            console.log(sizes);
              formikProduct.handleSubmit();
              setMaterialInput("");
              setMaterials([]);
