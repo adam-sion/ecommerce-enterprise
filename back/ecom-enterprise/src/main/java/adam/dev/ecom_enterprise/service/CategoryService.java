@@ -2,6 +2,7 @@ package adam.dev.ecom_enterprise.service;
 
 import adam.dev.ecom_enterprise.entity.Category;
 import adam.dev.ecom_enterprise.repository.CategoryRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +14,25 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public Category createCategory(Category category) {
-        return categoryRepository.save(category);
+    private final S3Service s3Service;
+
+    @Transactional
+    public Category saveOrOverrideCategory(Category category, boolean toDeleteImage) {
+        if (category.getId() == null) {
+            return categoryRepository.save(category);
+        }
+
+        return categoryRepository.findById(category.getId())
+                .map(currentCategory -> {
+
+                    if (toDeleteImage) {
+                        s3Service.deleteFile(currentCategory.getImage());
+                    }
+
+                    category.setId(currentCategory.getId());
+                    return categoryRepository.save(category);
+                })
+                .orElseGet(() -> categoryRepository.save(category));
     }
 
     public Category findCategoryById(String id) {

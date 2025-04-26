@@ -125,8 +125,8 @@ export const Name = styled(Heading).attrs({ as: "h4" })`
   transform: rotate(5deg);
   letter-spacing: 1.1px;
   text-shadow:
-    rgb(0, 0, 0) 18.5938px 13.2326px 2.8px,
-    rgba(0, 0, 0, 0.901961) 19.9219px 14.1778px 35px;
+    rgb(0, 0, 0) 1.5938px 1.2326px 2.8px,
+    rgba(0, 0, 0, 0.901961) 1.9219px 1.1778px 3px;
 `;
 //
 export const CarouselWrapper = styled(Splide)`

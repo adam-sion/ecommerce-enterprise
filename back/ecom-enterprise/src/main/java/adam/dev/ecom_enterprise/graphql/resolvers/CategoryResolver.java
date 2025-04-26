@@ -26,9 +26,17 @@ public class CategoryResolver {
     @DgsMutation
     public Category addCategory(@InputArgument CategoryInput input, DataFetchingEnvironment dfe) {
         MultipartFile file = dfe.getArgument("image");
-        String image = s3Service.uploadFile(file);
+        String image = input.image();
+        boolean toDeleteImage = false;
+
+        if (file != null) {
+            toDeleteImage = true;
+            image = s3Service.uploadFile(file);
+        }
+
         Category category = categoryMapper.toCategory(input, image);
-        Category savedCategory = categoryService.createCategory(category);
+        Category savedCategory = categoryService.saveOrOverrideCategory(category, toDeleteImage);
+        System.out.println(savedCategory);
 
         return savedCategory;
     }

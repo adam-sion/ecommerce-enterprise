@@ -47,20 +47,12 @@ export const AdminProducts = ({ dispatchAction, defaultColumns }) => {
   const [imageUrl, setImageUrl] = useState("/breadcrumb/fashion.jpeg");
   const { category } = useParams();
   useEffect(() => {
-    const categoryImageMap = {
-      haircare: "/breadcrumb/haircare.jpeg",
-      makeup: "/breadcrumb/makeup.jpeg",
-      skincare: "/breadcrumb/skincare.jpeg",
-      wellness: "/breadcrumb/wellness.jpeg",
-      natural: "/breadcrumb/natural.jpeg",
-    };
-    const newImageUrl =
-      categoryImageMap[category] || "/breadcrumb/natural.jpeg";
+    const newImageUrl = "/breadcrumb/natural.jpeg";
     setImageUrl(newImageUrl);
   }, [category]);
   return (
     <>
-      <Breadcrumb next="Shop" imageUrl={imageUrl} title={category || "Shop"} />
+      <Breadcrumb next="products" imageUrl={imageUrl} title={"Products"} />
       <Container>
         <LeftColumn>
           <FilterComponent dispatchAction={dispatchAction} />

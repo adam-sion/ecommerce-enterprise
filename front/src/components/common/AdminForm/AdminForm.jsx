@@ -138,8 +138,9 @@ export const AdminForm = ()=> {
       setButtonsActive(true);
       formikProduct.resetForm();
      
-
+     
        if (result.meta.requestStatus === "fulfilled") {
+        
         setProduct(result.payload);
       } else {
         dispatch(showToast({ message: "Product creation failed", type: "error" }));
@@ -187,7 +188,7 @@ export const AdminForm = ()=> {
     </Box>
        <Box>
        {activeTab === "category"
-        && <CreateCategoryForm category={category} setCategory={setCategory} formikCategory={formikCategory} buttonsActive={buttonsActive} />
+        && <CreateCategoryForm showCreateCategory={true} category={category} formikCategory={formikCategory} buttonsActive={buttonsActive} />
         }
        </Box>
 

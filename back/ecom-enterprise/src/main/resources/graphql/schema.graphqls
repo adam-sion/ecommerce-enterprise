@@ -52,6 +52,7 @@ type Product {
 #inputs
 input CategoryInput {
     name: String!
+    image: String
 }
 
 input ProductInput {

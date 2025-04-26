@@ -11,19 +11,18 @@ import Modal from "../../utils/Modal/Modal";
 import { ErrorMessage, MessageBox } from "../AdminForm/AdminForm";
 import { Grid } from "@mui/material";
 
-export const CreateCategoryForm = ({ formikCategory, category, setCategory, buttonsActive }) => {
+export const CreateCategoryForm = ({ showCreateCategory, formikCategory, category, setCategory, buttonsActive }) => {
   const { createCategoryLoading } = useSelector((state) => state.category);
-
   return (
     <>
-      {category && (
+      {showCreateCategory && category && (
         <div style={{ color: "green", textAlign: "center", fontSize: "16px" }}>
           <Modal>
             <Modal.Trigger opens="category-preview">
               <MessageBox>Category created successfully!</MessageBox>
             </Modal.Trigger>
             <Modal.Content name="category-preview">
-              <CategoryCard setCategory={setCategory} category={category} />
+              <CategoryCard originalCategory={category} />
             </Modal.Content>
           </Modal>
         </div>
@@ -95,8 +94,7 @@ export const CreateCategoryForm = ({ formikCategory, category, setCategory, butt
                   >
                     {formikCategory.values.image ? (
                       <>
-                        {formikCategory.values.image.name}
-                        <RiCheckFill fontSize="22px" color="green" />
+               {(formikCategory.values.image instanceof File) ? formikCategory.values.image.name :`${formikCategory.values.name}.jpg`}                        <RiCheckFill fontSize="22px" color="green" />
                       </>
                     ) : (
                       <>

@@ -32,103 +32,42 @@ query GET_CATEGORIES {
 }
 `
 
-export const deleteCategory = createAsyncThunk("category/deleteCategory", async (id, { rejectWithValue, dispatch }) => {
-    try {
-        const { data } = await client.mutate({
-            mutation: DELETE_CATEGORY,
-            variables: {
-                id:id
-              },
-              fetchPolicy: "no-cache",
-        });
-
-        dispatch(deleteCategoryLocal(id));
-
-        return data.deleteCategory;
-    } catch (error) {
-        return rejectWithValue(error.message);
-    }
-});
-
-export const createCategory = createAsyncThunk("category/createCategory", async (formData, { rejectWithValue, dispatch }) => {
-    try {
-        const { data } = await client.mutate({
-            mutation: ADD_CATEGORY,
-            variables: {
-                input: { name: formData.name },
-                image: formData.image,
-              },
-              context: {
-                useMultipart: true,
-              },
-              fetchPolicy: "no-cache",
-        });
-
-        const category = data.addCategory;
-        dispatch(addCtegoryLocal(category))
-
-        return category;
-    } catch (error) {
-        return rejectWithValue(error.message);
-    }
-});
-
-export const getCategories = createAsyncThunk("category/getCategories", async (__, { rejectWithValue }) => {
-    try {
-        const { data } = await client.query({
-            query: GET_CATEGORIES,
-              fetchPolicy: "no-cache",
-        });
-        return data.categories;
-    } catch (error) {
-        return rejectWithValue(error.message);
-    }
-});
-
-
-const addCtegoryLocal = (state, action)=> {
-
-        const newCategory = action.payload;
-        const existingIndex = state.categories.findIndex(
-            (category) => category.id === newCategory.id
-        );
-    
-        if (existingIndex !== -1) {
-            state.categories[existingIndex] = newCategory;
-        } else {
-            state.categories.push(newCategory);
-        }
-
-}
-
-
-  const deleteCategoryLocal = (state, action) => {
-    const idToDelete = action.payload;
-    state.categories = state.categories.filter(
-        (category) => category.id !== idToDelete
-    );
-} 
-
 // Slice definition
 const categorySlice = createSlice({
     name: "category",
     initialState: {
         categories: [],
         createCategoryLoading: false,
-        getCategoriesLoading:false,
-        getCategoriesError:null,
-         createCategoryError: null,
-         createCategoriesError: null,
+        getCategoriesLoading: false,
+        getCategoriesError: null,
+        createCategoryError: null,
+        createCategoriesError: null,
     },
     reducers: {
         resetError: (state) => {
-            state.createCategoryError= null
+            state.createCategoryError = null;
         },
         resetLoading: (state) => {
-            state.createCategoryLoading=false
+            state.createCategoryLoading = false;
         },
-        addCategoryLocal: addCtegoryLocal,
-        deleteCategoryLocal: deleteCategoryLocal       
+        addCategoryLocal: (state, action) => {
+            const newCategory = action.payload;
+            const existingIndex = state.categories.findIndex(
+                (category) => category.id === newCategory.id
+            );
+
+            if (existingIndex !== -1) {
+                state.categories[existingIndex] = newCategory;
+            } else {
+                state.categories.push(newCategory);
+            }
+        },
+        deleteCategoryLocal: (state, action) => {
+            const idToDelete = action.payload;
+            state.categories = state.categories.filter(
+                (category) => category.id !== idToDelete
+            );
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -136,9 +75,8 @@ const categorySlice = createSlice({
                 state.createCategoryLoading = true;
                 state.createCategoryError = null;
             })
-            .addCase(createCategory.fulfilled, (state, action) => {
+            .addCase(createCategory.fulfilled, (state) => {
                 state.createCategoryLoading = false;
-
             })
             .addCase(createCategory.rejected, (state, action) => {
                 state.createCategoryLoading = false;
@@ -150,7 +88,6 @@ const categorySlice = createSlice({
             .addCase(getCategories.fulfilled, (state, action) => {
                 state.getCategoriesLoading = false;
                 state.categories = action.payload;
-
             })
             .addCase(getCategories.rejected, (state, action) => {
                 state.getCategoriesLoading = false;
@@ -160,4 +97,58 @@ const categorySlice = createSlice({
 });
 
 export default categorySlice.reducer;
-export const { resetError, resetLoading } = categorySlice.actions;
+export const { resetError, resetLoading, addCategoryLocal, deleteCategoryLocal } = categorySlice.actions;
+
+// Thunks
+export const createCategory = createAsyncThunk("category/createCategory", async (formData, { rejectWithValue, dispatch }) => {
+    try {
+        const { data } = await client.mutate({
+            mutation: ADD_CATEGORY,
+            variables: {
+                input: { name: formData.name, image: (typeof formData.image === 'string') ? formData.image : null },
+                image: (formData.image instanceof File) ? formData.image : null,
+            },
+            context: {
+                useMultipart: true,
+            },
+            fetchPolicy: "no-cache",
+        });
+
+        const category = data.addCategory;
+        dispatch(addCategoryLocal(category));
+
+        return category;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});
+
+export const deleteCategory = createAsyncThunk("category/deleteCategory", async (id, { rejectWithValue, dispatch }) => {
+    try {
+        const { data } = await client.mutate({
+            mutation: DELETE_CATEGORY,
+            variables: {
+                id: id,
+            },
+            fetchPolicy: "no-cache",
+        });
+
+        dispatch(deleteCategoryLocal(id)); 
+
+        return data.deleteCategory;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});
+
+export const getCategories = createAsyncThunk("category/getCategories", async (__, { rejectWithValue }) => {
+    try {
+        const { data } = await client.query({
+            query: GET_CATEGORIES,
+            fetchPolicy: "no-cache",
+        });
+        return data.categories;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});

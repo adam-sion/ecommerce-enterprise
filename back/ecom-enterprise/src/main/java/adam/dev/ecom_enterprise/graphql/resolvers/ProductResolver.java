@@ -28,21 +28,17 @@ public class ProductResolver {
     public Product addProduct(@InputArgument(name = "input") ProductInput input, DataFetchingEnvironment dfe) {
         MultipartFile file = dfe.getArgument("image");
         List<MultipartFile> thumbnailsFiles = dfe.getArgument("thumbnails");
-        List<String> thumbnails;
-        String image;
+        List<String> thumbnails = input.thumbnails();
+        String image = input.image();
         boolean toDeleteThumbnails = false;
         boolean toDeleteImage = false;
 
-        if (thumbnailsFiles == null) {
-            thumbnails = input.thumbnails();
-        } else {
+        if (thumbnailsFiles != null) {
             toDeleteThumbnails = true;
             thumbnails = s3Service.uploadFiles(thumbnailsFiles);
         }
 
-        if (file == null) {
-            image = input.image();
-        } else {
+        if (file != null) {
             toDeleteImage = true;
             image = s3Service.uploadFile(file);
         }
