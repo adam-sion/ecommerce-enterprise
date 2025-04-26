@@ -28,13 +28,31 @@ public class ProductResolver {
     public Product addProduct(@InputArgument(name = "input") ProductInput input, DataFetchingEnvironment dfe) {
         MultipartFile file = dfe.getArgument("image");
         List<MultipartFile> thumbnailsFiles = dfe.getArgument("thumbnails");
-        List<String> thumbnails = (thumbnailsFiles == null) ? input.thumbnails() : s3Service.uploadFiles(thumbnailsFiles);
-        String image = (file == null) ? input.image() : s3Service.uploadFile(file);
+        List<String> thumbnails;
+        String image;
+        boolean toDeleteThumbnails = false;
+        boolean toDeleteImage = false;
+
+        if (thumbnailsFiles == null) {
+            thumbnails = input.thumbnails();
+        } else {
+            toDeleteThumbnails = true;
+            thumbnails = s3Service.uploadFiles(thumbnailsFiles);
+        }
+
+        if (file == null) {
+            image = input.image();
+        } else {
+            toDeleteImage = true;
+            image = s3Service.uploadFile(file);
+        }
+
         Product product = productMapper.toProduct(input, thumbnails, image);
-        Product savedProduct = productService.saveOrOverrideProduct(product);
+        Product savedProduct = productService.saveOrOverrideProduct(product, toDeleteImage, toDeleteThumbnails);
 
         return savedProduct;
     }
+
 
     @DgsMutation
     public Product deleteProduct(@InputArgument(name = "id") String id) {
