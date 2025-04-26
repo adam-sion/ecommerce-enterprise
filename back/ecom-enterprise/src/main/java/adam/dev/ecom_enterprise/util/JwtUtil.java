@@ -1,6 +1,7 @@
 package adam.dev.ecom_enterprise.util;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,7 +42,7 @@ public class JwtUtil {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid or expired JWT token");
+            throw new JwtException("Invalid or expired JWT token");
         }
     }
 
