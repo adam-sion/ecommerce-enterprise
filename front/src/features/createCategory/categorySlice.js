@@ -3,8 +3,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { client } from "../../ApolloClient";
 
 const ADD_CATEGORY = gql`
-  mutation ADD_CATEGORY($input: CategoryInput!, $image: Upload!) {
+  mutation ADD_CATEGORY($input: CategoryInput!, $image: Upload) {
     addCategory(input: $input, image: $image) {
+      id
+      name
+      image
+    }
+  }
+`;
+
+const DELETE_CATEGORY = gql`
+  mutation DELETE_CATEGORY($id: ID!) {
+    deleteCategory(id: $id) {
       id
       name
       image
@@ -22,7 +32,25 @@ query GET_CATEGORIES {
 }
 `
 
-export const createCategory = createAsyncThunk("category/createCategory", async (formData, { rejectWithValue }) => {
+export const deleteCategory = createAsyncThunk("category/deleteCategory", async (id, { rejectWithValue, dispatch }) => {
+    try {
+        const { data } = await client.mutate({
+            mutation: DELETE_CATEGORY,
+            variables: {
+                id:id
+              },
+              fetchPolicy: "no-cache",
+        });
+
+        dispatch(deleteCategoryLocal(id));
+
+        return data.deleteCategory;
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});
+
+export const createCategory = createAsyncThunk("category/createCategory", async (formData, { rejectWithValue, dispatch }) => {
     try {
         const { data } = await client.mutate({
             mutation: ADD_CATEGORY,
@@ -35,7 +63,11 @@ export const createCategory = createAsyncThunk("category/createCategory", async 
               },
               fetchPolicy: "no-cache",
         });
-        return data.addCategory;
+
+        const category = data.addCategory;
+        dispatch(addCtegoryLocal(category))
+
+        return category;
     } catch (error) {
         return rejectWithValue(error.message);
     }
@@ -53,6 +85,30 @@ export const getCategories = createAsyncThunk("category/getCategories", async (_
     }
 });
 
+
+const addCtegoryLocal = (state, action)=> {
+
+        const newCategory = action.payload;
+        const existingIndex = state.categories.findIndex(
+            (category) => category.id === newCategory.id
+        );
+    
+        if (existingIndex !== -1) {
+            state.categories[existingIndex] = newCategory;
+        } else {
+            state.categories.push(newCategory);
+        }
+
+}
+
+
+  const deleteCategoryLocal = (state, action) => {
+    const idToDelete = action.payload;
+    state.categories = state.categories.filter(
+        (category) => category.id !== idToDelete
+    );
+} 
+
 // Slice definition
 const categorySlice = createSlice({
     name: "category",
@@ -62,6 +118,7 @@ const categorySlice = createSlice({
         getCategoriesLoading:false,
         getCategoriesError:null,
          createCategoryError: null,
+         createCategoriesError: null,
     },
     reducers: {
         resetError: (state) => {
@@ -69,7 +126,9 @@ const categorySlice = createSlice({
         },
         resetLoading: (state) => {
             state.createCategoryLoading=false
-        }
+        },
+        addCategoryLocal: addCtegoryLocal,
+        deleteCategoryLocal: deleteCategoryLocal       
     },
     extraReducers: (builder) => {
         builder
@@ -95,7 +154,7 @@ const categorySlice = createSlice({
             })
             .addCase(getCategories.rejected, (state, action) => {
                 state.getCategoriesLoading = false;
-                state.createCategoryError = action.payload;
+                state.createCategoriesError = action.payload;
             });
     }
 });

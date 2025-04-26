@@ -33,4 +33,14 @@ public class CategoryResolver {
         return savedCategory;
     }
 
+    @DgsMutation
+    public Category deleteCategory(@InputArgument(name = "id") String id) {
+        Category category = categoryService.deleteCategoryById(id);
+        String fileToDelete = category.getImage();
+        s3Service.deleteFile(fileToDelete);
+
+        return category;
+    }
+
+
 }

@@ -11,6 +11,7 @@ scalar Upload
 #muation
 type Mutation {
     addCategory(input: CategoryInput!, image: Upload): Category
+    deleteCategory(id: ID!): Category
     addProduct(input: ProductInput!, image: Upload, thumbnails: [Upload]): Product
     deleteProduct(id: ID!): Product
 }

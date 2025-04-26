@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestCookieException;
@@ -87,6 +88,14 @@ public class GlobalExceptionHandler {
         ErrorResponse error = new ErrorResponse("Unauthorized", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
+
+    //this should move the gqlExceptionHandler
+    @ExceptionHandler(AuthorizationDeniedException.class)
+    public ResponseEntity<ErrorResponse> handleAuthDenied(AuthorizationDeniedException ex) {
+        ErrorResponse error = new ErrorResponse("Unauthorized", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
+
 
     @ExceptionHandler(SignatureException.class)
     public ResponseEntity<ErrorResponse> handleInvalidJwt(SignatureException ex) {
