@@ -65,10 +65,15 @@ public class Product extends JTVEntity {
 
     @Override
     public void prePersist() {
+        preUpdate();
+        super.prePersist();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
         final String DELIMITER = "-";
         final String SPLIT_BY_REGEX = "\\s+";
         setSlug(String.join(DELIMITER, title.split(SPLIT_BY_REGEX)));
-        super.prePersist();
     }
 
     public Product(String id, String title, Double price, String image, List<String> thumbnails, List<String> materials, List<String> sizes,

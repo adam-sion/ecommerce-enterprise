@@ -133,6 +133,7 @@ useEffect(() => {
   return product ? (
     <Card
       sx={{
+       
         borderRadius: 3,
         boxShadow: 3,
         overflow: "hidden",
@@ -249,18 +250,13 @@ useEffect(() => {
   {/* Right Column */}
   <Grid item xs={12}>
     <Box sx={{ display: "flex", flexDirection: narrowColumns ? 'column' : 'row', justifyContent:'center', gap:narrowColumns ? 2 : 10 }}>
-    <Grid item xs={narrowColumns ? 12 : 4}>
+    <Grid item xs={narrowColumns ? 12 : 6}>
     <Box fontWeight="bold" textDecoration="underline">Sizes</Box>
     <Box>{product.sizes?.join(", ") || "N/A"}</Box>
     </Grid>
-    <Grid item xs={narrowColumns ? 12 : 4}>
+    <Grid item xs={narrowColumns ? 12 : 6}>
         <Box fontWeight="bold" textDecoration="underline">Materials</Box>
         <Box>{product.materials?.join(", ") || "N/A"}</Box>
-      </Grid>
-     
-      <Grid item xs={narrowColumns ? 12 : 4}>
-        <Box fontWeight="bold" textDecoration="underline">Created</Box>
-        <Box>{new Date(product.createdAt).toLocaleDateString()}</Box>
       </Grid>
     </Box>
   </Grid>

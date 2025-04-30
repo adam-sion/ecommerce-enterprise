@@ -38,6 +38,8 @@ public class ProductService {
 
                     s3Service.deleteFiles(toDelete);
                     product.setId(currentProduct.getId());
+                    product.setCreatedAt(currentProduct.getCreatedAt());
+
                     return productRepository.save(product);
                 })
                 .orElseGet(() -> productRepository.save(product));

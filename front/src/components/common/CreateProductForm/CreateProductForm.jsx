@@ -6,7 +6,7 @@ import { RiCheckFill, RiErrorWarningLine, RiUploadCloudLine } from "react-icons/
 import { GiMaterialsScience } from "react-icons/gi";
 import { FaImages } from "react-icons/fa";
 import { MdCategory, MdFormatSize, MdProductionQuantityLimits } from "react-icons/md";
-import { Box, CircularProgress, Grid, IconButton } from "@mui/material";
+import { Box, CircularProgress, Dialog, DialogContent, Grid, IconButton } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { CiDollar } from "react-icons/ci";
 import { TbFileDescription } from "react-icons/tb";
@@ -95,23 +95,40 @@ setSizes(product.sizes);
       );
     };
 
+      const [isModalOpen, setIsModalOpen] = useState(false);
+    
+      const handleOpenModal = () => {
+        setIsModalOpen(true);
+      };
+    
+      const handleCloseModal = () => {
+        setIsModalOpen(false);
+      };
+
   return (
        <>
+   <Dialog
+
+  open={isModalOpen}
+  onClose={handleCloseModal}
+  PaperProps={{
+    sx: {
+      width: '50%',          // Custom width
+
+    },
+  }}
+>
+  <DialogContent>
+    <ProductCard originalProduct={product} />
+  </DialogContent>
+</Dialog>
        {showCreateProduct && product && <div style={{ color: 'green', textAlign:'center',fontSize:'16px'}}>
-       <Box sx={{ maxHeight:'80%',maxWidth: 550, mx: "auto" }}>
-           <Modal>
-                 <Modal.Trigger opens="product-preview">
-                  <MessageBox>Product created successfully!</MessageBox>
-                 </Modal.Trigger>
-               
-                 <Modal.Content name="product-preview">
-                
-               
-  <ProductCard originalProduct={product} />
-             
-                 </Modal.Content>
-               
-               </Modal>
+       <Box sx={{ maxHeight:'60%',maxWidth: 550, mx: "auto" }}>
+              
+         
+                  <MessageBox onClick={()=> setIsModalOpen(true)}>Product created successfully!</MessageBox>
+    
+
                </Box>
                </div>
                }
