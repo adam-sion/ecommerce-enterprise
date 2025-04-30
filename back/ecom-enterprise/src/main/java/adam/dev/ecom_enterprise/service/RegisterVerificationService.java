@@ -2,7 +2,7 @@ package adam.dev.ecom_enterprise.service;
 
 import adam.dev.ecom_enterprise.dto.RegisterUserDTO;
 import adam.dev.ecom_enterprise.dto.VerificationInfoDTO;
-import adam.dev.ecom_enterprise.exception.TokenProcessingException;
+import adam.dev.ecom_enterprise.exception.rest.TokenProcessingException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityExistsException;

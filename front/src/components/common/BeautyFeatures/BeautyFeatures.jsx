@@ -25,6 +25,7 @@ import {
   Text,
   Title,
 } from "./BeautyFeatures.styles";
+import Image from '../Image/Image';
 
 const BeautyFeatures = () => {
   const sectionRef = useRef(null);
@@ -85,7 +86,13 @@ const BeautyFeatures = () => {
               </SVGContainer>
               <InnerCircle>
                 <ImageContainer>
-                  <img src={beautyImage} alt="Natural Beauty Product" />
+                  <Image 
+                    src={beautyImage} 
+                    alt="Natural Beauty Product" 
+                    width="100%" 
+                    height="100%"
+                    objectFit="cover"
+                  />
                 </ImageContainer>
               </InnerCircle>
             </CircleWrapper>

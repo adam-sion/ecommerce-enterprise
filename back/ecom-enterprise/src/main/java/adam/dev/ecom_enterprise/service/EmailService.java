@@ -1,6 +1,6 @@
 package adam.dev.ecom_enterprise.service;
 
-import adam.dev.ecom_enterprise.exception.EmailSendingException;
+import adam.dev.ecom_enterprise.exception.rest.EmailSendingException;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;

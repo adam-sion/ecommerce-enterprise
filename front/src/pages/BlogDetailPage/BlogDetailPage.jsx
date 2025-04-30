@@ -13,6 +13,7 @@ import ContactFormComment from "./ContactFormComment";
 import Shine from "../../components/utils/Animations/shineAnimation";
 import Sidebar from "../../components/common/Sidebar/Sidebar";
 import { RiSidebarFoldFill } from "react-icons/ri";
+import Image from '../../components/common/Image/Image';
 
 // Styled Components
 const switchScreen = "1100px"; // Screen size to hide the sidebar
@@ -323,12 +324,7 @@ const BlogDetailPage = () => {
                 </Social>
               </Header>
               <ImageContainer>
-                <img
-                  width="600"
-                  height="600"
-                  src={`/${article.image}`}
-                  alt="Natural beauty product"
-                />
+                <Image src={`/${article.image}`} alt="Natural beauty product" width="600" height="600" objectFit="cover" />
               </ImageContainer>
               <Body>
                 <p>{article.body}</p>
@@ -345,9 +341,9 @@ const BlogDetailPage = () => {
                 <Subtitle>Top Natural Beauty Trends</Subtitle>
                 <p>This season, several trends have stood out:</p>
                 <ImageGallery>
-                  <img src={`/${article.image}`} alt="Trend 1" />
-                  <img src={`/${article.image}`} alt="Trend 2" />
-                  <img src={`/${article.image}`} alt="Trend 3" />
+                  <Image src={`/${article.image}`} alt="Trend 1" width="100%" height="100%" objectFit="cover" />
+                  <Image src={`/${article.image}`} alt="Trend 2" width="100%" height="100%" objectFit="cover" />
+                  <Image src={`/${article.image}`} alt="Trend 3" width="100%" height="100%" objectFit="cover" />
                 </ImageGallery>
                 <p>
                   Each of these trends emphasizes the importance of natural
@@ -383,7 +379,7 @@ const BlogDetailPage = () => {
               <Footer>
                 <AuthorInfo>
                   <Bio>
-                    <img src="/people/7.jpg" alt="Author" />
+                    <Image src="/people/7.jpg" alt="Author" width={50} height={50} objectFit="cover" borderRadius={25} />
                     <StyledLink
                       to={`/blog-grid-layout?author=${encodeURIComponent(
                         article.author

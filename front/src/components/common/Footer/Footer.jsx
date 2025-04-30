@@ -6,6 +6,7 @@ import ShareSocialMediaIcons from "../../utils/ShareSocialMediaIcons/ShareSocial
 import Row from "../../utils/Row/Row";
 import Newsletter from "../Newsletter/Newsletter";
 import LogoWebsite from "../../../assets/img/logo-website/logo.jpeg";
+import Image from '../Image/Image';
 import {
   Container,
   FooterWrapper,
@@ -125,7 +126,13 @@ const Footer = () => {
         >
           <Logo>
             <Link to="/">
-              <img src={LogoWebsite} alt="logo" />
+              <Image 
+                src={LogoWebsite} 
+                alt="logo" 
+                width="auto" 
+                height="50px"
+                objectFit="contain"
+              />
             </Link>
           </Logo>
           <div>

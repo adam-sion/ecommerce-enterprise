@@ -28,6 +28,7 @@ import MenuNavigationLargeSC from "./MenuNavigationLargeSC";
 import MenuNavigationSmallSC from "./MenuNavigationSmallSC";
 import BottomNav from "./BottomNav";
 import { UserTab } from "../UserTab/UserTab";
+import Image from '../Image/Image';
 
 const Menu = () => {
   // To get number of product added to cart
@@ -67,7 +68,13 @@ const Menu = () => {
         <NavSection>
           <LogoContainer $isSticky={isSticky}>
             <Link to="/">
-              <img src={LogoWebsite} alt="Pure Essence Logo" />
+              <Image 
+                src={LogoWebsite} 
+                alt="Pure Essence Logo" 
+                width="auto" 
+                height="50px"
+                objectFit="contain"
+              />
             </Link>
           </LogoContainer>
         </NavSection>

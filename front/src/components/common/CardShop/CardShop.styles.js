@@ -2,28 +2,44 @@ import styled from "styled-components";
 import { StarsWrapper } from "../ProductCard/ProductCard.styles";
 
 export const CardShopContainer = styled.div`
-  max-width: 1000px;
+  max-width: 1200px;
   display: flex;
-  justify-content: space-between;
-  align-items: stretch;
+  flex-direction: column;
+  align-items: center;
   margin: auto;
   border-radius: 10px;
-  gap: 1rem;
   position: relative;
-  flex-wrap: wrap;
+  padding: 0.5rem 3rem 0.5rem 3rem;
   @media (max-width: 680px) {
-    flex-direction: column;
-    align-items: center;
     max-width: 400px;
+    padding: 0.5rem;
   }
 `;
 
 export const ImageContainer = styled.div`
-  flex: 1.25;
+  width: 120%;
   position: relative;
-  @media (max-width: 1026px) {
-    width: 100%;
-  }
+  margin-bottom: 0.5rem;
+  margin-left: -10%;
+  margin-right: -10%;
+`;
+
+export const ProductImage = styled.img`
+  width: 100%;
+  height: 250px;
+  max-height: 250px;
+  object-fit: contain;
+`;
+
+export const ProductContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding-bottom: 0;
+  background: #fff;
+  box-sizing: border-box;
+  position: relative;
 `;
 
 export const ThumbnailsContainer = styled.div`
@@ -33,6 +49,7 @@ export const ThumbnailsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  z-index: 1;
 `;
 
 export const Thumbnail = styled.img`
@@ -45,23 +62,6 @@ export const Thumbnail = styled.img`
   &:hover {
     border: 2px solid #000;
   }
-`;
-
-export const ProductImage = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-`;
-
-export const ProductContainer = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  padding-bottom: 0;
-  background: #fff;
-  box-sizing: border-box;
-  position: relative;
 `;
 
 export const SaleTag = styled.div`
@@ -93,9 +93,9 @@ export const ReviewsCount = styled.div`
 `;
 
 export const ProductDescription = styled.p`
-  font-size: var(--font-size-body);
+  font-size: 0.85rem;
   color: var(--grey-color);
-  margin-top: 10px;
+  margin-top: 5px;
   font-family: var(--font-secondary);
 `;
 
@@ -104,25 +104,25 @@ export const ProductMeta = styled.div`
 `;
 
 export const MetaItem = styled.div`
-  font-size: var(--font-size-small);
+  font-size: 0.75rem;
   color: var(--grey-color);
-  margin: 5px 0;
+  margin: 2px 0;
 `;
 
 export const ItemLabel = styled.span`
-  font-size: var(--font-size-h6);
-  font-weight: 700;
+  font-size: 0.85rem;
+  font-weight: 600;
 `;
 
 export const PriceInfo = styled.div`
-  margin: 20px 0;
+  margin: 5px 0;
 `;
 
 export const SizesWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin: 10px 0;
+  gap: 3px;
+  margin: 3px 0;
 `;
 
 export const Label = styled.label`
@@ -137,15 +137,14 @@ export const OptionsContainer = styled.div`
 `;
 
 export const OptionButton = styled.button`
-  padding: 0.4rem 0.8rem;
-  border-radius: 8px;
-  border: 2px solid #ddd;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
   background-color: #f9f9f9;
   color: var(--grey-color);
-  font-size: var(--font-size-body);
+  font-size: 0.8rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  position: relative;
 
   &:hover {
     background-color: #ddd;
@@ -165,6 +164,7 @@ export const OptionButton = styled.button`
     outline: none;
   }
 `;
+
 export const ViewMoreLinkContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 5px;
 `;

@@ -1,4 +1,4 @@
-package adam.dev.ecom_enterprise.exception;
+package adam.dev.ecom_enterprise.exception.rest;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

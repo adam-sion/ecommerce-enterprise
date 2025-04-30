@@ -189,6 +189,7 @@ function AdminProductOverview({ dispatchAction, defaultColumns }) {
             .map((product) =>
               (
                 <ProductCard
+                narrowColumns={actualColumns > 3}
                   key={`${product.id}-${columns}`}
                   originalProduct={product}
                 />

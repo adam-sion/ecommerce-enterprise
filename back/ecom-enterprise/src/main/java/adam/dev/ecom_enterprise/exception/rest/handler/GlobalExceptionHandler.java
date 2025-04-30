@@ -1,8 +1,8 @@
-package adam.dev.ecom_enterprise.exception.handler;
+package adam.dev.ecom_enterprise.exception.rest.handler;
 
-import adam.dev.ecom_enterprise.exception.EmailSendingException;
-import adam.dev.ecom_enterprise.exception.ErrorResponse;
-import adam.dev.ecom_enterprise.exception.TokenProcessingException;
+import adam.dev.ecom_enterprise.exception.rest.EmailSendingException;
+import adam.dev.ecom_enterprise.exception.rest.ErrorResponse;
+import adam.dev.ecom_enterprise.exception.rest.TokenProcessingException;
 import io.jsonwebtoken.JwtException;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authorization.AuthorizationDeniedException;
+
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestCookieException;
@@ -59,17 +60,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
-        ErrorResponse error = new ErrorResponse("Internal server error", ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ErrorResponse> handleGeneralRuntimeException(RuntimeException ex) {
-        ErrorResponse error = new ErrorResponse("Internal server error", ex.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 
     @ExceptionHandler(MissingRequestCookieException.class)
     public ResponseEntity<ErrorResponse> handleMissingRequestCookie(MissingRequestCookieException ex) {
@@ -89,7 +79,6 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
     }
 
-    //this should move the gqlExceptionHandler
     @ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAuthDenied(AuthorizationDeniedException ex) {
         ErrorResponse error = new ErrorResponse("Unauthorized", ex.getMessage());
@@ -117,6 +106,12 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TokenProcessingException.class)
     public ResponseEntity<ErrorResponse> handleTokenProcessing(TokenProcessingException ex) {
+        ErrorResponse error = new ErrorResponse("Internal server error", ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
         ErrorResponse error = new ErrorResponse("Internal server error", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

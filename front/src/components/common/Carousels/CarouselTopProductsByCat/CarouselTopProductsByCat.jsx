@@ -116,9 +116,8 @@ const CarouselTopProductsByCat = () => {
     };
   }, []);
 
-  if (!category || slidesData.length === 0) return null; // Optional: add a loader
 
-  return (
+  return  (
     <Section>
       <CarouselWrapper>
         <CarouselContainer
@@ -149,11 +148,17 @@ const CarouselTopProductsByCat = () => {
                   onClick={() => navigate(`/shop/${slide.slug}`)}
                   style={{
                     backgroundImage: `url(${slide.image})`,
+            
+                      width: '110%',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      backgroundRepeat: 'no-repeat'
+                
                   }}
                 >
                   <CardContent>
                     <ContentWrapper>
-                      <Category>{slide.category?.name}</Category>
+                      <Category>{slide.category.name}</Category>
                       <InfoPrice>
                         <ProductTitle>{slide.title}</ProductTitle>
                         <Price>${slide.price}</Price>
@@ -178,7 +183,7 @@ const CarouselTopProductsByCat = () => {
 
         <TitleContainer ref={titleContainerRef}>
           <Heading as="h4" $marginBottom="0px" $colorText="black">
-            Discover Our {category.name} Products
+            Discover Our {category?.name} Products
           </Heading>
           <Heading as="h2" $customBackground={false} $marginBottom="0px">
             Most Relevant Products
@@ -186,7 +191,7 @@ const CarouselTopProductsByCat = () => {
           <RotatingText
             textInput=" ALL PRODUCTS - ALL PRODUCTS"
             textSize="1.45rem"
-            linkTo={`/product-category/${category.name}`}
+            linkTo={`/product-category/${category?.name}`}
           />
         </TitleContainer>
       </CarouselWrapper>

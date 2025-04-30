@@ -1,4 +1,4 @@
-package adam.dev.ecom_enterprise.exception;
+package adam.dev.ecom_enterprise.exception.rest;
 
 public class TokenProcessingException extends RuntimeException {
 

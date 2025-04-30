@@ -32,6 +32,7 @@ import {
 } from "./AboutUs.styles";
 import Breadcrumb2 from "../../components/common/Breadcrumb/Breadcrumb2";
 import Testimonials from "../../components/common/TestimonialSection/TestimonialSection";
+import Image from '../../components/common/Image/Image';
 
 const AboutUs = () => {
   return (
@@ -51,7 +52,7 @@ const AboutUs = () => {
           </TextColumn>
           <ImageColumn>
             <TeamMemberCard>
-              <img src={seo} alt="John Doe" />
+              <Image src={seo} alt="John Doe" width="100%" height="100%" objectFit="cover" />
               <h3>John Doe</h3>
               <p>CEO & Founder</p>
               <SocialIcons className="social-icons">
@@ -67,7 +68,7 @@ const AboutUs = () => {
               </SocialIcons>
             </TeamMemberCard>
             <TeamMemberCard>
-              <img src={iOSDeveloper} alt="Ivan Mathews" />
+              <Image src={iOSDeveloper} alt="Ivan Mathews" width="100%" height="100%" objectFit="cover" />
               <h3>Ivan Mathews</h3>
               <p>iOS Developer</p>
               <SocialIcons className="social-icons">
@@ -150,7 +151,7 @@ const AboutUs = () => {
         <Header>Meet More of Our Team</Header>
         <FlexContainer direction="row">
           <TeamMemberCard>
-            <img src={marketingDirector} alt="Sarah Taylor" />
+            <Image src={marketingDirector} alt="Sarah Taylor" width="100%" height="100%" objectFit="cover" />
             <h3>Sarah Taylor</h3>
             <p>Marketing Director</p>
             <SocialIcons className="social-icons">
@@ -166,7 +167,7 @@ const AboutUs = () => {
             </SocialIcons>
           </TeamMemberCard>
           <TeamMemberCard>
-            <img src={leadDesigner} alt="Lulu Lee" />
+            <Image src={leadDesigner} alt="Lulu Lee" width="100%" height="100%" objectFit="cover" />
             <h3>Lulu Lee</h3>
             <p>Lead Designer</p>
             <SocialIcons className="social-icons">
@@ -182,7 +183,7 @@ const AboutUs = () => {
             </SocialIcons>
           </TeamMemberCard>
           <TeamMemberCard>
-            <img src={projectManager} alt="Emily Davis" />
+            <Image src={projectManager} alt="Emily Davis" width="100%" height="100%" objectFit="cover" />
             <h3>Emily Davis</h3>
             <p>Project Manager</p>
             <SocialIcons className="social-icons">
@@ -198,7 +199,7 @@ const AboutUs = () => {
             </SocialIcons>
           </TeamMemberCard>
           <TeamMemberCard>
-            <img src={softwareEngineer} alt="Gertrude Brown" />
+            <Image src={softwareEngineer} alt="Gertrude Brown" width="100%" height="100%" objectFit="cover" />
             <h3>Gertrude Brown</h3>
             <p>Software Engineer</p>
             <SocialIcons className="social-icons">

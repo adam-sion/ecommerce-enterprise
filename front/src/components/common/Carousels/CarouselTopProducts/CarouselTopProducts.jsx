@@ -158,6 +158,10 @@ const CarouselTopProducts = () => {
                   onClick={() => navigate(`/shop/${slide.slug}`)}
                   style={{
                     backgroundImage: `url(${`${slide.image}`})`,
+                    width: '110%',
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat'
                   }}
                 >
                   <CardContent>
