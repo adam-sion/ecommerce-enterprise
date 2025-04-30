@@ -27,6 +27,8 @@ import { useParams } from "react-router-dom";
 import FilterPanel from "../FilterComponent/FilterComponent";
 import Sidebar from "../Sidebar/Sidebar";
 import { ProductCard } from "../CreateProductCard/ProductCard";
+import { CategoryCard } from "../CreateCategoryCard/CategoryCard";
+import { getCategories } from "../../../features/createCategory/categorySlice";
 
 const sortBY = [
   "Featured",
@@ -39,7 +41,8 @@ const sortBY = [
   "Avg. Customer Review",
 ];
 
-function AdminProductOverview({ dispatchAction, defaultColumns }) {
+function AdminProductOverview({ dispatchAction, defaultColumns, activeTab }) {
+  
   const { category, query } = useParams();
   const dispatch = useDispatch();
   const [columns, setColumns] = useState(defaultColumns || 3); // Default to 3 columns
@@ -48,7 +51,8 @@ function AdminProductOverview({ dispatchAction, defaultColumns }) {
   const filteredProducts = useSelector(
     (state) => state.products.filteredProducts
   );
-  const totalResults = filteredProducts.length;
+  const categories = useSelector((state) => state.category.categories);
+  const totalResults = activeTab === "product" ? filteredProducts.length : categories.length;
   const resultsPerPage = actualColumns * 5;
   const progressPercentage = Math.floor((itemsToShow / totalResults) * 100);
   // Function to handle column change based on user selection
@@ -113,6 +117,11 @@ function AdminProductOverview({ dispatchAction, defaultColumns }) {
       });
     }
   }, [category, dispatch, query, dispatchAction]);
+
+  // Fetch categories when component mounts
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
 
   // Update the state based on changes to defaultColumns.
   useEffect(() => {
@@ -184,17 +193,22 @@ function AdminProductOverview({ dispatchAction, defaultColumns }) {
       </ColumnSelectorBar>
       <MainContent>
         <Grid $columns={actualColumns} $isListView={columns === 2}>
-          {filteredProducts
-            .slice(0, itemsToShow)
-            .map((product) =>
-              (
-                <ProductCard
+          {activeTab === "product" ? (
+            filteredProducts.slice(0, itemsToShow).map((product) => (
+              <ProductCard
                 narrowColumns={actualColumns > 3}
-                  key={`${product.id}-${columns}`}
-                  originalProduct={product}
-                />
-              )
-            )}
+                key={`${product.id}-${columns}`}
+                originalProduct={product}
+              />
+            ))
+          ) : (
+            categories.slice(0, itemsToShow).map((category) => (
+              <CategoryCard
+                key={`${category.id}-${columns}`}
+                originalCategory={category}
+              />
+            ))
+          )}
         </Grid>
         {itemsToShow < totalResults && (
           <ProductFooter

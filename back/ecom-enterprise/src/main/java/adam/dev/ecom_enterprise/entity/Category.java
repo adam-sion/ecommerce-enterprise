@@ -13,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "categories")
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "products")
 @Getter
 @Setter
 public class Category extends JTVEntity {

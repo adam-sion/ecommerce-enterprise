@@ -51,6 +51,7 @@ type Product {
 
 #inputs
 input CategoryInput {
+    id: String
     name: String!
     image: String
 }

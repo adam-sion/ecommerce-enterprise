@@ -105,7 +105,7 @@ export const createCategory = createAsyncThunk("category/createCategory", async 
         const { data } = await client.mutate({
             mutation: ADD_CATEGORY,
             variables: {
-                input: { name: formData.name, image: (typeof formData.image === 'string') ? formData.image : null },
+                input: { name: formData.name, id: formData.id, image: (typeof formData.image === 'string') ? formData.image : null },
                 image: (formData.image instanceof File) ? formData.image : null,
             },
             context: {

@@ -64,10 +64,9 @@ const CardShop = ({ product }) => {
   return (
     <CardShopContainer>
       <ImageContainer>
-        {
-         product.thumbnails.length > 0 && <ThumbnailsContainer>
-          {[product.image, ...product.thumbnails].map(
-            (thumb, index) => (
+        {product.thumbnails.length > 0 && (
+          <ThumbnailsContainer>
+            {[product.image, ...product.thumbnails].map((thumb, index) => (
               <Thumbnail
                 key={index}
                 src={`${thumb}`}
@@ -75,14 +74,15 @@ const CardShop = ({ product }) => {
                 $active={thumb === activeThumbnail}
                 onClick={() => handleThumbnailClick(thumb)}
               />
-            )
-          )}
-        </ThumbnailsContainer>
-}
-        <ProductImage
-          src={`${mainImage}`}
-          alt="product img"
-        />
+            ))}
+          </ThumbnailsContainer>
+        )}
+    
+          <ProductImage
+            src={`${mainImage}`}
+            alt="product img"
+          />
+      
       </ImageContainer>
       <ProductContainer>
         {product.sale && <SaleTag>SALE {product.sale}% OFF</SaleTag>}

@@ -22,6 +22,8 @@ import { CreateCategoryForm } from "../CreateCategoryForm/CreateCategoryForm";
 import { useDispatch } from "react-redux";
 import Swal from "sweetalert2";
 import { useFormik } from "formik";
+import Image from '../Image/Image';
+import { showToast } from "../../../features/toast/toastSlice";
 
 const categoryValidationSchema = Yup.object().shape({
   name: Yup.string()
@@ -93,13 +95,13 @@ const handleCloseModal = () => {
     validationSchema: categoryValidationSchema,
     onSubmit: async (values) => {
       setButtonsActive(false);
-      const result = await dispatch(createCategory({ name: values.name, image: values.image }));
+      const result = await dispatch(createCategory({ name: values.name, id: values.id, image: values.image }));
       setButtonsActive(true);
       formikCategory.resetForm();
 
        if (result.meta.requestStatus === "fulfilled") {
         setCategory(result.payload);
-      
+        dispatch(showToast({ message: "Category update success", type: "success" }));
       } else {
         dispatch(showToast({ message: "Category creation failed", type: "error" }));
       }
@@ -124,11 +126,10 @@ const handleCloseModal = () => {
   return category ? (
     <Card
       sx={{
-        width: 300,
-        maxWidth: 345,
         borderRadius: 3,
         boxShadow: 3,
         overflow: "hidden",
+        height: '100%',
         transition: "0.3s",
         "&:hover": { boxShadow: 6 },
         p: 3,
@@ -138,37 +139,22 @@ const handleCloseModal = () => {
       <Box
         sx={{
           position: "relative",
-          height: 300,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           borderRadius: 2,
           overflow: "hidden",
+          aspectRatio: "1",
         }}
       >
-        {isImageLoading && (
-          <Skeleton
-            variant="rectangular"
-            width="100%"
-            height={300}
-            sx={{ borderRadius: 2 }}
-          />
-        )}
-        {category.image && (
-          <img
-            src={category.image}
-            alt={category.name}
-            height="300"
-            width="100%"
-            style={{
-              objectFit: "cover",
-              borderRadius: 2,
-              display: isImageLoading ? "none" : "block",
-            }}
-            onLoad={() => setIsImageLoading(false)}
-            onError={() => setIsImageLoading(false)} // Stops loading if there's an error
-          />
-        )}
+        <Image
+          src={category.image}
+          alt={category.name}
+          width="100%"
+          height="100%"
+          objectFit="cover"
+          borderRadius={2}
+        />
       </Box>
 
       <CardContent>
@@ -209,23 +195,20 @@ const handleCloseModal = () => {
         )}
       </CardContent>
 
-
       <Dialog
         open={isModalOpen}
-
         onClose={handleCloseModal}
         maxWidth="lg"
         fullWidth={true}
       >
         <DialogContent>
           <CreateCategoryForm
-          showCreateCategory={false}
+            showCreateCategory={false}
             category={category}
             formikCategory={formikCategory}
             buttonsActive={buttonsActive}
           />
         </DialogContent>
-      
       </Dialog>
 
     </Card>

@@ -7,6 +7,7 @@ const ADD_PRODUCT = gql`
     addProduct(input: $input, image: $image, thumbnails: $thumbnails) {
     id
     title
+    slug
     price
     materials
     thumbnails

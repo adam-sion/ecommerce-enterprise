@@ -11,6 +11,7 @@ public class CategoryMapper {
         Category category = new Category();
         category.setName(categoryInput.name());
         category.setImage(image);
+        category.setId(categoryInput.id());
 
         return category;
     }
