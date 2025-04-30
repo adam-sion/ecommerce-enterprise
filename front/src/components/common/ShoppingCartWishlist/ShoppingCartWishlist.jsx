@@ -96,6 +96,7 @@ const ShoppingCartWishlist = ({ choice }) => {
               >
                 <Link to="/cart-summary">
                   <CustomButton
+                  active={true}
                     size="mini"
                     $invert
                     color="var(--primary-color-dark-3)"

@@ -16,7 +16,7 @@ const Counter = ({
   onQuantityChange,
 }) => {
   const dispatch = useDispatch();
-  const currentQtity = useSelector(getCurrentQtityById(productId)) || 1; // Default to 0 if not found
+  const currentQtity = useSelector(getCurrentQtityById(productId)) || 1; 
   const [localCount, setLocalCount] = useState(quantity || 1);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Counter = ({
       <Button
         size={size}
         $color={color}
-        onClick={() => handleCountChange((count)=> count = Math.max(0, count-1))}
+        onClick={() => handleCountChange((count)=> count = Math.max(1, count-1))}
       >
         <Icon size={size}>
           <FaChevronLeft />

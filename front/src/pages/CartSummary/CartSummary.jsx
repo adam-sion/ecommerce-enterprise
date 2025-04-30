@@ -245,6 +245,7 @@ const CartSummary = () => {
           >
             <CouponInput type="text" placeholder="Coupon Code" />
             <CustomButton
+            active={true}
               color="var(--primary-color-dark-2)"
               size="extra-small"
             >

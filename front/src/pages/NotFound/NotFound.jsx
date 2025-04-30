@@ -49,7 +49,7 @@ const NotFound = () => {
         {error?.data || error?.message || "Unknown error occurred."}
       </Message>
       <ButtonContainer>
-        <CustomButton color="var(--text-color)" onClick={() => navigate(-1)}>
+        <CustomButton active={true} color="var(--text-color)" onClick={() => navigate(-1)}>
           <i className="icon-home"></i> Go back
         </CustomButton>
       </ButtonContainer>

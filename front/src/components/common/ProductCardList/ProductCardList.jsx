@@ -204,6 +204,7 @@ const ProductCardList = ({ product }) => {
               <Modal>
                 <Modal.Trigger opens="product-preview">
                   <CustomButton
+                  active={true}
                     size="extra-small"
                     $invert
                     color="var(--primary-color-dark-1)"
@@ -221,6 +222,7 @@ const ProductCardList = ({ product }) => {
                 product={product}
                 WrapperComponent={
                   <CustomButton
+                  active={true}
                     size="extra-small"
                     $invert
                     color="var(--primary-color-dark-1)"

@@ -67,6 +67,7 @@ const PurchaseAction = ({
       </PurchaseControl>
       <ButtonRow $flexGap=".8rem">
         <CustomButton
+        active={true}
           size="extra-small"
           color="var(--accent-color)"
           $invert={true}

@@ -161,6 +161,7 @@ const CardShop = ({ product }) => {
             $flexGap="0.5rem"
           >
             <CustomButton
+            active={true}
               size="extra-small"
               onClick={() => {
                 handleAddToCart(product, dispatch, quantity);
