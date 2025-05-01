@@ -36,7 +36,6 @@ public class CategoryResolver {
 
         Category category = categoryMapper.toCategory(input, image);
         Category savedCategory = categoryService.saveOrOverrideCategory(category, toDeleteImage);
-        System.out.println(savedCategory);
 
         return savedCategory;
     }

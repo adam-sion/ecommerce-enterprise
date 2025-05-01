@@ -24,7 +24,7 @@ public class Category extends JTVEntity {
     @Column
     private String image;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.REMOVE)
     @JsonBackReference(value = "product-category")
     private List<Product> products;
 
