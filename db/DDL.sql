@@ -40,16 +40,6 @@ CREATE TABLE jtv_candles.products
     CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES jtv_candles.categories (id)
 );
 
-
-CREATE TABLE jtv_candles.payments
-(
-    id               VARCHAR(3999) PRIMARY KEY,
-    payment_intent_id VARCHAR(255),
-    total_amount      NUMERIC(10, 2),
-    currency          VARCHAR(20)
-);
-
-
 CREATE TABLE jtv_candles.customer_details
 (
     id             VARCHAR(3999) PRIMARY KEY,
@@ -66,14 +56,14 @@ CREATE TABLE jtv_candles.customer_details
 CREATE TABLE jtv_candles.orders
 (
     id              VARCHAR(3999) PRIMARY KEY,
+    transaction_id  VARCHAR(3999),
+    total_amount    NUMERIC(10, 2),
     delivery_status VARCHAR(20),
     created_at      TIMESTAMP,
     customer_id     VARCHAR(3999),
-    payment_id      VARCHAR(3999),
     user_id         VARCHAR(3999),
     CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES jtv_candles.users (id),
-    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES jtv_candles.customer_details (id),
-    CONSTRAINT fk_payment FOREIGN KEY (payment_id) REFERENCES jtv_candles.payments (id)
+    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES jtv_candles.customer_details (id)
 );
 
 

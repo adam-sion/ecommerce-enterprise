@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.List;
@@ -21,8 +22,9 @@ public class Order extends JTVEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "delivery_status")
-    private DeliveryStatus deliveryStatus;
+    private OrderStatus orderStatus;
 
+    @CreationTimestamp
     @Column(name = "created_at")
     private Instant createdAt;
 
@@ -35,14 +37,20 @@ public class Order extends JTVEntity {
     @JoinColumn(name = "customer_id")
     private CustomerDetails customerDetails;
 
-    @OneToOne
-    @JsonManagedReference(value = "order-payment")
-    @JoinColumn(name = "payment_id")
-    private Payment payment;
+    @Column(name = "total_amount")
+    private Double totalAmount;
+
+   @Column(name = "transaction_id")
+   private String transactionId;
 
     @ManyToOne
     @JsonBackReference(value = "user-orders")
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Order(Double totalAmount, OrderStatus orderStatus) {
+        this.totalAmount = totalAmount;
+        this.orderStatus = orderStatus;
+    }
 
 }

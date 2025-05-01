@@ -14,6 +14,7 @@ type Mutation {
     deleteCategory(id: ID!): Category
     addProduct(input: ProductInput!, image: Upload, thumbnails: [Upload]): Product
     deleteProduct(id: ID!): Product
+    paymentCheckout(input: OrderInput!): Boolean
 }
 
 #types
@@ -67,4 +68,16 @@ input ProductInput {
     categoryId: ID!
     image: String
     thumbnails: [String]
+}
+
+input OrderInput {
+    nonce: String!
+    totalAmount: Float!
+    orderItems: [OrderItemInput]
+}
+
+input OrderItemInput {
+    productId: String!
+    quantity: Int!
+    priceAtPurchase: Float!
 }

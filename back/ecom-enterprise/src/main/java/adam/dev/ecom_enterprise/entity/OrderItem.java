@@ -34,4 +34,11 @@ public class OrderItem extends JTVEntity {
     @ManyToOne
     private Product product;
 
+    public OrderItem(Integer quantity, Double priceAtPurchase, Order order, Product product) {
+        this.quantity = quantity;
+        this.priceAtPurchase = priceAtPurchase;
+        this.order = order;
+        this.product = product;
+    }
+
 }

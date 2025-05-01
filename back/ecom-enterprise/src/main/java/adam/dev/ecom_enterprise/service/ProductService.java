@@ -55,6 +55,10 @@ public class ProductService {
         return productRepository.findBySlug(slug).orElseThrow(()-> new EntityNotFoundException(String.format("Product with slug: %s not found", slug)));
     }
 
+    public Product getProductById(String id) {
+        return productRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(String.format("Product with id: %s not found", id)));
+    }
+
     @Transactional
     public Product deleteProductById(String id) {
         Product product = productRepository.findById(id).orElseThrow(()-> new EntityNotFoundException(String.format("Product with id: %s not found", id)));

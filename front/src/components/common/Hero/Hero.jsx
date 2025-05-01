@@ -12,7 +12,7 @@ const Hero = () => {
           Discover the glow of handcrafted dreams
         </Subtitle>
         <Link to="/all-products">
-          <CustomButton color="black">Explore Now</CustomButton>
+          <CustomButton active={true} color="black">Explore Now</CustomButton>
         </Link>
       </TextContainer>
     </HeroSection>
